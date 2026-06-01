@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Appello IRAP — AI Project Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: #0f172a; color: #f8fafc; min-height: 100vh; }
+  .top-nav { position: sticky; top: 0; z-index: 100; background: #0f172a; border-bottom: 1px solid #1e293b; padding: 0 24px; display: flex; align-items: center; gap: 0; overflow-x: auto; }
+  .top-nav a { display: inline-flex; align-items: center; padding: 12px 18px; font-size: 13px; font-weight: 600; color: #94a3b8; text-decoration: none; border-bottom: 2px solid transparent; transition: all 0.15s; white-space: nowrap; }
+  .top-nav a:hover { color: #f8fafc; background: #1e293b; }
+  .top-nav a.active { color: #f8fafc; border-bottom-color: #f8fafc; }
+  .top-nav .nav-logo { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #475569; padding-right: 18px; margin-right: 4px; border-right: 1px solid #1e293b; flex-shrink: 0; }
+  .page { max-width: 1060px; margin: 0 auto; padding: 60px 24px 80px; }
+  .logo { font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #94a3b8; margin-bottom: 32px; }
+  h1 { font-size: 42px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 16px; }
+  h1 span { background: linear-gradient(135deg, #3b82f6, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .subtitle { font-size: 17px; color: #94a3b8; line-height: 1.6; max-width: 720px; margin-bottom: 48px; }
+
+  .timeline { position: relative; padding-left: 48px; }
+  .timeline::before { content: ''; position: absolute; left: 18px; top: 0; bottom: 0; width: 3px; background: linear-gradient(180deg, #3b82f6 0%, #10b981 25%, #f59e0b 50%, #a78bfa 75%, #ef4444 100%); border-radius: 2px; }
+
+  .phase-milestone { position: relative; margin-bottom: 40px; }
+  .phase-milestone::before { content: ''; position: absolute; left: -38px; top: 8px; width: 20px; height: 20px; border-radius: 50%; border: 3px solid; background: #0f172a; z-index: 2; }
+  .pm-r1::before { border-color: #3b82f6; background: #1e3a5f; }
+  .pm-r2::before { border-color: #3b82f6; background: #1e3a5f; }
+  .pm-r3::before { border-color: #10b981; background: #064e3b; }
+  .pm-r4::before { border-color: #a78bfa; background: #2e1065; }
+  .pm-r5::before { border-color: #a78bfa; background: #2e1065; }
+  .pm-r6::before { border-color: #f59e0b; background: #451a03; }
+  .pm-r7::before { border-color: #ef4444; background: #450a0a; }
+  .pm-team::before { border-color: #94a3b8; background: #334155; }
+
+  .phase-header { margin-bottom: 20px; }
+  .phase-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 4px 12px; border-radius: 4px; margin-bottom: 8px; }
+  .tag-r1 { background: #1e3a5f; color: #60a5fa; }
+  .tag-r2 { background: #1e3a5f; color: #60a5fa; }
+  .tag-r3 { background: #064e3b; color: #34d399; }
+  .tag-r4 { background: #2e1065; color: #c4b5fd; }
+  .tag-r5 { background: #2e1065; color: #c4b5fd; }
+  .tag-r6 { background: #451a03; color: #fbbf24; }
+  .tag-r7 { background: #450a0a; color: #fca5a5; }
+  .tag-team { background: #334155; color: #94a3b8; }
+  .phase-title { font-size: 22px; font-weight: 700; color: #f8fafc; margin-bottom: 6px; }
+  .phase-desc { font-size: 14px; color: #94a3b8; line-height: 1.5; }
+  .phase-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; padding: 8px 18px; border-radius: 8px; font-size: 13px; font-weight: 600; text-decoration: none; transition: all 0.2s; }
+
+  .comp-tags { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+  .comp-tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 4px; letter-spacing: 0.5px; }
+  .ct-c1 { background: #1e3a5f; color: #60a5fa; }
+  .ct-c2 { background: #064e3b; color: #34d399; }
+  .ct-c3 { background: #451a03; color: #fbbf24; }
+  .ct-c4 { background: #2e1065; color: #c4b5fd; }
+
+  .dep-flow { display: flex; align-items: center; gap: 0; flex-wrap: wrap; margin: 16px 0 12px; padding: 14px 18px; background: #1e293b; border-radius: 10px; border: 1px solid #334155; overflow-x: auto; }
+  .dep-node { padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 700; white-space: nowrap; text-align: center; line-height: 1.3; transition: transform 0.1s, box-shadow 0.15s; }
+  .dep-node:hover { transform: scale(1.05); box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+  .dep-node small { display: block; font-weight: 500; font-size: 10px; opacity: 0.7; }
+  .dep-arrow { color: #475569; font-size: 16px; padding: 0 4px; flex-shrink: 0; }
+  .dep-bracket { color: #475569; font-size: 10px; font-weight: 600; padding: 0 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .dn-c1 { background: #1e3a5f; color: #60a5fa; }
+  .dn-c2 { background: #064e3b; color: #34d399; }
+  .dn-c3 { background: #451a03; color: #fbbf24; }
+  .dn-c4 { background: #2e1065; color: #c4b5fd; }
+  .dn-infra { background: #1e293b; color: #94a3b8; border: 1px solid #475569; }
+  .dn-qa { background: #500724; color: #f472b6; }
+  .dn-field { background: #3b0764; color: #e879f9; }
+
+  .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin-bottom: 8px; }
+  .feature-card { display: block; background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 16px 18px; text-decoration: none; color: inherit; transition: all 0.2s; }
+  .feature-card:hover { border-color: #3b82f6; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(59,130,246,0.1); }
+  .fc-badge { display: inline-block; font-size: 9px; font-weight: 700; padding: 2px 8px; border-radius: 3px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .fc-id { font-family: 'SF Mono', monospace; font-size: 11px; font-weight: 700; color: #64748b; }
+  .fc-name { font-size: 14px; font-weight: 600; color: #f8fafc; margin: 4px 0; line-height: 1.3; }
+  .fc-desc { font-size: 12px; color: #94a3b8; line-height: 1.4; margin-bottom: 10px; }
+  .fc-meta { display: flex; gap: 12px; font-size: 11px; color: #64748b; flex-wrap: wrap; }
+  .fc-team { margin-top: 8px; font-size: 11px; color: #475569; }
+  .fc-team strong { color: #64748b; }
+  .fc-goto { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: #475569; transition: color 0.15s; margin-left: auto; }
+  .feature-card:hover .fc-goto { color: #60a5fa; }
+  .fc-links { display: flex; gap: 6px; margin-top: 10px; }
+  .fc-link { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 5px; font-size: 11px; font-weight: 600; text-decoration: none; transition: all 0.15s; }
+  .fc-link-plan { background: #064e3b; color: #34d399; border: 1px solid #10b98130; }
+  .fc-link-plan:hover { background: #10b981; color: #fff; }
+  .fc-link-spec { background: #1e3a5f; color: #60a5fa; border: 1px solid #2563eb30; }
+  .fc-link-spec:hover { background: #2563eb; color: #fff; }
+
+  .capability { background: linear-gradient(135deg, #1e293b, #1e3a4f); border: 1px solid #334155; border-radius: 10px; padding: 16px 20px; margin-bottom: 16px; }
+  .capability-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .cap-unlocked { color: #34d399; }
+  .capability p { font-size: 13px; color: #94a3b8; line-height: 1.5; }
+
+  .section-divider { border: none; border-top: 1px solid #1e293b; margin: 48px 0; }
+
+  .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; margin-bottom: 8px; }
+  .team-card { background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 16px 18px; }
+  .team-card:hover { border-color: #475569; }
+  .tc-name { font-size: 15px; font-weight: 700; color: #f8fafc; margin-bottom: 2px; }
+  .tc-role { font-size: 12px; color: #64748b; margin-bottom: 8px; }
+  .tc-desc { font-size: 12px; color: #94a3b8; line-height: 1.4; }
+  .tc-start { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 3px; margin-bottom: 8px; background: #064e3b; color: #34d399; }
+
+  .footer { text-align: center; padding: 32px 0; font-size: 12px; color: #475569; border-top: 1px solid #1e293b; margin-top: 24px; }
+
+  @media (max-width: 768px) {
+    .timeline { padding-left: 32px; }
+    .phase-milestone::before { left: -22px; width: 16px; height: 16px; }
+    .timeline::before { left: 12px; }
+    .dep-flow { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .feature-grid, .team-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<nav class="top-nav">
+    <span class="nav-logo">Appello IRAP</span>
+    <a href="#roadmap" class="active">Roadmap</a>
+    <a href="#r1">R1 Foundation</a>
+    <a href="#r2">R2 Pipeline</a>
+    <a href="#r3">R3 Spider</a>
+    <a href="#r4">R4 Apex MVP</a>
+    <a href="#r5">R5 Chat</a>
+    <a href="#r6">R6 Analytics</a>
+    <a href="#r7">R7 Launch</a>
+    <a href="#team">Team</a>
+</nav>
+<div class="page">
+
+  <div class="logo">Appello IRAP &mdash; NRC Project Plan</div>
+  <h1>AI-Powered Development &amp; <span>Customer Intelligence Platform</span></h1>
+  <p class="subtitle">22-month R&amp;D project (April 2026 &ndash; January 2028) building four integrated AI systems for the Appello construction management platform. Read top-to-bottom to see the full dependency chain from infrastructure to production.</p>
+
+  <div class="timeline">
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- ROADMAP OVERVIEW                                       -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="phase-milestone pm-team" id="roadmap">
+      <div class="phase-header">
+        <div class="phase-tag tag-team">Project Roadmap &mdash; 22 Months</div>
+        <div class="phase-title">Release Overview</div>
+        <div class="phase-desc">7 releases across 42 two-week sprints, building four integrated AI systems. Each release ships working software to production.</div>
+        <div class="comp-tags">
+          <span class="comp-tag ct-c1">C1 &mdash; SDLC Flywheel</span>
+          <span class="comp-tag ct-c2">C2 &mdash; Spider Testing Swarm</span>
+          <span class="comp-tag ct-c3">C3 &mdash; ATLAS Knowledge Base</span>
+          <span class="comp-tag ct-c4">C4 &mdash; Appello Intelligence (Apex)</span>
+        </div>
+      </div>
+
+      <div class="dep-flow">
+        <a class="dep-node" style="background:#166534;color:#4ade80;text-decoration:none;" href="#r1">R1<small>Foundation</small></a>
+        <span class="dep-arrow">&rarr;</span>
+        <a class="dep-node" style="background:#166534;color:#4ade80;text-decoration:none;" href="#r2">R2<small>Pipeline</small></a>
+        <span class="dep-arrow">&rarr;</span>
+        <a class="dep-node dn-c2" style="text-decoration:none;color:inherit;" href="#r3">R3<small>Spider</small></a>
+        <span class="dep-arrow">&rarr;</span>
+        <a class="dep-node dn-c4" style="text-decoration:none;color:inherit;" href="#r4">R4<small>Apex MVP</small></a>
+        <span class="dep-arrow">&rarr;</span>
+        <a class="dep-node dn-c4" style="text-decoration:none;color:inherit;" href="#r5">R5<small>Chat</small></a>
+        <span class="dep-arrow">&rarr;</span>
+        <a class="dep-node dn-c3" style="text-decoration:none;color:inherit;" href="#r6">R6<small>Analytics</small></a>
+        <span class="dep-arrow">&rarr;</span>
+        <a class="dep-node" style="background:#450a0a;color:#fca5a5;text-decoration:none;" href="#r7">R7<small>Launch</small></a>
+      </div>
+
+      <div class="feature-grid">
+        <a class="feature-card" style="border-left: 3px solid #22c55e;" href="r1-timeline.html">
+          <span class="fc-badge" style="background:#166534;color:#4ade80;">Complete</span>
+          <div class="fc-name">R1 &mdash; Foundation &amp; First Agent</div>
+          <div class="fc-desc">Apr&ndash;Jun 2026 &middot; Sprints 1&ndash;4</div>
+          <div class="fc-meta" style="margin-top: 8px; flex-direction: column; gap: 4px;">
+            <span style="color:#4ade80;">&#10003; AI pipeline infrastructure live on AWS (3 GPU instances, VPC, CI/CD)</span>
+            <span style="color:#4ade80;">&#10003; Model evaluation complete &mdash; GPT-4, Claude 3.5, Gemini 1.5, Llama 3 scored on 50 Appello code samples</span>
+            <span style="color:#4ade80;">&#10003; Bug Report Agent v1 core architecture complete (Corey solo &mdash; NH1 start delayed to June)</span>
+            <span style="color:#fbbf24;">&#9679; Bug Report Agent full 20-bug validation deferred to R2 &mdash; NH1 delay</span>
+            <span style="color:#4ade80;">&#10003; Pipeline tracking schema deployed (8 tables, 12 API endpoints)</span>
+            <span style="color:#4ade80;">&#10003; ATLAS data pipeline ingesting Google Drive + N8n into Supabase vector store</span>
+            <span style="color:#4ade80;">&#10003; 30 real customer bug reports collected and categorized as AI training data</span>
+            <span style="color:#4ade80;">&#10003; 40+ construction-specific terms and job scenarios documented for AI context</span>
+          </div>
+          <div class="fc-meta" style="margin-top:10px;"><span class="fc-goto">View R1 details &rarr;</span></div>
+        </a>
+        <a class="feature-card" style="border-left: 3px solid #3b82f6;" href="r2-timeline.html">
+          <span class="fc-badge dn-c1">In Progress</span>
+          <div class="fc-name">R2 &mdash; Planning &amp; Development Agents</div>
+          <div class="fc-desc">Jul&ndash;Sep 2026 &middot; Sprints 5&ndash;10</div>
+          <div class="fc-meta" style="margin-top: 8px;"><span>NH1 + NH2 onboard. BRA-1 bug validation catch-up, Planning Agent, Development Agent, Validation Agent, end-to-end pipeline, MySQL vectorization, NL&rarr;SQL prototype</span></div>
+          <div class="fc-meta" style="margin-top:10px;"><span class="fc-goto">View R2 details &rarr;</span></div>
+        </a>
+        <a class="feature-card" href="#r3">
+          <span class="fc-badge" style="background:#1e293b;color:#94a3b8;">Upcoming</span>
+          <div class="fc-name">R3 &mdash; Spider Testing Swarm</div>
+          <div class="fc-desc">Oct&ndash;Nov 2026 &middot; Sprints 11&ndash;14</div>
+          <div class="fc-meta" style="margin-top: 8px;"><span>Explorer, Smoke Tester, Deep Tester, Regression Manager, multi-tenant RAG</span></div>
+        </a>
+        <a class="feature-card" href="#r4">
+          <span class="fc-badge" style="background:#1e293b;color:#94a3b8;">Upcoming</span>
+          <div class="fc-name">R4 &mdash; Appello Intelligence (Apex) MVP</div>
+          <div class="fc-desc">Dec 2026&ndash;Mar 2027 &middot; Sprints 15&ndash;22</div>
+          <div class="fc-meta" style="margin-top: 8px;"><span>Toolbox framework, 3 toolboxes, customer portal, pilot program, security hardening, marketplace v1</span></div>
+        </a>
+        <a class="feature-card" href="#r5">
+          <span class="fc-badge" style="background:#1e293b;color:#94a3b8;">Upcoming</span>
+          <div class="fc-name">R5 &mdash; Embedded AI Chat &amp; Playbooks</div>
+          <div class="fc-desc">Apr&ndash;Jul 2027 &middot; Sprints 23&ndash;30</div>
+          <div class="fc-meta" style="margin-top: 8px;"><span>Embedded chat, context engine, model routing, 4 role-based playbooks, trigger workflows</span></div>
+        </a>
+        <a class="feature-card" href="#r6">
+          <span class="fc-badge" style="background:#1e293b;color:#94a3b8;">Upcoming</span>
+          <div class="fc-name">R6 &mdash; Predictive Analytics &amp; Marketplace</div>
+          <div class="fc-desc">Aug&ndash;Nov 2027 &middot; Sprints 31&ndash;38</div>
+          <div class="fc-meta" style="margin-top: 8px;"><span>Predictive pipeline, anomaly detection, marketplace v2, SOC 2 Type 1</span></div>
+        </a>
+        <a class="feature-card" href="#r7">
+          <span class="fc-badge" style="background:#1e293b;color:#94a3b8;">Upcoming</span>
+          <div class="fc-name">R7 &mdash; Hardening &amp; Launch</div>
+          <div class="fc-desc">Dec 2027&ndash;Jan 2028 &middot; Sprints 39&ndash;42</div>
+          <div class="fc-meta" style="margin-top: 8px;"><span>Load testing, pen test remediation, marketplace GA, accessibility, IRAP final report</span></div>
+        </a>
+      </div>
+
+      <div class="capability" style="border-left: 3px solid #22c55e;">
+        <div class="capability-label" style="color:#4ade80;">&#10003; April &amp; May 2026 Objectives Substantially Complete</div>
+        <p>R1 infrastructure, model evaluation, ATLAS pipeline, and training data all shipped on schedule. Bug Report Agent core architecture complete; full 20-bug validation deferred to R2 due to NH1 hire delayed to June. NH1 and NH2 both onboard in July for R2 start. Overall project timeline shifted +1 month to accommodate.</p>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- R1: FOUNDATION & FIRST AGENT                           -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="phase-milestone pm-r1" id="r1">
+      <div class="phase-header">
+        <div class="phase-tag tag-r1">R1 &mdash; Apr&ndash;Jun 2026 &mdash; Sprints 1&ndash;4</div>
+        <div class="phase-title">Foundation &amp; First Agent</div>
+        <div class="phase-desc">Stand up AI infrastructure and ship the first working agent &mdash; Bug Report Agent &mdash; processing real Appello Jira tickets on the production TypeScript/React codebase. NH1 hire delayed to June; Bug Report Agent core built by Corey solo, full validation carries into R2.</div>
+        <div class="comp-tags">
+          <span class="comp-tag ct-c1">C1 SDLC Flywheel</span>
+          <span class="comp-tag ct-c3">C3 ATLAS</span>
+        </div>
+      </div>
+
+      <div class="dep-flow">
+        <a class="dep-node dn-infra" href="r1-timeline.html#item-INFRA-1" style="text-decoration:none;color:inherit;">INFRA<small>AWS + CI/CD</small></a>
+        <span class="dep-arrow">&rarr;</span>
+        <a class="dep-node dn-c1" href="r1-timeline.html#item-EVAL-1" style="text-decoration:none;color:inherit;">EVAL<small>Model Benchmark</small></a>
+        <span class="dep-arrow">&rarr;</span>
+        <a class="dep-node dn-c1" href="r1-timeline.html#item-BRA-1" style="text-decoration:none;color:inherit;">BRA-1<small>Bug Report Agent</small></a>
+        <span class="dep-arrow">&rarr;</span>
+        <a class="dep-node dn-c1" href="r1-timeline.html#item-SDLC-DB" style="text-decoration:none;color:inherit;">SDLC-DB<small>Pipeline Schema</small></a>
+        <span class="dep-bracket">+ parallel</span>
+        <a class="dep-node dn-c3" href="r1-timeline.html#item-ATLAS-1" style="text-decoration:none;color:inherit;">ATLAS-1<small>Data Pipeline</small></a>
+      </div>
+
+      <div class="feature-grid">
+        <a class="feature-card" style="border-left: 3px solid #22c55e;" href="r1-timeline.html#item-INFRA-1">
+          <span class="fc-badge" style="background:#166534;color:#4ade80;">Infrastructure &middot; Complete</span>
+          <div class="fc-id">INFRA-1</div>
+          <div class="fc-name">AI Pipeline Infrastructure</div>
+          <div class="fc-desc">Provision 3 GPU-enabled AWS compute instances for model inference. Configure VPC, subnets, security groups, IAM service accounts. CI/CD pipeline via GitHub Actions &rarr; Docker &rarr; AWS ECS.</div>
+          <div class="fc-meta"><span>Sprints 1&ndash;2</span><span>~4 weeks</span><span style="color:#4ade80;">&#10003; Done</span><span class="fc-goto">View details &rarr;</span></div>
+          <div class="fc-team"><strong>Team:</strong> Travis, Corey</div>
+        </a>
+        <a class="feature-card" style="border-left: 3px solid #22c55e;" href="r1-timeline.html#item-EVAL-1">
+          <span class="fc-badge" style="background:#166534;color:#4ade80;">C1 &middot; Agent &middot; Complete</span>
+          <div class="fc-id">EVAL-1</div>
+          <div class="fc-name">Model Evaluation on Appello Codebase</div>
+          <div class="fc-desc">Evaluate GPT-4, Claude 3.5, Gemini 1.5, Llama 3 on 50 real Appello TypeScript code samples. Score for code comprehension, fix accuracy, and cost per query. Select primary model.</div>
+          <div class="fc-meta"><span>Sprint 1</span><span>~2 weeks</span><span style="color:#4ade80;">&#10003; Done</span><span class="fc-goto">View details &rarr;</span></div>
+          <div class="fc-team"><strong>Team:</strong> Corey</div>
+        </a>
+        <a class="feature-card" style="border-left: 3px solid #f59e0b;" href="r1-timeline.html#item-BRA-1">
+          <span class="fc-badge" style="background:#451a03;color:#fbbf24;">C1 &middot; Agent &middot; Delayed</span>
+          <div class="fc-id">BRA-1</div>
+          <div class="fc-name">Bug Report Agent v1</div>
+          <div class="fc-desc">First AI agent. Ingests Jira ticket, parses Appello monorepo (TypeScript/React/Express), generates candidate fix diff as a PR. Core architecture complete (Corey solo). Full 20-bug validation deferred to R2 &mdash; NH1 delayed to June.</div>
+          <div class="fc-meta"><span>Sprints 2&ndash;4</span><span>~6 weeks</span><span>Depends: EVAL-1</span><span style="color:#fbbf24;">Validation &rarr; R2</span><span class="fc-goto">View details &rarr;</span></div>
+          <div class="fc-team"><strong>Team:</strong> Corey (NH1 deferred)</div>
+        </a>
+        <a class="feature-card" style="border-left: 3px solid #22c55e;" href="r1-timeline.html#item-SDLC-DB">
+          <span class="fc-badge" style="background:#166534;color:#4ade80;">C1 &middot; Backend &middot; Complete</span>
+          <div class="fc-id">SDLC-DB</div>
+          <div class="fc-name">Pipeline Tracking Schema</div>
+          <div class="fc-desc">8 database tables (tasks, signals, decompositions, reviews, deployments, metrics, agents, history). 12 REST API endpoints for SDLC data management. Migration framework with rollback.</div>
+          <div class="fc-meta"><span>Sprints 3&ndash;4</span><span>~4 weeks</span><span style="color:#4ade80;">&#10003; Done</span><span class="fc-goto">View details &rarr;</span></div>
+          <div class="fc-team"><strong>Team:</strong> Chris, Travis</div>
+        </a>
+        <a class="feature-card" style="border-left: 3px solid #22c55e;" href="r1-timeline.html#item-ATLAS-1">
+          <span class="fc-badge" style="background:#166534;color:#4ade80;">C3 &middot; Backend &middot; Complete</span>
+          <div class="fc-id">ATLAS-1</div>
+          <div class="fc-name">ATLAS Data Pipeline Scaffold</div>
+          <div class="fc-desc">Python ingestion scripts for Google Drive documents and N8n workflow data into Supabase pgvector store. Foundation for the knowledge base that all AI agents will query.</div>
+          <div class="fc-meta"><span>Sprints 2&ndash;4</span><span>~4 weeks</span><span style="color:#4ade80;">&#10003; Done</span><span class="fc-goto">View details &rarr;</span></div>
+          <div class="fc-team"><strong>Team:</strong> Chris</div>
+        </a>
+        <a class="feature-card" style="border-left: 3px solid #22c55e;" href="r1-timeline.html#item-FV-1">
+          <span class="fc-badge" style="background:#166534;color:#4ade80;">Field Validation &middot; Complete</span>
+          <div class="fc-id">FV-1</div>
+          <div class="fc-name">Construction Training Data Collection</div>
+          <div class="fc-desc">Collect and categorize 30 real customer bug reports from Jira as AI training data. Document 40+ construction-specific terms and job scenarios for AI context.</div>
+          <div class="fc-meta"><span>Sprints 1&ndash;4</span><span>~8 weeks</span><span style="color:#4ade80;">&#10003; Done</span><span class="fc-goto">View details &rarr;</span></div>
+          <div class="fc-team"><strong>Team:</strong> Nathan, Ian</div>
+        </a>
+      </div>
+
+      <div class="capability">
+        <div class="capability-label cap-unlocked">&#9889; Capability Unlocked</div>
+        <p>AI infrastructure live on AWS. Bug Report Agent core architecture complete, processing initial Jira tickets (supervised). Full 20-bug validation deferred to R2 due to NH1 delay. Model evaluation complete with production cost tracking. ATLAS data pipeline ingesting documents for knowledge base. Construction-domain training data collected and formatted.</p>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- R2: PLANNING & DEVELOPMENT AGENTS                      -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="phase-milestone pm-r2" id="r2">
+      <div class="phase-header">
+        <div class="phase-tag tag-r2">R2 &mdash; Jul&ndash;Sep 2026 &mdash; Sprints 5&ndash;10</div>
+        <div class="phase-title">Planning &amp; Development Agents</div>
+        <div class="phase-desc">Close the loop from bug report &rarr; AI plan &rarr; AI code &rarr; automated review. Ship the full SDLC pipeline on the internal Appello codebase. Begin ATLAS vectorization of Appello&rsquo;s MySQL schema. NH1 and NH2 onboard at start of R2; BRA-1 validation catch-up runs in parallel with new agent development.</div>
+        <div class="comp-tags">
+          <span class="comp-tag ct-c1">C1 SDLC Flywheel</span>
+          <span class="comp-tag ct-c3">C3 ATLAS</span>
+        </div>
+      </div>
+
+      <div class="dep-flow">
+        <a class="dep-node dn-c1" href="r2-timeline.html#item-PA-1" style="text-decoration:none;color:inherit;">PA-1<small>Planning Agent</small></a>
+        <span class="dep-arrow">&rarr;</span>
+        <a class="dep-node dn-c1" href="r2-timeline.html#item-DA-1" style="text-decoration:none;color:inherit;">DA-1<small>Dev Agent</small></a>
+        <span class="dep-arrow">&rarr;</span>
+        <a class="dep-node dn-c1" href="r2-timeline.html#item-VA-1" style="text-decoration:none;color:inherit;">VA-1<small>Validation Agent</small></a>
+        <span class="dep-arrow">&rarr;</span>
+        <a class="dep-node dn-c1" href="r2-timeline.html#item-E2E-1" style="text-decoration:none;color:inherit;">E2E<small>End-to-End Loop</small></a>
+        <span class="dep-bracket">+ parallel</span>
+        <a class="dep-node dn-c3" href="r2-timeline.html#item-ATLAS-2" style="text-decoration:none;color:inherit;">ATLAS-2<small>MySQL Vectorization</small></a>
+        <span class="dep-arrow">&rarr;</span>
+        <a class="dep-node dn-c3" href="r2-timeline.html#item-NL2SQL-1" style="text-decoration:none;color:inherit;">NL2SQL<small>NL&rarr;SQL Prototype</small></a>
+      </div>
+
+      <div class="feature-grid">
+        <a class="feature-card" style="border-left: 3px solid #3b82f6;" href="r2-timeline.html#item-PA-1">
+          <span class="fc-badge dn-c1">C1 &middot; Agent</span>
+          <div class="fc-id">PA-1</div>
+          <div class="fc-name">Planning Agent</div>
+          <div class="fc-desc">Reads Jira ticket + Appello codebase AST. Produces ordered subtask list with target file paths, acceptance criteria, and estimated complexity. Validated against 15 real construction job scenarios.</div>
+          <div class="fc-meta"><span>Sprints 5&ndash;6</span><span>~4 weeks</span><span>Depends: BRA-1</span><span class="fc-goto">Open in timeline &rarr;</span></div>
+          <div class="fc-team"><strong>Team:</strong> Corey, NH1, NH2</div>
+        </a>
+        <a class="feature-card" style="border-left: 3px solid #3b82f6;" href="r2-timeline.html#item-DA-1">
+          <span class="fc-badge dn-c1">C1 &middot; Agent</span>
+          <div class="fc-id">DA-1</div>
+          <div class="fc-name">Development Agent v1</div>
+          <div class="fc-desc">Takes Planning Agent subtask, generates TypeScript/React code change targeting correct files in Appello monorepo. Outputs as a PR-ready diff.</div>
+          <div class="fc-meta"><span>Sprints 6&ndash;7</span><span>~4 weeks</span><span>Depends: PA-1</span><span class="fc-goto">Open in timeline &rarr;</span></div>
+          <div class="fc-team"><strong>Team:</strong> Corey, NH1, NH2</div>
+        </a>
+        <a class="feature-card" style="border-left: 3px solid #3b82f6;" href="r2-timeline.html#item-VA-1">
+          <span class="fc-badge dn-c1">C1 &middot; Agent</span>
+          <div class="fc-id">VA-1</div>
+          <div class="fc-name">Validation Agent</div>
+          <div class="fc-desc">Receives AI-generated PR, runs ESLint + TypeScript compiler + existing Playwright tests. Returns quality score and blocks merge if below threshold. Static analysis checks specific to Appello coding patterns.</div>
+          <div class="fc-meta"><span>Sprints 7&ndash;8</span><span>~4 weeks</span><span>Depends: DA-1</span><span class="fc-goto">Open in timeline &rarr;</span></div>
+          <div class="fc-team"><strong>Team:</strong> Corey, NH1, Emma Mann</div>
+        </a>
+        <a class="feature-card" href="r2-timeline.html#item-E2E-1">
+          <span class="fc-badge dn-c1">C1 &middot; Integration</span>
+          <div class="fc-id">E2E-1</div>
+          <div class="fc-name">End-to-End Pipeline</div>
+          <div class="fc-desc">Jira ticket &rarr; Bug Report Agent &rarr; Planning Agent &rarr; Development Agent &rarr; Validation Agent &rarr; PR. Stage transition logic, status tracking, error handling with retry (immediate, backoff, skip, manual, abort).</div>
+          <div class="fc-meta"><span>Sprints 8&ndash;10</span><span>~6 weeks</span><span>Depends: VA-1</span><span class="fc-goto">Open in timeline &rarr;</span></div>
+          <div class="fc-team"><strong>Team:</strong> Corey, Chris, Travis, NH1, NH2</div>
+        </a>
+        <a class="feature-card" href="r2-timeline.html#item-ATLAS-2">
+          <span class="fc-badge dn-c3">C3 &middot; Backend</span>
+          <div class="fc-id">ATLAS-2</div>
+          <div class="fc-name">MySQL Schema Vectorization</div>
+          <div class="fc-desc">Vectorize Appello&rsquo;s ~200-table MySQL schema into ATLAS. Table definitions, column metadata, relationships, and business logic annotations stored as embeddings for NL&rarr;SQL.</div>
+          <div class="fc-meta"><span>Sprints 6&ndash;9</span><span>~8 weeks</span><span class="fc-goto">Open in timeline &rarr;</span></div>
+          <div class="fc-team"><strong>Team:</strong> Chris</div>
+        </a>
+        <a class="feature-card" href="r2-timeline.html#item-NL2SQL-1">
+          <span class="fc-badge dn-c3">C3 &middot; ML</span>
+          <div class="fc-id">NL2SQL-1</div>
+          <div class="fc-name">NL&rarr;SQL Prototype</div>
+          <div class="fc-desc">Natural language queries against Appello production data. &ldquo;Show me all jobs over budget this month&rdquo; &rarr; correct SQL &rarr; formatted result. Validated against 50 construction-specific queries.</div>
+          <div class="fc-meta"><span>Sprints 9&ndash;10</span><span>~4 weeks</span><span>Depends: ATLAS-2</span><span class="fc-goto">Open in timeline &rarr;</span></div>
+          <div class="fc-team"><strong>Team:</strong> Chris, Nathan</div>
+        </a>
+      </div>
+
+      <div class="capability">
+        <div class="capability-label cap-unlocked">&#9889; Capability Unlocked</div>
+        <p>Full SDLC pipeline operational on internal Appello codebase: Jira ticket &rarr; AI-generated plan &rarr; AI-generated code &rarr; automated review &rarr; PR. Natural language queries against Appello&rsquo;s MySQL database via ATLAS. Pipeline hardened with rate limiting, structured logging, and error recovery.</p>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- R3: SPIDER TESTING SWARM                               -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="phase-milestone pm-r3" id="r3">
+      <div class="phase-header">
+        <div class="phase-tag tag-r3">R3 &mdash; Oct&ndash;Nov 2026 &mdash; Sprints 11&ndash;14</div>
+        <div class="phase-title">Spider Testing Swarm</div>
+        <div class="phase-desc">Ship the automated testing swarm that crawls the Appello app, discovers pages, and runs multi-layer tests on every feature branch. ATLAS gains multi-tenant isolation for customer data.</div>
+        <div class="comp-tags">
+          <span class="comp-tag ct-c2">C2 Spider Testing</span>
+          <span class="comp-tag ct-c1">C1 SDLC Flywheel</span>
+          <span class="comp-tag ct-c3">C3 ATLAS</span>
+        </div>
+      </div>
+
+      <div class="dep-flow">
+        <div class="dep-node dn-c2">EXP<small>Explorer Agent</small></div>
+        <span class="dep-arrow">&rarr;</span>
+        <div class="dep-node dn-c2">SMK<small>Smoke Tester</small></div>
+        <span class="dep-arrow">&rarr;</span>
+        <div class="dep-node dn-c2">DPT<small>Deep Tester</small></div>
+        <span class="dep-arrow">&rarr;</span>
+        <div class="dep-node dn-c2">REG<small>Regression Mgr</small></div>
+        <span class="dep-bracket">+ parallel</span>
+        <div class="dep-node dn-c3">MT-RAG<small>Multi-Tenant RAG</small></div>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feature-card" style="border-left: 3px solid #10b981;">
+          <span class="fc-badge dn-c2">C2 &middot; Agent</span>
+          <div class="fc-id">EXP-1</div>
+          <div class="fc-name">Spider Explorer Agent</div>
+          <div class="fc-desc">Crawls the Appello app (timesheets, safety forms, work orders, scheduling, materials, invoicing). Builds interactive sitemap of all routes and interactive elements.</div>
+          <div class="fc-meta"><span>Sprint 11</span><span>~2 weeks</span></div>
+          <div class="fc-team"><strong>Team:</strong> Corey, NH1, NH2</div>
+        </div>
+        <div class="feature-card" style="border-left: 3px solid #10b981;">
+          <span class="fc-badge dn-c2">C2 &middot; Agent</span>
+          <div class="fc-id">SMK-1</div>
+          <div class="fc-name">Smoke Tester Agent</div>
+          <div class="fc-desc">Quick page-load and element-presence checks across all discovered routes per PR. Runs in under 60 seconds. Catches broken pages before deeper testing begins.</div>
+          <div class="fc-meta"><span>Sprint 11</span><span>~2 weeks</span><span>Depends: EXP-1</span></div>
+          <div class="fc-team"><strong>Team:</strong> Corey, NH1, Emma Mann</div>
+        </div>
+        <div class="feature-card" style="border-left: 3px solid #10b981;">
+          <span class="fc-badge dn-c2">C2 &middot; Agent</span>
+          <div class="fc-id">DPT-1</div>
+          <div class="fc-name">Deep Tester Agent</div>
+          <div class="fc-desc">Generates and runs Playwright test scripts for complex Appello workflows: submit timesheet &rarr; approve &rarr; payroll sync, create safety form &rarr; sign &rarr; file, WO creation &rarr; conversion.</div>
+          <div class="fc-meta"><span>Sprint 12</span><span>~2 weeks</span><span>Depends: EXP-1</span></div>
+          <div class="fc-team"><strong>Team:</strong> Corey, NH1, NH2, Emma Mann, Nathan</div>
+        </div>
+        <div class="feature-card" style="border-left: 3px solid #10b981;">
+          <span class="fc-badge dn-c2">C2 &middot; Orchestration</span>
+          <div class="fc-id">REG-1</div>
+          <div class="fc-name">Regression Manager</div>
+          <div class="fc-desc">Coordinates Spider swarm: assigns pages to agents, aggregates pass/fail results, deduplicates findings, gates PR merge. Full flow: PR opened &rarr; Explorer &rarr; Smoke + Deep &rarr; report &rarr; gate.</div>
+          <div class="fc-meta"><span>Sprints 13&ndash;14</span><span>~4 weeks</span><span>Depends: SMK-1, DPT-1</span></div>
+          <div class="fc-team"><strong>Team:</strong> Corey, Travis, NH1, NH2</div>
+        </div>
+        <div class="feature-card">
+          <span class="fc-badge dn-c3">C3 &middot; Backend</span>
+          <div class="fc-id">MT-RAG</div>
+          <div class="fc-name">Multi-Tenant RAG Isolation</div>
+          <div class="fc-desc">Per-customer vector namespace isolation in ATLAS. Each pilot company&rsquo;s data queryable only by their users. Cross-platform data aggregation across vector store + MySQL.</div>
+          <div class="fc-meta"><span>Sprints 13&ndash;14</span><span>~4 weeks</span></div>
+          <div class="fc-team"><strong>Team:</strong> Chris, NH3</div>
+        </div>
+        <div class="feature-card">
+          <span class="fc-badge dn-infra">Infrastructure</span>
+          <div class="fc-id">TENV-1</div>
+          <div class="fc-name">Feature-Branch Test Environments</div>
+          <div class="fc-desc">Docker Compose environments auto-provisioned per PR. Each feature branch gets an isolated Appello instance with sample customer data for Spider agents to test against.</div>
+          <div class="fc-meta"><span>Sprints 11&ndash;12</span><span>~4 weeks</span></div>
+          <div class="fc-team"><strong>Team:</strong> Travis</div>
+        </div>
+      </div>
+
+      <div class="capability">
+        <div class="capability-label cap-unlocked">&#9889; Capability Unlocked</div>
+        <p>Every PR to the Appello codebase is automatically crawled, smoke-tested, and deep-tested by the Spider swarm before merge. Feature-branch environments auto-provision for isolated testing. ATLAS supports multi-tenant data isolation for customer pilots. NH3 (AI/ML Engineer) joins the team.</p>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- R4: APPELLO INTELLIGENCE (APEX) MVP                    -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="phase-milestone pm-r4" id="r4">
+      <div class="phase-header">
+        <div class="phase-tag tag-r4">R4 &mdash; Dec 2026&ndash;Mar 2027 &mdash; Sprints 15&ndash;22</div>
+        <div class="phase-title">Appello Intelligence (Apex) MVP</div>
+        <div class="phase-desc">Launch the customer-facing AI platform with the first 3 toolboxes to pilot customers. First external users interact with Appello&rsquo;s AI. Security hardening and rate limiting go live.</div>
+        <div class="comp-tags">
+          <span class="comp-tag ct-c4">C4 Appello Intelligence</span>
+          <span class="comp-tag ct-c3">C3 ATLAS</span>
+        </div>
+      </div>
+
+      <div class="dep-flow">
+        <div class="dep-node dn-c4">TBX<small>Toolbox Framework</small></div>
+        <span class="dep-arrow">&rarr;</span>
+        <div class="dep-node dn-c4">FIN<small>Financial Toolbox</small></div>
+        <span class="dep-bracket">+ parallel</span>
+        <div class="dep-node dn-c4">TS<small>Timesheet Toolbox</small></div>
+        <span class="dep-bracket">+ parallel</span>
+        <div class="dep-node dn-c4">PS<small>Project Setup</small></div>
+        <span class="dep-arrow">&rarr;</span>
+        <div class="dep-node dn-c4">PILOT<small>Customer Pilots</small></div>
+        <span class="dep-arrow">&rarr;</span>
+        <div class="dep-node dn-c4">MKT<small>Marketplace v1</small></div>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feature-card" style="border-left: 3px solid #a78bfa;">
+          <span class="fc-badge dn-c4">C4 &middot; Backend</span>
+          <div class="fc-id">TBX-1</div>
+          <div class="fc-name">AI Toolbox Framework</div>
+          <div class="fc-desc">Skill execution engine that loads AI tool definitions (JSON config), manages per-customer context, and routes queries to the correct model. Tool registry API with versioning (register, update, deprecate).</div>
+          <div class="fc-meta"><span>Sprints 15&ndash;16</span><span>~4 weeks</span></div>
+          <div class="fc-team"><strong>Team:</strong> Corey, Chris, NH2</div>
+        </div>
+        <div class="feature-card" style="border-left: 3px solid #a78bfa;">
+          <span class="fc-badge dn-c4">C4 &middot; Toolbox</span>
+          <div class="fc-id">FIN-1</div>
+          <div class="fc-name">Financial Analysis Toolbox</div>
+          <div class="fc-desc">AI-powered job costing reports from Appello data: budget vs. actual analysis, margin alerts, cost category breakdown. Queries live customer job data via ATLAS NL&rarr;SQL.</div>
+          <div class="fc-meta"><span>Sprints 15&ndash;16</span><span>~4 weeks</span><span>Depends: TBX-1</span></div>
+          <div class="fc-team"><strong>Team:</strong> NH2, NH3, Chris</div>
+        </div>
+        <div class="feature-card">
+          <span class="fc-badge dn-c4">C4 &middot; Toolbox</span>
+          <div class="fc-id">TS-1</div>
+          <div class="fc-name">Timesheet Analysis Toolbox</div>
+          <div class="fc-desc">Overtime detection, labor distribution by crew/project, missing-entry identification. Flags anomalies specific to construction payroll patterns.</div>
+          <div class="fc-meta"><span>Sprints 16&ndash;17</span><span>~4 weeks</span><span>Depends: TBX-1</span></div>
+          <div class="fc-team"><strong>Team:</strong> NH2, NH3</div>
+        </div>
+        <div class="feature-card">
+          <span class="fc-badge dn-c4">C4 &middot; Toolbox</span>
+          <div class="fc-id">PS-1</div>
+          <div class="fc-name">Project Setup Toolbox</div>
+          <div class="fc-desc">AI-assisted new project creation from historical job templates. Auto-fills budget, schedule, and crew based on similar past projects in the customer&rsquo;s Appello data.</div>
+          <div class="fc-meta"><span>Sprint 17</span><span>~2 weeks</span><span>Depends: TBX-1</span></div>
+          <div class="fc-team"><strong>Team:</strong> NH2, Chris</div>
+        </div>
+        <div class="feature-card">
+          <span class="fc-badge dn-c4">C4 &middot; Frontend</span>
+          <div class="fc-id">PORTAL-1</div>
+          <div class="fc-name">Customer Portal &amp; Toolbox UI</div>
+          <div class="fc-desc">Customer-facing toolbox catalog, enable/disable per customer, usage dashboard. Per-customer configuration: tenant-scoped settings, feature flags, toolbox management.</div>
+          <div class="fc-meta"><span>Sprints 16&ndash;18</span><span>~6 weeks</span></div>
+          <div class="fc-team"><strong>Team:</strong> Filip, Chris</div>
+        </div>
+        <div class="feature-card">
+          <span class="fc-badge dn-field">Field Validation</span>
+          <div class="fc-id">PILOT-1</div>
+          <div class="fc-name">Customer Pilot Program</div>
+          <div class="fc-desc">Onboard 3 construction companies (10&ndash;100 FTE each). Configure data connections, toolbox selection, user accounts. Structured feedback sessions measuring toolbox accuracy against real job data.</div>
+          <div class="fc-meta"><span>Sprints 17&ndash;22</span><span>~12 weeks</span></div>
+          <div class="fc-team"><strong>Team:</strong> Nathan, Ian, Emma Mann</div>
+        </div>
+        <div class="feature-card">
+          <span class="fc-badge dn-infra">Security</span>
+          <div class="fc-id">SEC-1</div>
+          <div class="fc-name">Security Hardening &amp; Rate Limiting</div>
+          <div class="fc-desc">OAuth 2.0 flows, API key management, RBAC for construction roles (Foreman, PM, Bookkeeper, Estimator). Per-tenant usage metering, consumption thresholds, SLA monitoring.</div>
+          <div class="fc-meta"><span>Sprints 19&ndash;21</span><span>~6 weeks</span></div>
+          <div class="fc-team"><strong>Team:</strong> Travis, Chris, Emma Mann</div>
+        </div>
+        <div class="feature-card">
+          <span class="fc-badge dn-c4">C4 &middot; Backend</span>
+          <div class="fc-id">MKT-1</div>
+          <div class="fc-name">Marketplace Backend v1</div>
+          <div class="fc-desc">Toolbox catalog API, installation flows, version management. Audit logging capturing 15 event types with tamper-proof storage. Customer-facing storefront with search and categories.</div>
+          <div class="fc-meta"><span>Sprints 21&ndash;22</span><span>~4 weeks</span></div>
+          <div class="fc-team"><strong>Team:</strong> Chris, Filip, Travis</div>
+        </div>
+      </div>
+
+      <div class="capability">
+        <div class="capability-label cap-unlocked">&#9889; Capability Unlocked</div>
+        <p>First external users interact with Appello&rsquo;s AI. Three construction-specific toolboxes live with pilot customers. Customer portal for toolbox management. Security hardening and rate limiting in production. Marketplace backend ready for partner integrations.</p>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- R5: EMBEDDED AI CHAT                                   -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="phase-milestone pm-r5" id="r5">
+      <div class="phase-header">
+        <div class="phase-tag tag-r5">R5 &mdash; Apr&ndash;Jul 2027 &mdash; Sprints 23&ndash;30</div>
+        <div class="phase-title">Embedded AI Chat &amp; Role-Based Playbooks</div>
+        <div class="phase-desc">Embed AI chat directly into the Appello platform. Construction workers ask questions in natural language and get answers from their own project data. Four role-specific playbooks adapt the AI to each user type.</div>
+        <div class="comp-tags">
+          <span class="comp-tag ct-c4">C4 Appello Intelligence</span>
+        </div>
+      </div>
+
+      <div class="dep-flow">
+        <div class="dep-node dn-c4">CHAT<small>Chat MVP</small></div>
+        <span class="dep-arrow">&rarr;</span>
+        <div class="dep-node dn-c4">CTX<small>Context Engine</small></div>
+        <span class="dep-arrow">&rarr;</span>
+        <div class="dep-node dn-c4">ROUTE<small>Model Routing</small></div>
+        <span class="dep-arrow">&rarr;</span>
+        <div class="dep-node dn-c4">PB<small>Playbooks</small></div>
+        <span class="dep-arrow">&rarr;</span>
+        <div class="dep-node dn-c4">WF<small>Workflows</small></div>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feature-card" style="border-left: 3px solid #a78bfa;">
+          <span class="fc-badge dn-c4">C4 &middot; Full-Stack</span>
+          <div class="fc-id">CHAT-1</div>
+          <div class="fc-name">Embedded Chat MVP</div>
+          <div class="fc-desc">Sidebar chat window integrated into Appello. WebSocket backend for real-time message delivery, session management, conversation history storage. Message bubbles, typing indicators, quick-action buttons.</div>
+          <div class="fc-meta"><span>Sprints 23&ndash;24</span><span>~4 weeks</span></div>
+          <div class="fc-team"><strong>Team:</strong> Chris, Filip, Corey, NH1</div>
+        </div>
+        <div class="feature-card">
+          <span class="fc-badge dn-c4">C4 &middot; Backend</span>
+          <div class="fc-id">CTX-1</div>
+          <div class="fc-name">Multi-Turn Conversation Engine</div>
+          <div class="fc-desc">Context management across messages within token limits. Conversation threading, summarization of long threads, pinned message support. Searchable conversation history.</div>
+          <div class="fc-meta"><span>Sprints 24&ndash;25</span><span>~4 weeks</span><span>Depends: CHAT-1</span></div>
+          <div class="fc-team"><strong>Team:</strong> Corey, NH1</div>
+        </div>
+        <div class="feature-card">
+          <span class="fc-badge dn-c4">C4 &middot; ML</span>
+          <div class="fc-id">ROUTE-1</div>
+          <div class="fc-name">Model Routing Rules</div>
+          <div class="fc-desc">Fast/cheap model (Haiku/Flash) for simple lookups, advanced model (Opus/Sonnet) for complex analysis. Query complexity classifier, streaming responses, prompt caching for repeat patterns.</div>
+          <div class="fc-meta"><span>Sprints 24&ndash;26</span><span>~6 weeks</span></div>
+          <div class="fc-team"><strong>Team:</strong> Corey, NH3</div>
+        </div>
+        <div class="feature-card" style="border-left: 3px solid #a78bfa;">
+          <span class="fc-badge dn-c4">C4 &middot; ML</span>
+          <div class="fc-id">PB-1</div>
+          <div class="fc-name">Role-Based AI Playbooks</div>
+          <div class="fc-desc">Four construction-specific AI personalities: <strong>Foreman</strong> (field-focused: schedule, crew, safety), <strong>PM</strong> (budget, timeline, resources), <strong>Bookkeeper</strong> (payroll, invoicing, cost reports), <strong>Estimator</strong> (bid data, historical costs, materials). Each adapts response style, data access, and vocabulary.</div>
+          <div class="fc-meta"><span>Sprints 27&ndash;28</span><span>~4 weeks</span><span>Depends: CTX-1, ROUTE-1</span></div>
+          <div class="fc-team"><strong>Team:</strong> Corey, NH3, Nathan</div>
+        </div>
+        <div class="feature-card">
+          <span class="fc-badge dn-c4">C4 &middot; Backend</span>
+          <div class="fc-id">WF-1</div>
+          <div class="fc-name">Trigger-Based Workflows</div>
+          <div class="fc-desc">&ldquo;Alert PM when job budget exceeds threshold&rdquo;, &ldquo;flag timesheet anomalies for review&rdquo;, &ldquo;notify foreman of scheduling conflicts&rdquo;. Visual rule builder for configuring automated workflows.</div>
+          <div class="fc-meta"><span>Sprints 25&ndash;29</span><span>~10 weeks</span></div>
+          <div class="fc-team"><strong>Team:</strong> NH2, Filip, Chris</div>
+        </div>
+        <div class="feature-card">
+          <span class="fc-badge dn-qa">QA</span>
+          <div class="fc-id">CHAT-QA</div>
+          <div class="fc-name">Conversation Quality Testing</div>
+          <div class="fc-desc">Automated quality tests: scripted construction questions scored for accuracy and helpfulness. Load testing for concurrent WebSocket connections. Playbook accuracy validation with real users in each role.</div>
+          <div class="fc-meta"><span>Sprints 26&ndash;30</span><span>~10 weeks</span></div>
+          <div class="fc-team"><strong>Team:</strong> Emma Mann, Nathan, Ian</div>
+        </div>
+      </div>
+
+      <div class="capability">
+        <div class="capability-label cap-unlocked">&#9889; Capability Unlocked</div>
+        <p>Construction workers chat with AI inside Appello. A foreman on-site asks &ldquo;who&rsquo;s on my crew tomorrow?&rdquo; and gets an instant answer from live project data. PMs ask &ldquo;which jobs are over budget?&rdquo; and get a formatted report. Four role-specific playbooks adapt the AI to each user type. Trigger-based workflows automate alerts and notifications.</p>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- R6: PREDICTIVE ANALYTICS & MARKETPLACE                 -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="phase-milestone pm-r6" id="r6">
+      <div class="phase-header">
+        <div class="phase-tag tag-r6">R6 &mdash; Aug&ndash;Nov 2027 &mdash; Sprints 31&ndash;38</div>
+        <div class="phase-title">Predictive Analytics &amp; Marketplace</div>
+        <div class="phase-desc">Add predictive capabilities &mdash; cost overrun alerts, scheduling conflict detection &mdash; and open the toolbox marketplace for partner integrations. SOC 2 Type 1 preparation.</div>
+        <div class="comp-tags">
+          <span class="comp-tag ct-c4">C4 Appello Intelligence</span>
+        </div>
+      </div>
+
+      <div class="dep-flow">
+        <div class="dep-node dn-c4">PRED<small>Predictive Pipeline</small></div>
+        <span class="dep-arrow">&rarr;</span>
+        <div class="dep-node dn-c4">ANOM<small>Anomaly Detection</small></div>
+        <span class="dep-arrow">&rarr;</span>
+        <div class="dep-node dn-c4">ALERT<small>Predictive Alerts</small></div>
+        <span class="dep-bracket">+ parallel</span>
+        <div class="dep-node dn-c4">MKT-2<small>Marketplace v2</small></div>
+        <span class="dep-bracket">+ parallel</span>
+        <div class="dep-node dn-infra">SOC2<small>Compliance</small></div>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feature-card" style="border-left: 3px solid #f59e0b;">
+          <span class="fc-badge dn-c4">C4 &middot; ML</span>
+          <div class="fc-id">PRED-1</div>
+          <div class="fc-name">Predictive Analytics Pipeline</div>
+          <div class="fc-desc">Ingest Appello project data, extract features (cost trends, schedule patterns, labor ratios). Train model on historical construction project outcomes. Serve predictions via API with result caching.</div>
+          <div class="fc-meta"><span>Sprints 31&ndash;32</span><span>~4 weeks</span></div>
+          <div class="fc-team"><strong>Team:</strong> NH3, Chris, Corey</div>
+        </div>
+        <div class="feature-card" style="border-left: 3px solid #f59e0b;">
+          <span class="fc-badge dn-c4">C4 &middot; ML</span>
+          <div class="fc-id">ANOM-1</div>
+          <div class="fc-name">Construction Anomaly Detection</div>
+          <div class="fc-desc">Real-time stream processing of timesheet, financial, and scheduling data against trained thresholds. Detects overtime spikes, cost overruns, scheduling conflicts, and missing entries specific to construction patterns.</div>
+          <div class="fc-meta"><span>Sprints 32&ndash;34</span><span>~6 weeks</span><span>Depends: PRED-1</span></div>
+          <div class="fc-team"><strong>Team:</strong> NH3, NH2, Nathan</div>
+        </div>
+        <div class="feature-card">
+          <span class="fc-badge dn-c4">C4 &middot; Frontend</span>
+          <div class="fc-id">ALERT-1</div>
+          <div class="fc-name">Predictive Alert Display</div>
+          <div class="fc-desc">Color-coded project risk indicators, financial warning badges, scheduling conflict highlights. Drill-down views showing underlying data, contributing factors, and recommended actions.</div>
+          <div class="fc-meta"><span>Sprints 32&ndash;33</span><span>~4 weeks</span></div>
+          <div class="fc-team"><strong>Team:</strong> Filip, NH3</div>
+        </div>
+        <div class="feature-card">
+          <span class="fc-badge dn-c4">C4 &middot; Full-Stack</span>
+          <div class="fc-id">MKT-2</div>
+          <div class="fc-name">Marketplace &amp; Partner Framework</div>
+          <div class="fc-desc">Partner onboarding, toolbox submission pipeline, review workflow. API specs for third-party toolbox developers (authentication, data access, submission). Customer self-service browsing and installation.</div>
+          <div class="fc-meta"><span>Sprints 35&ndash;38</span><span>~8 weeks</span></div>
+          <div class="fc-team"><strong>Team:</strong> Chris, Filip, Ian</div>
+        </div>
+        <div class="feature-card">
+          <span class="fc-badge dn-infra">Compliance</span>
+          <div class="fc-id">SOC2-1</div>
+          <div class="fc-name">SOC 2 Type 1 Preparation</div>
+          <div class="fc-desc">Security architecture review against SOC 2 trust service criteria. Evidence collection (access logs, change history, incident reports). Gap remediation. Control testing and final audit preparation.</div>
+          <div class="fc-meta"><span>Sprints 34&ndash;38</span><span>~10 weeks</span></div>
+          <div class="fc-team"><strong>Team:</strong> Travis, Emma Mann, Corey, Ian</div>
+        </div>
+        <div class="feature-card">
+          <span class="fc-badge dn-field">Field Validation</span>
+          <div class="fc-id">FV-2</div>
+          <div class="fc-name">Prediction Validation with Customers</div>
+          <div class="fc-desc">Validate anomaly detection and predictive alerts against real project outcomes from pilot companies. Retrain models on accumulated customer data. Expanded pilot to 5+ companies.</div>
+          <div class="fc-meta"><span>Sprints 32&ndash;37</span><span>~12 weeks</span></div>
+          <div class="fc-team"><strong>Team:</strong> Nathan, Ian</div>
+        </div>
+      </div>
+
+      <div class="capability">
+        <div class="capability-label cap-unlocked">&#9889; Capability Unlocked</div>
+        <p>Appello predicts project risks before they happen: cost overrun alerts, scheduling conflict detection, overtime anomalies. Marketplace live for partner-built toolboxes. SOC 2 Type 1 audit-ready. Predictive models trained on real construction project data from 5+ pilot companies.</p>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- R7: HARDENING & LAUNCH                                 -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="phase-milestone pm-r7" id="r7">
+      <div class="phase-header">
+        <div class="phase-tag tag-r7">R7 &mdash; Dec 2027&ndash;Jan 2028 &mdash; Sprints 39&ndash;42</div>
+        <div class="phase-title">Hardening &amp; Launch</div>
+        <div class="phase-desc">Final hardening across all four components. Production-ready for general availability. Marketplace launch, customer migration, and project closeout.</div>
+        <div class="comp-tags">
+          <span class="comp-tag ct-c1">C1 SDLC Flywheel</span>
+          <span class="comp-tag ct-c2">C2 Spider Testing</span>
+          <span class="comp-tag ct-c3">C3 ATLAS</span>
+          <span class="comp-tag ct-c4">C4 Appello Intelligence</span>
+        </div>
+      </div>
+
+      <div class="dep-flow">
+        <div class="dep-node dn-infra">LOAD<small>Load Testing</small></div>
+        <span class="dep-arrow">&rarr;</span>
+        <div class="dep-node dn-infra">PEN<small>Pen Test Fix</small></div>
+        <span class="dep-arrow">&rarr;</span>
+        <div class="dep-node dn-c4">LAUNCH<small>Marketplace GA</small></div>
+        <span class="dep-arrow">&rarr;</span>
+        <div class="dep-node dn-qa">A11Y<small>Accessibility</small></div>
+        <span class="dep-arrow">&rarr;</span>
+        <div class="dep-node" style="background:#450a0a;color:#fca5a5;">REPORT<small>IRAP Final</small></div>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <span class="fc-badge dn-infra">Infrastructure</span>
+          <div class="fc-id">LOAD-1</div>
+          <div class="fc-name">Full Load Testing</div>
+          <div class="fc-desc">Concurrent users across all components: pipeline throughput, chat WebSocket latency, API response times, database query performance under load.</div>
+          <div class="fc-meta"><span>Sprint 39</span><span>~2 weeks</span></div>
+          <div class="fc-team"><strong>Team:</strong> Travis, Emma Mann</div>
+        </div>
+        <div class="feature-card">
+          <span class="fc-badge dn-infra">Security</span>
+          <div class="fc-id">PEN-1</div>
+          <div class="fc-name">Penetration Test Remediation</div>
+          <div class="fc-desc">Fix remaining security findings from external pen test. Additional input validation, API hardening, rate limit verification.</div>
+          <div class="fc-meta"><span>Sprint 39&ndash;40</span><span>~4 weeks</span></div>
+          <div class="fc-team"><strong>Team:</strong> Travis, Chris</div>
+        </div>
+        <div class="feature-card">
+          <span class="fc-badge dn-c4">C4 &middot; Launch</span>
+          <div class="fc-id">GA-1</div>
+          <div class="fc-name">Marketplace General Availability</div>
+          <div class="fc-desc">Customer self-service toolbox browsing, installation, reviews. Partner integration go-live. Customer migration from pilot to production accounts.</div>
+          <div class="fc-meta"><span>Sprints 40&ndash;41</span><span>~4 weeks</span></div>
+          <div class="fc-team"><strong>Team:</strong> Filip, Chris, Ian</div>
+        </div>
+        <div class="feature-card">
+          <span class="fc-badge dn-qa">QA</span>
+          <div class="fc-id">A11Y-1</div>
+          <div class="fc-name">Accessibility &amp; Polish</div>
+          <div class="fc-desc">All customer-facing interfaces audited for WCAG 2.1 AA compliance. Responsive design verification across viewports. Final regression pass across all 4 components.</div>
+          <div class="fc-meta"><span>Sprints 40&ndash;41</span><span>~4 weeks</span></div>
+          <div class="fc-team"><strong>Team:</strong> Filip, Emma Mann</div>
+        </div>
+        <div class="feature-card">
+          <span class="fc-badge" style="background:#450a0a;color:#fca5a5;">Project Closeout</span>
+          <div class="fc-id">IRAP-1</div>
+          <div class="fc-name">Final IRAP Project Report</div>
+          <div class="fc-desc">Compile full project metrics, outcomes, and lessons learned. Architecture reference document with diagrams and decision records covering all 4 components.</div>
+          <div class="fc-meta"><span>Sprint 42</span><span>~2 weeks</span></div>
+          <div class="fc-team"><strong>Team:</strong> Ian, Corey</div>
+        </div>
+      </div>
+
+      <div class="capability">
+        <div class="capability-label cap-unlocked">&#9889; Capability Unlocked</div>
+        <p>All four components production-ready. AI-powered development pipeline processing real tickets. Spider swarm testing every PR. ATLAS knowledge base serving multi-tenant queries. Appello Intelligence live with embedded chat, predictive analytics, and a toolbox marketplace. SOC 2 compliant. General availability.</p>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- TEAM OVERVIEW                                          -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="phase-milestone pm-team" id="team">
+      <div class="phase-header">
+        <div class="phase-tag tag-team">Project Team</div>
+        <div class="phase-title">10-Person R&amp;D Team</div>
+        <div class="phase-desc">Core team of 7 plus 3 technical hires phased in as the project scales. Four project components map to the team&rsquo;s specializations.</div>
+        <div class="comp-tags">
+          <span class="comp-tag ct-c1">C1 &mdash; SDLC Flywheel</span>
+          <span class="comp-tag ct-c2">C2 &mdash; Spider Testing Swarm</span>
+          <span class="comp-tag ct-c3">C3 &mdash; ATLAS Knowledge Base</span>
+          <span class="comp-tag ct-c4">C4 &mdash; Appello Intelligence (Apex)</span>
+        </div>
+      </div>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="tc-start">Day 1</div>
+          <div class="tc-name">Corey Shelson</div>
+          <div class="tc-role">Co-Founder / AI Architecture Lead</div>
+          <div class="tc-desc">Writes agent code: prompt engineering, orchestration logic, model evaluation. Hands-on building Bug Report, Planning, Development, and Validation agents. Codes prototypes and system architecture.</div>
+        </div>
+        <div class="team-card">
+          <div class="tc-start">Day 1</div>
+          <div class="tc-name">Travis McKenna</div>
+          <div class="tc-role">VP Engineering / DevOps</div>
+          <div class="tc-desc">Builds all infrastructure: AWS provisioning, CI/CD pipelines, Docker test environments, monitoring. Leads security hardening, pen testing, SOC 2 infrastructure controls.</div>
+        </div>
+        <div class="team-card">
+          <div class="tc-start">Day 1</div>
+          <div class="tc-name">Chris Vachon</div>
+          <div class="tc-role">Co-Founder / Backend Lead</div>
+          <div class="tc-desc">Builds backend services: SDLC pipeline APIs, ATLAS vectorization + NL&rarr;SQL, toolbox framework, chat WebSocket backend, marketplace APIs.</div>
+        </div>
+        <div class="team-card">
+          <div class="tc-start">Day 1</div>
+          <div class="tc-name">Ian Haase</div>
+          <div class="tc-role">Co-Founder / Product &amp; Customer</div>
+          <div class="tc-desc">Product owner: defines requirements from real customer needs. Manages pilot customer relationships. Recruits pilot companies, runs feedback sessions, translates findings into dev priorities.</div>
+        </div>
+        <div class="team-card">
+          <div class="tc-start">Day 1</div>
+          <div class="tc-name">Nathan Friesen</div>
+          <div class="tc-role">Construction Domain Specialist</div>
+          <div class="tc-desc">The construction industry expert the AI needs. Collects real job scenarios, bug reports, and terminology that make the AI construction-aware. Validates AI outputs for domain accuracy. Tests with field crews.</div>
+        </div>
+        <div class="team-card">
+          <div class="tc-start">Day 1</div>
+          <div class="tc-name">Emma Mann</div>
+          <div class="tc-role">QA Lead</div>
+          <div class="tc-desc">Builds test infrastructure: Playwright suites, integration tests, security testing. QAs each component as it ships. Collects SOC 2 evidence.</div>
+        </div>
+        <div class="team-card">
+          <div class="tc-start">Day 1</div>
+          <div class="tc-name">Filip Altankov</div>
+          <div class="tc-role">Frontend Lead</div>
+          <div class="tc-desc">Builds all frontend: test results dashboard, customer portal, toolbox UI, embedded chat, marketplace storefront, analytics dashboards. React/Next.js.</div>
+        </div>
+        <div class="team-card">
+          <div class="tc-start">Jun 2026</div>
+          <div class="tc-name">New Hire 1</div>
+          <div class="tc-role">Full-Stack Developer</div>
+          <div class="tc-desc">Pipeline agent development, then chat conversation engine. Full-stack across frontend and backend.</div>
+        </div>
+        <div class="team-card">
+          <div class="tc-start">Jun 2026</div>
+          <div class="tc-name">New Hire 2</div>
+          <div class="tc-role">Technical Developer</div>
+          <div class="tc-desc">Pipeline development, then toolbox implementation and workflow triggers.</div>
+        </div>
+        <div class="team-card">
+          <div class="tc-start">Oct 2026</div>
+          <div class="tc-name">New Hire 3</div>
+          <div class="tc-role">AI/ML Engineer</div>
+          <div class="tc-desc">ML model fine-tuning on construction data, playbook optimization, predictive analytics model training, anomaly detection.</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /timeline -->
+
+  <div class="footer">
+    Appello IRAP &middot; AI-Powered Development &amp; Customer Intelligence Platform &middot; Apr 2026 &ndash; Jan 2028 &middot; NRC-IRAP Project Plan
+  </div>
+
+</div>
+</body>
+</html>

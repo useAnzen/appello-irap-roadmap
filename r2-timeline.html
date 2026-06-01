@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>R2 Timeline — Planning & Development Agents</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: #0f172a; color: #f8fafc; min-height: 100vh; }
+  .top-nav { position: sticky; top: 0; z-index: 100; background: #0f172a; border-bottom: 1px solid #1e293b; padding: 0 24px; display: flex; align-items: center; gap: 0; overflow-x: auto; }
+  .top-nav a { display: inline-flex; align-items: center; padding: 12px 18px; font-size: 13px; font-weight: 600; color: #94a3b8; text-decoration: none; border-bottom: 2px solid transparent; transition: all 0.15s; white-space: nowrap; }
+  .top-nav a:hover { color: #f8fafc; background: #1e293b; }
+  .top-nav a.active { color: #f8fafc; border-bottom-color: #f8fafc; }
+  .top-nav .nav-logo { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #475569; padding-right: 18px; margin-right: 4px; border-right: 1px solid #1e293b; flex-shrink: 0; }
+  .page { max-width: 1060px; margin: 0 auto; padding: 60px 24px 80px; }
+  .logo { font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #94a3b8; margin-bottom: 32px; }
+  h1 { font-size: 36px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 16px; }
+  h1 span { background: linear-gradient(135deg, #3b82f6, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .subtitle { font-size: 17px; color: #94a3b8; line-height: 1.6; max-width: 720px; margin-bottom: 48px; }
+  .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #60a5fa; text-decoration: none; margin-bottom: 24px; }
+  .back-link:hover { color: #93c5fd; }
+
+  .timeline { position: relative; padding-left: 48px; }
+  .timeline::before { content: ''; position: absolute; left: 18px; top: 0; bottom: 0; width: 3px; background: linear-gradient(180deg, #3b82f6, #fbbf24); border-radius: 2px; }
+
+  .item { position: relative; margin-bottom: 48px; scroll-margin-top: 80px; }
+  .item::before { content: ''; position: absolute; left: -38px; top: 8px; width: 20px; height: 20px; border-radius: 50%; border: 3px solid #3b82f6; background: #1e3a5f; z-index: 2; }
+  .item-atlas::before { border-color: #fbbf24; background: #451a03; }
+
+  .item-header { margin-bottom: 16px; }
+  .item-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 4px 12px; border-radius: 4px; margin-bottom: 8px; }
+  .tag-agent { background: #1e3a5f; color: #60a5fa; }
+  .tag-integration { background: #1e3a5f; color: #60a5fa; }
+  .tag-atlas { background: #451a03; color: #fbbf24; }
+  .tag-ml { background: #451a03; color: #fbbf24; }
+  .item-title { font-size: 22px; font-weight: 700; color: #f8fafc; margin-bottom: 6px; }
+  .item-meta { display: flex; gap: 16px; font-size: 12px; color: #64748b; flex-wrap: wrap; margin-bottom: 6px; }
+  .item-desc { font-size: 14px; color: #94a3b8; line-height: 1.6; max-width: 800px; }
+
+  .section { background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 20px 24px; margin-bottom: 12px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; }
+  .st-blue { color: #60a5fa; }
+  .st-green { color: #34d399; }
+  .st-amber { color: #fbbf24; }
+  .st-purple { color: #c4b5fd; }
+  .st-pink { color: #f472b6; }
+
+  .task-list { list-style: none; padding: 0; }
+  .task-list li { position: relative; padding: 6px 0 6px 20px; font-size: 13px; color: #cbd5e1; line-height: 1.5; }
+  .task-list li::before { content: ''; position: absolute; left: 0; top: 13px; width: 8px; height: 8px; border-radius: 2px; background: #334155; border: 1px solid #475569; }
+  .task-list li strong { color: #f8fafc; }
+  .task-list li code { font-family: 'SF Mono', monospace; font-size: 11px; background: #0f172a; padding: 1px 6px; border-radius: 3px; color: #60a5fa; }
+
+  .ac-list { list-style: none; padding: 0; }
+  .ac-list li { padding: 4px 0 4px 20px; font-size: 13px; color: #94a3b8; line-height: 1.5; position: relative; }
+  .ac-list li::before { content: '✓'; position: absolute; left: 2px; color: #34d399; font-weight: 700; font-size: 12px; }
+
+  .risk-list { list-style: none; padding: 0; }
+  .risk-list li { padding: 4px 0 4px 20px; font-size: 13px; color: #94a3b8; line-height: 1.5; position: relative; }
+  .risk-list li::before { content: '⚠'; position: absolute; left: 2px; font-size: 12px; }
+
+  .dep-flow { display: flex; align-items: center; gap: 0; flex-wrap: wrap; margin: 16px 0 12px; padding: 14px 18px; background: #1e293b; border-radius: 10px; border: 1px solid #334155; overflow-x: auto; }
+  .dep-node { padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 700; white-space: nowrap; text-align: center; line-height: 1.3; cursor: pointer; }
+  .dep-node:hover { transform: scale(1.05); box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+  .dep-node small { display: block; font-weight: 500; font-size: 10px; opacity: 0.7; }
+  .dep-arrow { color: #475569; font-size: 16px; padding: 0 4px; flex-shrink: 0; }
+  .dep-bracket { color: #475569; font-size: 10px; font-weight: 600; padding: 0 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .dn-c1 { background: #1e3a5f; color: #60a5fa; }
+  .dn-c3 { background: #451a03; color: #fbbf24; }
+  .dn-done { background: #166534; color: #4ade80; }
+
+  .example-box { background: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 14px 18px; margin-top: 12px; }
+  .example-box .ex-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #475569; margin-bottom: 6px; }
+  .example-box .ex-title { font-size: 13px; font-weight: 600; color: #f8fafc; margin-bottom: 4px; }
+  .example-box .ex-desc { font-size: 12px; color: #94a3b8; line-height: 1.4; }
+  .example-box code { font-family: 'SF Mono', monospace; font-size: 11px; background: #1e293b; padding: 1px 6px; border-radius: 3px; color: #60a5fa; }
+
+  .footer { text-align: center; padding: 32px 0; font-size: 12px; color: #475569; border-top: 1px solid #1e293b; margin-top: 24px; }
+  .footer a { color: #3b82f6; text-decoration: none; }
+
+  @media (max-width: 768px) {
+    .timeline { padding-left: 32px; }
+    .item::before { left: -22px; width: 16px; height: 16px; }
+    .timeline::before { left: 12px; }
+  }
+</style>
+</head>
+<body>
+<nav class="top-nav">
+    <span class="nav-logo">Appello IRAP</span>
+    <a href="appello-irap-roadmap.html">Roadmap</a>
+    <a href="appello-irap-roadmap.html#r1">R1 Foundation</a>
+    <a href="#" class="active">R2 Pipeline</a>
+    <a href="appello-irap-roadmap.html#r3">R3 Spider</a>
+    <a href="appello-irap-roadmap.html#r4">R4 Apex MVP</a>
+    <a href="appello-irap-roadmap.html#r5">R5 Chat</a>
+    <a href="appello-irap-roadmap.html#r6">R6 Analytics</a>
+    <a href="appello-irap-roadmap.html#r7">R7 Launch</a>
+</nav>
+<div class="page">
+
+  <a class="back-link" href="appello-irap-roadmap.html#r2">&larr; Back to Roadmap</a>
+  <div class="logo">Release 2 &mdash; Jul&ndash;Sep 2026</div>
+  <h1>Planning &amp; <span>Development Agents</span></h1>
+  <p class="subtitle">Close the loop from bug report &rarr; AI plan &rarr; AI code &rarr; automated review. Ship the full SDLC pipeline on the Appello codebase. Begin ATLAS vectorization of the MySQL schema for natural language querying.</p>
+
+  <div class="dep-flow">
+    <a class="dep-node dn-done" href="appello-irap-roadmap.html#r1" style="text-decoration:none;color:inherit;">R1<small>Bug Report Agent</small></a>
+    <span class="dep-arrow">&rarr;</span>
+    <a class="dep-node dn-c1" href="#item-PA-1" style="text-decoration:none;color:inherit;">PA-1<small>Planning Agent</small></a>
+    <span class="dep-arrow">&rarr;</span>
+    <a class="dep-node dn-c1" href="#item-DA-1" style="text-decoration:none;color:inherit;">DA-1<small>Dev Agent</small></a>
+    <span class="dep-arrow">&rarr;</span>
+    <a class="dep-node dn-c1" href="#item-VA-1" style="text-decoration:none;color:inherit;">VA-1<small>Validation Agent</small></a>
+    <span class="dep-arrow">&rarr;</span>
+    <a class="dep-node dn-c1" href="#item-E2E-1" style="text-decoration:none;color:inherit;">E2E<small>End-to-End</small></a>
+    <span class="dep-bracket">+ parallel</span>
+    <a class="dep-node dn-c3" href="#item-ATLAS-2" style="text-decoration:none;color:inherit;">ATLAS-2<small>MySQL Vectors</small></a>
+    <span class="dep-arrow">&rarr;</span>
+    <a class="dep-node dn-c3" href="#item-NL2SQL-1" style="text-decoration:none;color:inherit;">NL2SQL<small>NL&rarr;SQL</small></a>
+  </div>
+
+  <div class="timeline">
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- PA-1: PLANNING AGENT                                    -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="item" id="item-PA-1">
+      <div class="item-header">
+        <div class="item-tag tag-agent">C1 &middot; SDLC Flywheel &middot; Agent</div>
+        <div class="item-title">PA-1 &mdash; Planning Agent</div>
+        <div class="item-meta">
+          <span>Sprints 5&ndash;6 &middot; Jul 2026</span>
+          <span>~4 weeks</span>
+          <span>Depends: BRA-1 (R1)</span>
+          <span>Team: Corey, NH1, NH2</span>
+        </div>
+        <div class="item-desc">Takes a Jira ticket and the Appello codebase AST, produces an ordered subtask list with target file paths, acceptance criteria, and estimated complexity. This is the &ldquo;Planner&rdquo; micro-agent from the Flywheel 2.0 multi-agent architecture.</div>
+      </div>
+
+      <div class="section" id="item-PA-1-plan">
+        <div class="section-title st-blue">Implementation Plan</div>
+        <ul class="task-list">
+          <li><strong>Week 1: Ticket ingestion &amp; codebase parsing</strong> &mdash; Build the Jira ticket reader that extracts summary, description, acceptance criteria, and linked issues via Jira API. Parse Appello monorepo structure (TypeScript/React/Express/Prisma) into an AST representation the agent can reason over.</li>
+          <li><strong>Week 1: Context retrieval from ATLAS</strong> &mdash; Query the Supabase vector store (1000-token chunks, 1536-dim embeddings) for related meeting transcripts, prior tickets, and architecture decisions relevant to the ticket.</li>
+          <li><strong>Week 2: Subtask decomposition engine</strong> &mdash; Implement the master plan &rarr; sub-plan pattern (from Corey&rsquo;s Flywheel 2.0 workflow): ticket &rarr; ordered subtask list with target file paths, change description, and complexity estimate per subtask.</li>
+          <li><strong>Week 3: Plan audit step</strong> &mdash; Build the self-audit layer: after generating a plan, the agent reviews its own output for completeness, circular dependencies, and missing edge cases. Flags items for human review when confidence is below threshold.</li>
+          <li><strong>Week 4: Validation against real tickets</strong> &mdash; Run against 15 real construction-domain Jira tickets (e.g., timesheet bugs, financial summary errors, equipment form issues). Compare AI-generated plans to the actual developer-written plans for those tickets. Score for completeness and accuracy.</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title st-green">Acceptance Criteria</div>
+        <ul class="ac-list">
+          <li>Reads any Q21030 Jira ticket via API and extracts structured fields</li>
+          <li>Produces ordered subtask list with file paths referencing real Appello monorepo files</li>
+          <li>Each subtask includes: target file(s), change description, acceptance criteria, complexity (S/M/L)</li>
+          <li>Self-audit step catches &ge;80% of missing edge cases (measured against human review)</li>
+          <li>Validated against 15 real tickets with &ge;70% plan accuracy vs. human baseline</li>
+          <li>Execution time &lt;120 seconds per ticket; cost &lt;$2.00 per plan (model routing: Haiku for parsing, Sonnet for reasoning)</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title st-purple">Architecture</div>
+        <div class="item-desc">Runs within the Catalyst/Agent C2 orchestration platform with 15 connected tools (Jira, GitHub, Slack, Supabase). Uses model auto-routing: Claude 3 Haiku for ticket parsing and simple lookups, GPT-4o/Claude Sonnet for complex reasoning and plan generation. Context window managed by chunking the Appello monorepo into per-module summaries.</div>
+        <div class="example-box">
+          <div class="ex-label">Data Flow</div>
+          <div class="ex-desc">
+            <code>Jira Ticket</code> &rarr; <code>Ticket Parser</code> &rarr; <code>ATLAS Context Retrieval</code> &rarr; <code>Codebase AST Loader</code> &rarr; <code>Plan Generator (LLM)</code> &rarr; <code>Self-Audit (LLM)</code> &rarr; <code>Subtask JSON Output</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title st-pink">Risks &amp; Mitigations</div>
+        <ul class="risk-list">
+          <li>Appello monorepo is large (~resource-intensive to parse). Mitigation: Pre-index module boundaries; only load relevant modules per ticket.</li>
+          <li>Plan quality degrades for cross-cutting tickets. Mitigation: Self-audit step + human-in-the-loop checkpoint for L-complexity plans.</li>
+        </ul>
+      </div>
+
+      <div class="example-box">
+        <div class="ex-label">Real Ticket Example &mdash; Q21030-7231</div>
+        <div class="ex-title">Missing Numbers in Financial Summary and Loading Indicator Issue</div>
+        <div class="ex-desc">Reported for Chase McCabe&rsquo;s approved timesheet &mdash; financial summary not displaying travel details. Planning Agent would decompose into: (1) fix <code>FinancialSummary</code> roll-up query for travel records, (2) add loading indicator to travel details table, (3) optimize travel table query performance.</div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- DA-1: DEVELOPMENT AGENT                                 -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="item" id="item-DA-1">
+      <div class="item-header">
+        <div class="item-tag tag-agent">C1 &middot; SDLC Flywheel &middot; Agent</div>
+        <div class="item-title">DA-1 &mdash; Development Agent v1</div>
+        <div class="item-meta">
+          <span>Sprints 6&ndash;7 &middot; Jul&ndash;Aug 2026</span>
+          <span>~4 weeks</span>
+          <span>Depends: PA-1</span>
+          <span>Team: Corey, NH1, NH2</span>
+        </div>
+        <div class="item-desc">Takes a Planning Agent subtask, generates TypeScript/React code changes targeting the correct files in the Appello monorepo. Outputs as a PR-ready diff. This is the &ldquo;Builder&rdquo; micro-agent &mdash; it writes code, runs type checks, writes tests, ensures tests pass, runs the formatter, and creates a formatted PR.</div>
+      </div>
+
+      <div class="section" id="item-DA-1-plan">
+        <div class="section-title st-blue">Implementation Plan</div>
+        <ul class="task-list">
+          <li><strong>Week 1: Subtask &rarr; code generation pipeline</strong> &mdash; Accept PA-1 subtask JSON, load target file(s) from Appello monorepo, generate code diff using LLM with full file context. Handle TypeScript, React components, Prisma schema changes, and GraphQL resolver updates.</li>
+          <li><strong>Week 1: Appello coding conventions</strong> &mdash; Train on Appello patterns: Turbo Repo structure, PNPM workspace layout, Next.js 13 app router conventions, Tailwind CSS utility classes, Apollo Server GraphQL patterns. Embed conventions as system prompt context.</li>
+          <li><strong>Week 2: Build &rarr; validate loop</strong> &mdash; After generating code: run <code>tsc --noEmit</code> (TypeScript compiler), <code>eslint</code>, <code>prettier --check</code>. If failures, feed errors back to LLM for self-correction (max 3 retry cycles).</li>
+          <li><strong>Week 3: Test generation</strong> &mdash; Auto-generate Playwright tests for UI changes, Jest unit tests for API/service changes. Run generated tests against the code diff. If tests fail, iterate on both code and tests.</li>
+          <li><strong>Week 4: PR formatting &amp; output</strong> &mdash; Generate clean git diff, create GitHub PR with structured description (linked Jira ticket, change summary, test results, files modified). Apply Appello&rsquo;s PR conventions: branch name = ticket number, PR title = ticket summary.</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title st-green">Acceptance Criteria</div>
+        <ul class="ac-list">
+          <li>Generates syntactically valid TypeScript/React code targeting correct Appello monorepo files</li>
+          <li>Self-correction loop resolves &ge;90% of <code>tsc</code> and ESLint errors within 3 retries</li>
+          <li>Auto-generates at least 1 relevant test per subtask (Playwright for UI, Jest for API)</li>
+          <li>Creates well-formatted GitHub PR following Appello conventions</li>
+          <li>End-to-end time from subtask to PR &lt;15 minutes; cost &lt;$8.00 per subtask</li>
+          <li>Human code review required before merge (human-in-the-loop checkpoint)</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title st-purple">Architecture</div>
+        <div class="item-desc">Builds on the Catalyst platform&rsquo;s GitHub integration. The agent operates in a sandboxed git worktree per subtask, preventing cross-contamination between concurrent tasks. Uses the same model routing as PA-1 but biases toward higher-capability models (GPT-4o / Claude Sonnet) for code generation, with Haiku handling the type-check/lint/format feedback loop.</div>
+        <div class="example-box">
+          <div class="ex-label">Data Flow</div>
+          <div class="ex-desc">
+            <code>PA-1 Subtask</code> &rarr; <code>File Loader</code> &rarr; <code>Code Generator (LLM)</code> &rarr; <code>tsc + ESLint + Prettier</code> &rarr; <code>Self-Correct Loop</code> &rarr; <code>Test Generator</code> &rarr; <code>Test Runner</code> &rarr; <code>PR Creator (GitHub API)</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title st-pink">Risks &amp; Mitigations</div>
+        <ul class="risk-list">
+          <li>Generated code may compile but be semantically wrong. Mitigation: Human-in-the-loop review is mandatory; Validation Agent (VA-1) adds automated semantic checks.</li>
+          <li>Cost per subtask may exceed budget with large file contexts. Mitigation: Model routing + context windowing; only load files within 2 hops of the target.</li>
+          <li>Retry loops can be expensive. Mitigation: Cap at 3 retries; escalate to human with error context if unresolved.</li>
+        </ul>
+      </div>
+
+      <div class="example-box">
+        <div class="ex-label">Prior Art &mdash; March 2026 Bug Fix Demo</div>
+        <div class="ex-title">&ldquo;Two edit pencils on RFI detail page&rdquo;</div>
+        <div class="ex-desc">The SDLC Bug Fix Workflow successfully ran on this live bug, creating a PR for review (March 23 demo). DA-1 formalizes and hardens this pattern: the demo ran in 778 seconds at $5.76; DA-1 targets &lt;15 min at &lt;$8.00 with the full build/test/format pipeline added.</div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- VA-1: VALIDATION AGENT                                  -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="item" id="item-VA-1">
+      <div class="item-header">
+        <div class="item-tag tag-agent">C1 &middot; SDLC Flywheel &middot; Agent</div>
+        <div class="item-title">VA-1 &mdash; Validation Agent</div>
+        <div class="item-meta">
+          <span>Sprints 7&ndash;8 &middot; Aug 2026</span>
+          <span>~4 weeks</span>
+          <span>Depends: DA-1</span>
+          <span>Team: Corey, NH1, Emma Mann</span>
+        </div>
+        <div class="item-desc">Receives AI-generated PRs, runs static analysis + existing Playwright test suites + Appello-specific coding pattern checks. Returns a quality score and blocks merge if below threshold. This is the &ldquo;Auditor&rdquo; and &ldquo;Tester&rdquo; micro-agents combined.</div>
+      </div>
+
+      <div class="section" id="item-VA-1-plan">
+        <div class="section-title st-blue">Implementation Plan</div>
+        <ul class="task-list">
+          <li><strong>Week 1: Static analysis pipeline</strong> &mdash; Run <code>tsc --noEmit</code>, ESLint with Appello config, Prettier check on every AI-generated PR. Aggregate results into structured report. Integrate with existing GitHub Actions CI.</li>
+          <li><strong>Week 1: Appello pattern checks</strong> &mdash; Custom lint rules for Appello-specific patterns: Prisma schema conventions, GraphQL resolver structure, React component patterns (hooks usage, Tailwind classes), Next.js app router conventions.</li>
+          <li><strong>Week 2: Existing test suite execution</strong> &mdash; Run the existing Playwright test suite against the PR branch in a Docker Compose environment. Parse results, identify regressions vs. pre-existing failures.</li>
+          <li><strong>Week 3: Quality scoring model</strong> &mdash; Composite score from: type safety (0-25), lint cleanliness (0-25), test pass rate (0-25), pattern compliance (0-25). Configurable threshold (default: 70/100) for merge gate. Score card stored for agent self-improvement (Flywheel feedback loop).</li>
+          <li><strong>Week 4: Merge gate &amp; feedback</strong> &mdash; GitHub status check integration: block merge if below threshold. Generate structured feedback for DA-1 to retry. Human override available for edge cases. Dashboard for tracking quality trends over time.</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title st-green">Acceptance Criteria</div>
+        <ul class="ac-list">
+          <li>Runs full static analysis pipeline on every AI-generated PR in &lt;5 minutes</li>
+          <li>Executes existing Playwright suite and correctly identifies regressions (not pre-existing failures)</li>
+          <li>Produces composite quality score (0-100) with per-category breakdown</li>
+          <li>Blocks GitHub merge for PRs below configurable threshold</li>
+          <li>Generates actionable feedback that DA-1 can consume for self-correction</li>
+          <li>Score cards stored in pipeline tracking schema (SDLC-DB) for Flywheel self-improvement</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title st-purple">Architecture</div>
+        <div class="item-desc">Integrates with GitHub via webhooks (PR opened/updated events). Spins up a Docker Compose test environment per PR (reusing Travis&rsquo;s existing CI infrastructure). Leverages existing AI code review tools already in use at Appello: Cursor BugBot and Claude for business logic review, plus the new quality scoring model for automated gating.</div>
+        <div class="example-box">
+          <div class="ex-label">Data Flow</div>
+          <div class="ex-desc">
+            <code>GitHub PR Webhook</code> &rarr; <code>Checkout Branch</code> &rarr; <code>Static Analysis (tsc + ESLint + Prettier)</code> &rarr; <code>Docker Test Env</code> &rarr; <code>Playwright Suite</code> &rarr; <code>Quality Score Calculator</code> &rarr; <code>GitHub Status Check</code> + <code>Score Card &rarr; SDLC-DB</code>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- E2E-1: END-TO-END PIPELINE                              -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="item" id="item-E2E-1">
+      <div class="item-header">
+        <div class="item-tag tag-integration">C1 &middot; SDLC Flywheel &middot; Integration</div>
+        <div class="item-title">E2E-1 &mdash; End-to-End Pipeline</div>
+        <div class="item-meta">
+          <span>Sprints 8&ndash;10 &middot; Aug&ndash;Sep 2026</span>
+          <span>~6 weeks</span>
+          <span>Depends: VA-1</span>
+          <span>Team: Corey, Chris, Travis, NH1, NH2</span>
+        </div>
+        <div class="item-desc">Wire the full pipeline: Jira ticket &rarr; Bug Report Agent &rarr; Planning Agent &rarr; Development Agent &rarr; Validation Agent &rarr; PR. Stage transition logic, status tracking, error handling, and the Flywheel feedback loop (score cards drive agent self-improvement).</div>
+      </div>
+
+      <div class="section" id="item-E2E-1-plan">
+        <div class="section-title st-blue">Implementation Plan</div>
+        <ul class="task-list">
+          <li><strong>Weeks 1&ndash;2: Orchestrator agent</strong> &mdash; Build the orchestrator that manages the pipeline sequence: BRA-1 &rarr; PA-1 &rarr; DA-1 &rarr; VA-1. Implements the Flywheel patterns: heartbeat (cron trigger), scarcity (limited tasks per cycle), stage transition logic. Runs within Catalyst/Agent C2 with all 15 connected tools.</li>
+          <li><strong>Week 2: Error handling &amp; retry strategies</strong> &mdash; Five retry modes: immediate retry, exponential backoff, skip-and-continue, escalate-to-human, abort-pipeline. Each agent failure type maps to a specific retry strategy. Dead letter queue for unrecoverable failures.</li>
+          <li><strong>Weeks 3&ndash;4: Status tracking &amp; observability</strong> &mdash; Each pipeline run tracked in SDLC-DB (8 tables from R1). Real-time status: queued &rarr; planning &rarr; developing &rarr; validating &rarr; awaiting-review &rarr; merged/rejected. Structured logging with cost tracking per stage.</li>
+          <li><strong>Week 4: Human-in-the-loop checkpoints</strong> &mdash; Two mandatory checkpoints: (1) after Planning Agent produces the plan, (2) after Validation Agent scores the PR. Slack notifications to the assigned reviewer. Configurable auto-approve for high-confidence, low-complexity tickets.</li>
+          <li><strong>Weeks 5&ndash;6: Flywheel feedback loop</strong> &mdash; Score cards from VA-1 feed back into agent improvement. Track: plan accuracy over time, code quality trends, cost per ticket, time per stage. Self-healing: agents can create tickets for themselves when they identify patterns of failure.</li>
+          <li><strong>Week 6: Load testing &amp; cost optimization</strong> &mdash; Run 50 tickets through the full pipeline. Measure throughput, identify bottlenecks, optimize model routing for cost. Target: 10 tickets/day throughput at &lt;$15/ticket average.</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title st-green">Acceptance Criteria</div>
+        <ul class="ac-list">
+          <li>Full pipeline runs autonomously from Jira ticket to GitHub PR with two human checkpoints</li>
+          <li>All five error handling strategies implemented and tested</li>
+          <li>Pipeline status visible in real-time via SDLC-DB queries</li>
+          <li>Cost tracking per stage and per ticket with monthly reporting</li>
+          <li>Flywheel feedback loop: quality scores trend upward over 50-ticket run</li>
+          <li>Throughput: &ge;10 tickets/day; average cost &lt;$15/ticket</li>
+          <li>Slack notifications for human checkpoints delivered within 30 seconds</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title st-purple">Architecture</div>
+        <div class="item-desc">The orchestrator is the central coordinator of the Flywheel 2.0 multi-agent system. It manages a swarm of specialized micro-agents (Planner, Builder, Auditor/Tester, Bug Fixer) with the human developer as &ldquo;commander.&rdquo; Built on the Catalyst platform with Jira, GitHub, Slack, and Supabase integrations. Pipeline state stored in the SDLC-DB schema deployed in R1.</div>
+        <div class="example-box">
+          <div class="ex-label">Full Pipeline Flow</div>
+          <div class="ex-desc" style="line-height: 2;">
+            <code>Jira Ticket</code> &rarr; <code>BRA-1 (Bug Report)</code> &rarr; <code>PA-1 (Plan)</code> &rarr; <strong style="color:#fbbf24;">Human Checkpoint 1</strong> &rarr; <code>DA-1 (Code)</code> &rarr; <code>VA-1 (Validate)</code> &rarr; <strong style="color:#fbbf24;">Human Checkpoint 2</strong> &rarr; <code>GitHub PR Merge</code> &rarr; <code>Score Card &rarr; Flywheel</code>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- ATLAS-2: MYSQL SCHEMA VECTORIZATION                     -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="item item-atlas" id="item-ATLAS-2">
+      <div class="item-header">
+        <div class="item-tag tag-atlas">C3 &middot; ATLAS Knowledge Base &middot; Backend</div>
+        <div class="item-title">ATLAS-2 &mdash; MySQL Schema Vectorization</div>
+        <div class="item-meta">
+          <span>Sprints 6&ndash;9 &middot; Jul&ndash;Sep 2026</span>
+          <span>~8 weeks</span>
+          <span>Depends: ATLAS-1 (R1)</span>
+          <span>Team: Chris</span>
+        </div>
+        <div class="item-desc">Vectorize Appello&rsquo;s ~200-table MySQL schema into ATLAS. Every table definition, column, relationship, and business logic annotation becomes queryable via semantic search &mdash; enabling NL&rarr;SQL in the next phase.</div>
+      </div>
+
+      <div class="section" id="item-ATLAS-2-plan">
+        <div class="section-title st-amber">Implementation Plan</div>
+        <ul class="task-list">
+          <li><strong>Weeks 1&ndash;2: Schema extraction pipeline</strong> &mdash; Read Appello&rsquo;s <code>schema.prisma</code> file (source of truth, located at <code>apps/api/prisma</code>). Extract all models, fields, types, relations, and enums. Generate human-readable descriptions of each table&rsquo;s purpose and relationships.</li>
+          <li><strong>Weeks 2&ndash;3: Business logic annotation</strong> &mdash; Enrich schema with business context from ATLAS meeting transcripts and internal docs. Example: the <code>TradeLevelRate</code> model isn&rsquo;t just &ldquo;a rate table&rdquo; &mdash; it&rsquo;s the billable rate for a specific trade level in an employee agreement, used for labor invoicing.</li>
+          <li><strong>Weeks 3&ndash;4: Vectorization into Supabase</strong> &mdash; Chunk schema descriptions into 1000-token segments (matching existing ATLAS format). Generate 1536-dimension embeddings via OpenAI embedding model. Store in Supabase pgvector alongside existing meeting/document vectors.</li>
+          <li><strong>Weeks 5&ndash;6: Cross-reference layer</strong> &mdash; Link schema vectors to related meeting transcripts and Jira tickets already in ATLAS. When querying about a table, retrieval also surfaces relevant conversations about that feature.</li>
+          <li><strong>Weeks 7&ndash;8: Validation &amp; query testing</strong> &mdash; Test semantic search accuracy: &ldquo;which table stores employee billable rates?&rdquo; should return <code>TradeLevelRate</code>. Validate against 100 natural language questions about Appello&rsquo;s data model.</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title st-green">Acceptance Criteria</div>
+        <ul class="ac-list">
+          <li>All ~200 Prisma models vectorized with human-readable descriptions</li>
+          <li>Business logic annotations for top 50 most-queried tables (based on customer ticket frequency)</li>
+          <li>Semantic search returns correct table for &ge;85% of natural language queries</li>
+          <li>Cross-references link schema vectors to relevant meeting transcripts and tickets</li>
+          <li>Vector store query latency &lt;3 seconds (matching existing ATLAS performance)</li>
+          <li>Incremental update pipeline: new Prisma migrations auto-vectorize within 24 hours</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title st-purple">Architecture</div>
+        <div class="item-desc">Extends the existing ATLAS infrastructure (Supabase Postgres with pgvector, 729+ transcripts already vectorized). Schema vectors live in the same vector store but with a <code>source_type = 'schema'</code> tag for filtered retrieval. Uses the same 1000-token / 1536-dimension format as meeting transcripts, ensuring cross-referencing works seamlessly.</div>
+        <div class="example-box">
+          <div class="ex-label">Current ATLAS Stats</div>
+          <div class="ex-desc">729+ Fathom transcripts &middot; HubSpot ticket context &middot; Jira lifecycle data &middot; Strategic documents &middot; Simple queries: 20-25s &middot; Complex analysis: 25-35s</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- NL2SQL-1: NATURAL LANGUAGE TO SQL                       -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="item item-atlas" id="item-NL2SQL-1">
+      <div class="item-header">
+        <div class="item-tag tag-ml">C3 &middot; ATLAS Knowledge Base &middot; ML</div>
+        <div class="item-title">NL2SQL-1 &mdash; Natural Language &rarr; SQL Prototype</div>
+        <div class="item-meta">
+          <span>Sprints 9&ndash;10 &middot; Sep 2026</span>
+          <span>~4 weeks</span>
+          <span>Depends: ATLAS-2</span>
+          <span>Team: Chris, Nathan</span>
+        </div>
+        <div class="item-desc">Natural language queries against Appello production data. &ldquo;Show me all jobs over budget this month&rdquo; &rarr; correct SQL &rarr; formatted result. This is the foundation for the customer-facing AI toolboxes in R4.</div>
+      </div>
+
+      <div class="section" id="item-NL2SQL-1-plan">
+        <div class="section-title st-amber">Implementation Plan</div>
+        <ul class="task-list">
+          <li><strong>Week 1: Query intent classification</strong> &mdash; Classify incoming natural language into query type: financial (jobs, budgets, costs), labor (timesheets, crews, hours), scheduling (dates, deadlines), equipment (usage, maintenance), materials (consumption, POs). Route to appropriate schema context from ATLAS-2.</li>
+          <li><strong>Week 1: SQL generation pipeline</strong> &mdash; Use ATLAS-2 schema vectors to identify relevant tables/columns. Feed table context + user question to LLM. Output: syntactically valid MySQL query. Validate against Appello&rsquo;s schema before execution.</li>
+          <li><strong>Week 2: Safety &amp; guardrails</strong> &mdash; Read-only query enforcement (SELECT only, no mutations). Per-tenant data isolation (WHERE clause injection for customer ID). Query timeout limits. Result set size caps. Sensitive column masking (e.g., salary, SIN).</li>
+          <li><strong>Week 3: Result formatting</strong> &mdash; Transform raw SQL results into human-readable responses. Tables for list data, summaries for aggregations, charts descriptions for trends. Construction-specific formatting (e.g., currency for costs, hours for labor).</li>
+          <li><strong>Week 4: Validation with construction queries</strong> &mdash; Nathan provides 50 questions a construction PM, foreman, or bookkeeper would actually ask. Test each: NL &rarr; SQL &rarr; result &rarr; human verification. Target: &ge;80% correct answers on first attempt.</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title st-green">Acceptance Criteria</div>
+        <ul class="ac-list">
+          <li>Correctly generates MySQL queries for &ge;80% of 50 construction-specific test questions</li>
+          <li>All queries are read-only with per-tenant data isolation enforced</li>
+          <li>Query execution time &lt;10 seconds including LLM processing</li>
+          <li>Results formatted in human-readable language appropriate to construction domain</li>
+          <li>Graceful handling of ambiguous queries (asks for clarification rather than guessing)</li>
+          <li>Cost per query &lt;$0.50 (model routing: Haiku for classification, Sonnet for SQL generation)</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title st-purple">Architecture</div>
+        <div class="item-desc">Two-stage LLM pipeline: (1) query ATLAS-2 vectors to identify relevant schema context, (2) feed schema context + user question to code-generation model for SQL output. Queries execute against a read-replica of the customer&rsquo;s MySQL database (DigitalOcean isolated container). Results never cross tenant boundaries.</div>
+        <div class="example-box">
+          <div class="ex-label">Example Queries Nathan Will Validate</div>
+          <div class="ex-desc" style="line-height: 2;">
+            &ldquo;Show me all jobs over budget this month&rdquo;<br>
+            &ldquo;Which crew logged the most overtime last week?&rdquo;<br>
+            &ldquo;What&rsquo;s the total material cost for the Vanos Riverview project?&rdquo;<br>
+            &ldquo;List all timesheets pending approval for more than 3 days&rdquo;<br>
+            &ldquo;Compare actual vs. budgeted labor hours for Q3&rdquo;
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /timeline -->
+
+  <div class="footer">
+    Appello IRAP &middot; R2: Planning &amp; Development Agents &middot; Jul&ndash;Sep 2026 &middot; <a href="appello-irap-roadmap.html">Back to Roadmap</a>
+  </div>
+
+</div>
+</body>
+</html>

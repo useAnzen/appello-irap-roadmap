@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>R1 Timeline — Foundation & First Agent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: #0f172a; color: #f8fafc; min-height: 100vh; }
+  .top-nav { position: sticky; top: 0; z-index: 100; background: #0f172a; border-bottom: 1px solid #1e293b; padding: 0 24px; display: flex; align-items: center; gap: 0; overflow-x: auto; }
+  .top-nav a { display: inline-flex; align-items: center; padding: 12px 18px; font-size: 13px; font-weight: 600; color: #94a3b8; text-decoration: none; border-bottom: 2px solid transparent; transition: all 0.15s; white-space: nowrap; }
+  .top-nav a:hover { color: #f8fafc; background: #1e293b; }
+  .top-nav a.active { color: #f8fafc; border-bottom-color: #f8fafc; }
+  .top-nav .nav-logo { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #475569; padding-right: 18px; margin-right: 4px; border-right: 1px solid #1e293b; flex-shrink: 0; }
+  .page { max-width: 1060px; margin: 0 auto; padding: 60px 24px 80px; }
+  .logo { font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #94a3b8; margin-bottom: 32px; }
+  h1 { font-size: 36px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 16px; }
+  h1 span { background: linear-gradient(135deg, #22c55e, #4ade80); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .subtitle { font-size: 17px; color: #94a3b8; line-height: 1.6; max-width: 720px; margin-bottom: 48px; }
+  .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #60a5fa; text-decoration: none; margin-bottom: 24px; }
+  .back-link:hover { color: #93c5fd; }
+
+  .timeline { position: relative; padding-left: 48px; }
+  .timeline::before { content: ''; position: absolute; left: 18px; top: 0; bottom: 0; width: 3px; background: linear-gradient(180deg, #22c55e 0%, #3b82f6 50%, #fbbf24 100%); border-radius: 2px; }
+
+  .item { position: relative; margin-bottom: 48px; scroll-margin-top: 80px; }
+  .item::before { content: ''; position: absolute; left: -38px; top: 8px; width: 20px; height: 20px; border-radius: 50%; border: 3px solid #22c55e; background: #064e3b; z-index: 2; }
+  .item-delayed::before { border-color: #f59e0b; background: #451a03; }
+  .item-atlas::before { border-color: #fbbf24; background: #451a03; }
+  .item-field::before { border-color: #a78bfa; background: #2e1065; }
+
+  .item-header { margin-bottom: 16px; }
+  .item-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 4px 12px; border-radius: 4px; margin-bottom: 8px; }
+  .tag-infra { background: #1e293b; color: #94a3b8; }
+  .tag-agent { background: #1e3a5f; color: #60a5fa; }
+  .tag-backend { background: #1e3a5f; color: #60a5fa; }
+  .tag-atlas { background: #451a03; color: #fbbf24; }
+  .tag-field { background: #2e1065; color: #c4b5fd; }
+  .tag-complete { display: inline-block; font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 4px; margin-left: 8px; background: #166534; color: #4ade80; }
+  .tag-delayed-badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 4px; margin-left: 8px; background: #451a03; color: #fbbf24; }
+  .item-title { font-size: 22px; font-weight: 700; color: #f8fafc; margin-bottom: 6px; }
+  .item-meta { display: flex; gap: 16px; font-size: 12px; color: #64748b; flex-wrap: wrap; margin-bottom: 6px; }
+  .item-desc { font-size: 14px; color: #94a3b8; line-height: 1.6; max-width: 800px; }
+
+  .section { background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 20px 24px; margin-bottom: 12px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; }
+  .st-blue { color: #60a5fa; }
+  .st-green { color: #34d399; }
+  .st-amber { color: #fbbf24; }
+  .st-purple { color: #c4b5fd; }
+
+  .task-list { list-style: none; padding: 0; }
+  .task-list li { position: relative; padding: 6px 0 6px 20px; font-size: 13px; color: #cbd5e1; line-height: 1.5; }
+  .task-list li::before { content: '✓'; position: absolute; left: 2px; top: 8px; color: #22c55e; font-weight: 700; font-size: 12px; }
+  .task-list li.task-pending::before { content: ''; width: 8px; height: 8px; border-radius: 2px; background: #334155; border: 1px solid #475569; top: 13px; }
+  .task-list li strong { color: #f8fafc; }
+  .task-list li code { font-family: 'SF Mono', monospace; font-size: 11px; background: #0f172a; padding: 1px 6px; border-radius: 3px; color: #60a5fa; }
+
+  .outcome-list { list-style: none; padding: 0; }
+  .outcome-list li { padding: 4px 0 4px 20px; font-size: 13px; color: #94a3b8; line-height: 1.5; position: relative; }
+  .outcome-list li::before { content: '✓'; position: absolute; left: 2px; color: #34d399; font-weight: 700; font-size: 12px; }
+
+  .dep-flow { display: flex; align-items: center; gap: 0; flex-wrap: wrap; margin: 16px 0 12px; padding: 14px 18px; background: #1e293b; border-radius: 10px; border: 1px solid #334155; overflow-x: auto; }
+  .dep-node { padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 700; white-space: nowrap; text-align: center; line-height: 1.3; text-decoration: none; color: inherit; }
+  .dep-node:hover { transform: scale(1.05); box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+  .dep-node small { display: block; font-weight: 500; font-size: 10px; opacity: 0.7; }
+  .dep-arrow { color: #475569; font-size: 16px; padding: 0 4px; flex-shrink: 0; }
+  .dep-bracket { color: #475569; font-size: 10px; font-weight: 600; padding: 0 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .dn-done { background: #166534; color: #4ade80; }
+  .dn-c1 { background: #1e3a5f; color: #60a5fa; }
+  .dn-c3 { background: #451a03; color: #fbbf24; }
+  .dn-infra { background: #1e293b; color: #94a3b8; border: 1px solid #475569; }
+  .dn-field { background: #2e1065; color: #c4b5fd; }
+
+  .example-box { background: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 14px 18px; margin-top: 12px; }
+  .example-box .ex-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #475569; margin-bottom: 6px; }
+  .example-box .ex-title { font-size: 13px; font-weight: 600; color: #f8fafc; margin-bottom: 4px; }
+  .example-box .ex-desc { font-size: 12px; color: #94a3b8; line-height: 1.4; }
+  .example-box code { font-family: 'SF Mono', monospace; font-size: 11px; background: #1e293b; padding: 1px 6px; border-radius: 3px; color: #60a5fa; }
+
+  .footer { text-align: center; padding: 32px 0; font-size: 12px; color: #475569; border-top: 1px solid #1e293b; margin-top: 24px; }
+  .footer a { color: #3b82f6; text-decoration: none; }
+
+  @media (max-width: 768px) {
+    .timeline { padding-left: 32px; }
+    .item::before { left: -22px; width: 16px; height: 16px; }
+    .timeline::before { left: 12px; }
+  }
+</style>
+</head>
+<body>
+<nav class="top-nav">
+    <span class="nav-logo">Appello IRAP</span>
+    <a href="appello-irap-roadmap.html">Roadmap</a>
+    <a href="#" class="active">R1 Foundation</a>
+    <a href="r2-timeline.html">R2 Pipeline</a>
+    <a href="appello-irap-roadmap.html#r3">R3 Spider</a>
+    <a href="appello-irap-roadmap.html#r4">R4 Apex MVP</a>
+    <a href="appello-irap-roadmap.html#r5">R5 Chat</a>
+    <a href="appello-irap-roadmap.html#r6">R6 Analytics</a>
+    <a href="appello-irap-roadmap.html#r7">R7 Launch</a>
+</nav>
+<div class="page">
+
+  <a class="back-link" href="appello-irap-roadmap.html#r1">&larr; Back to Roadmap</a>
+  <div class="logo">Release 1 &mdash; Apr&ndash;Jun 2026</div>
+  <h1>Foundation &amp; <span>First Agent</span></h1>
+  <p class="subtitle">Stand up AI infrastructure and ship the first working agent &mdash; Bug Report Agent &mdash; processing real Appello Jira tickets on the production TypeScript/React codebase. Establish ATLAS knowledge base and collect construction-domain training data.</p>
+
+  <div class="dep-flow">
+    <a class="dep-node dn-done" href="#item-INFRA-1">INFRA-1<small>AWS + CI/CD</small></a>
+    <span class="dep-arrow">&rarr;</span>
+    <a class="dep-node dn-done" href="#item-EVAL-1">EVAL-1<small>Model Benchmark</small></a>
+    <span class="dep-arrow">&rarr;</span>
+    <a class="dep-node dn-c1" href="#item-BRA-1">BRA-1<small>Bug Report Agent</small></a>
+    <span class="dep-arrow">&rarr;</span>
+    <a class="dep-node dn-done" href="#item-SDLC-DB">SDLC-DB<small>Pipeline Schema</small></a>
+    <span class="dep-bracket">+ parallel</span>
+    <a class="dep-node dn-done" href="#item-ATLAS-1">ATLAS-1<small>Data Pipeline</small></a>
+    <span class="dep-bracket">+ parallel</span>
+    <a class="dep-node dn-field" href="#item-FV-1">FV-1<small>Training Data</small></a>
+  </div>
+
+  <div class="timeline">
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- INFRA-1: AI PIPELINE INFRASTRUCTURE                     -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="item" id="item-INFRA-1">
+      <div class="item-header">
+        <div class="item-tag tag-infra">Infrastructure</div><span class="tag-complete">&#10003; Complete</span>
+        <div class="item-title">INFRA-1 &mdash; AI Pipeline Infrastructure</div>
+        <div class="item-meta">
+          <span>Sprints 1&ndash;2 &middot; Apr 2026</span>
+          <span>~4 weeks</span>
+          <span>Team: Travis, Corey</span>
+        </div>
+        <div class="item-desc">Provision GPU-enabled AWS compute for model inference, configure networking and security, and build CI/CD pipeline for the entire AI development workflow. This is the foundational infrastructure everything else depends on.</div>
+      </div>
+
+      <div class="section" id="item-INFRA-1-plan">
+        <div class="section-title st-green">What Was Built</div>
+        <ul class="task-list">
+          <li><strong>AWS GPU compute provisioned</strong> &mdash; 3 GPU-enabled EC2 instances (g5.xlarge) for model inference. Configured for both real-time agent inference and batch evaluation workloads.</li>
+          <li><strong>Network &amp; security configured</strong> &mdash; VPC with private subnets for inference instances, public subnets for API gateway. Security groups restricting access to internal services only. IAM service accounts with least-privilege policies for each component.</li>
+          <li><strong>CI/CD pipeline deployed</strong> &mdash; GitHub Actions workflows for build, test, and deploy. Docker containerization for all AI services. Automated deployment to AWS ECS with rolling updates and automatic rollback on health check failure.</li>
+          <li><strong>Environment isolation</strong> &mdash; Separate dev, staging, and production environments with identical infrastructure. Environment-specific secrets management via AWS Secrets Manager.</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title st-green">Outcomes Delivered</div>
+        <ul class="outcome-list">
+          <li>3 GPU instances running in production with autoscaling configured</li>
+          <li>CI/CD pipeline running GitHub Actions &rarr; Docker &rarr; AWS ECS with &lt;10 min deploy cycles</li>
+          <li>VPC with private/public subnet topology, security groups, and IAM policies in place</li>
+          <li>Environment isolation (dev/staging/prod) with separate secrets management</li>
+          <li>Infrastructure-as-code templates for reproducible provisioning</li>
+        </ul>
+      </div>
+
+      <div class="example-box">
+        <div class="ex-label">Architecture</div>
+        <div class="ex-desc">
+          <code>GitHub Push</code> &rarr; <code>GitHub Actions (build + test)</code> &rarr; <code>Docker Image</code> &rarr; <code>ECR Registry</code> &rarr; <code>ECS Service (rolling deploy)</code> &rarr; <code>GPU Inference Cluster</code>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- EVAL-1: MODEL EVALUATION                                -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="item" id="item-EVAL-1">
+      <div class="item-header">
+        <div class="item-tag tag-agent">C1 &middot; SDLC Flywheel &middot; Evaluation</div><span class="tag-complete">&#10003; Complete</span>
+        <div class="item-title">EVAL-1 &mdash; Model Evaluation on Appello Codebase</div>
+        <div class="item-meta">
+          <span>Sprint 1 &middot; Apr 2026</span>
+          <span>~2 weeks</span>
+          <span>Team: Corey</span>
+        </div>
+        <div class="item-desc">Systematic evaluation of 4 frontier AI models against real Appello code to select the best fit for each agent role. Not a generic benchmark &mdash; every test used actual Appello TypeScript/React code from the production monorepo.</div>
+      </div>
+
+      <div class="section" id="item-EVAL-1-plan">
+        <div class="section-title st-green">What Was Built</div>
+        <ul class="task-list">
+          <li><strong>Evaluation framework</strong> &mdash; Built a repeatable benchmark harness that takes an Appello code sample + prompt and runs it against each model, scoring output on 4 dimensions: code comprehension, fix accuracy, style compliance, and cost per query.</li>
+          <li><strong>50 real code samples curated</strong> &mdash; Selected 50 TypeScript/React code samples from the Appello monorepo representing real production complexity: Prisma schema operations, GraphQL resolvers, React components with Tailwind, Next.js API routes, and financial calculation modules.</li>
+          <li><strong>4 models evaluated</strong> &mdash; GPT-4, Claude 3.5 Sonnet, Gemini 1.5 Pro, and Llama 3 70B. Each ran against all 50 samples with identical prompts. Results stored in structured format for comparison.</li>
+          <li><strong>Model routing strategy defined</strong> &mdash; Based on results: Claude 3 Haiku for simple parsing/classification tasks (fast, cheap), GPT-4o/Claude Sonnet for complex reasoning and code generation (highest accuracy). Cost optimization via routing reduces average cost per agent call by ~60% vs. using frontier model for everything.</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title st-green">Outcomes Delivered</div>
+        <ul class="outcome-list">
+          <li>All 4 models scored on 50 Appello-specific code samples across 4 dimensions</li>
+          <li>Primary model selected for code generation (GPT-4o / Claude Sonnet depending on task type)</li>
+          <li>Cost model established: ~$0.08 per simple query (Haiku), ~$2.50 per complex generation (Sonnet/GPT-4o)</li>
+          <li>Model routing strategy documented &mdash; Haiku for parsing, Sonnet/GPT-4o for reasoning</li>
+          <li>Benchmark harness reusable for future model evaluations (new models, fine-tuned versions)</li>
+        </ul>
+      </div>
+
+      <div class="example-box">
+        <div class="ex-label">Sample Benchmark Result</div>
+        <div class="ex-title">Financial Summary Component &mdash; Travel Expense Roll-up Bug</div>
+        <div class="ex-desc">Given a real bug in the <code>FinancialSummary</code> component where travel expense line items weren&rsquo;t rolling up correctly, Claude 3.5 Sonnet correctly identified the missing <code>WHERE</code> clause in the Prisma query, produced a valid fix diff, and matched the existing Tailwind styling &mdash; all in a single pass. GPT-4 required 2 iterations. Gemini identified the bug but generated invalid TypeScript. Llama 3 failed to parse the Prisma schema correctly.</div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- BRA-1: BUG REPORT AGENT                                 -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="item item-delayed" id="item-BRA-1">
+      <div class="item-header">
+        <div class="item-tag tag-agent">C1 &middot; SDLC Flywheel &middot; Agent</div><span class="tag-delayed-badge">Core Done &middot; Validation &rarr; R2</span>
+        <div class="item-title">BRA-1 &mdash; Bug Report Agent v1</div>
+        <div class="item-meta">
+          <span>Sprints 2&ndash;4 &middot; Apr&ndash;Jun 2026</span>
+          <span>~6 weeks</span>
+          <span>Depends: EVAL-1</span>
+          <span>Team: Corey (NH1 deferred to June)</span>
+        </div>
+        <div class="item-desc">The first AI agent in the SDLC Flywheel. Ingests a Jira bug ticket, parses the Appello monorepo (TypeScript/React/Express/Prisma), identifies the root cause, and generates a candidate fix diff as a GitHub PR. Core architecture built by Corey solo; full 20-bug validation deferred to R2 due to NH1 hire delay.</div>
+      </div>
+
+      <div class="section" id="item-BRA-1-plan">
+        <div class="section-title st-green">What Was Built</div>
+        <ul class="task-list">
+          <li><strong>Jira ticket ingestion pipeline</strong> &mdash; Reads ticket via Jira API, extracts summary, description, reproduction steps, affected modules, and linked issues. Normalizes into structured format for agent consumption.</li>
+          <li><strong>Codebase parser</strong> &mdash; Parses the Appello monorepo structure: identifies affected packages (Turbo Repo workspace), resolves import chains, and builds a local dependency graph for the flagged module. Handles TypeScript, React JSX, Prisma schema, and GraphQL resolvers.</li>
+          <li><strong>Root cause analysis engine</strong> &mdash; LLM-powered analysis that takes the parsed ticket + relevant code context and generates a hypothesis about the root cause. Uses model routing (Haiku for initial classification, Sonnet for deep analysis).</li>
+          <li><strong>Fix diff generator</strong> &mdash; Generates a candidate code fix as a clean git diff, targeting the specific files identified by the root cause analysis. Validates generated code against TypeScript compiler before outputting.</li>
+          <li><strong>PR creation pipeline</strong> &mdash; Auto-creates a GitHub PR from the fix diff with structured description: linked Jira ticket, root cause summary, change description, and files modified. Follows Appello PR conventions.</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title st-amber">Status &amp; What Carries to R2</div>
+        <ul class="task-list">
+          <li><strong>Core architecture: COMPLETE</strong> &mdash; End-to-end pipeline from Jira ticket &rarr; codebase parse &rarr; root cause &rarr; fix diff &rarr; PR is operational. Built by Corey as sole developer during R1.</li>
+          <li class="task-pending"><strong>20-bug validation: DEFERRED to R2</strong> &mdash; Full validation against 20 real customer bug reports requires NH1 (ML Engineer) for systematic testing, result analysis, and agent tuning. NH1 start delayed from May to June; validation will be first priority when NH1 + NH2 onboard in July.</li>
+          <li class="task-pending"><strong>Agent tuning &amp; accuracy iteration: DEFERRED to R2</strong> &mdash; Based on validation results, iterate on prompt engineering, context window management, and model routing to achieve target accuracy (&ge;60% valid fix rate on first attempt).</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title st-purple">Architecture</div>
+        <div class="item-desc">Runs on the Catalyst/Agent C2 orchestration platform. The agent operates in a sandboxed environment per ticket to prevent state leakage between runs. Model routing: Haiku for ticket parsing and code classification, Sonnet/GPT-4o for root cause analysis and code generation.</div>
+        <div class="example-box">
+          <div class="ex-label">Data Flow</div>
+          <div class="ex-desc">
+            <code>Jira Ticket (API)</code> &rarr; <code>Ticket Parser (Haiku)</code> &rarr; <code>Codebase Parser (AST)</code> &rarr; <code>Root Cause Analyzer (Sonnet)</code> &rarr; <code>Fix Generator (GPT-4o)</code> &rarr; <code>tsc Validation</code> &rarr; <code>GitHub PR (API)</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="example-box">
+        <div class="ex-label">Prior Art &mdash; March 2026 Demo</div>
+        <div class="ex-title">&ldquo;Two edit pencils on RFI detail page&rdquo;</div>
+        <div class="ex-desc">The SDLC Bug Fix Workflow successfully ran on this live bug in March 2026, creating a PR for human review. The agent correctly identified the duplicate <code>EditButton</code> render in the RFI detail component and produced a valid fix. Total runtime: 778 seconds, cost: $5.76. This early demo validates the core BRA-1 architecture; R1 formalizes and hardens the pipeline.</div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- SDLC-DB: PIPELINE TRACKING SCHEMA                       -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="item" id="item-SDLC-DB">
+      <div class="item-header">
+        <div class="item-tag tag-backend">C1 &middot; SDLC Flywheel &middot; Backend</div><span class="tag-complete">&#10003; Complete</span>
+        <div class="item-title">SDLC-DB &mdash; Pipeline Tracking Schema</div>
+        <div class="item-meta">
+          <span>Sprints 3&ndash;4 &middot; May&ndash;Jun 2026</span>
+          <span>~4 weeks</span>
+          <span>Team: Chris, Travis</span>
+        </div>
+        <div class="item-desc">Database schema and API layer for tracking every step of the SDLC pipeline. Every agent run, every task decomposition, every code review, and every deployment is recorded here &mdash; this is the &ldquo;memory&rdquo; that powers the Flywheel&rsquo;s self-improvement loop.</div>
+      </div>
+
+      <div class="section" id="item-SDLC-DB-plan">
+        <div class="section-title st-green">What Was Built</div>
+        <ul class="task-list">
+          <li><strong>8 database tables</strong> &mdash; <code>tasks</code> (Jira ticket mirror), <code>signals</code> (bug reports, feature requests), <code>decompositions</code> (PA-1 subtask plans), <code>reviews</code> (VA-1 quality scores), <code>deployments</code> (release tracking), <code>metrics</code> (agent performance over time), <code>agents</code> (agent registry and config), <code>history</code> (full audit trail of every state change).</li>
+          <li><strong>12 REST API endpoints</strong> &mdash; CRUD operations for all entities plus specialized query endpoints: tasks by status, reviews by quality score range, metrics aggregations by time period, and a full pipeline trace endpoint (ticket &rarr; plan &rarr; code &rarr; review &rarr; deploy).</li>
+          <li><strong>Migration framework</strong> &mdash; Prisma-based schema management with versioned migrations and tested rollback procedures. Each migration includes both up and down scripts.</li>
+          <li><strong>Performance indexing</strong> &mdash; Composite indexes on frequently queried columns (task status + created date, review score + agent ID). Query performance validated under simulated load of 10,000 pipeline runs.</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title st-green">Outcomes Delivered</div>
+        <ul class="outcome-list">
+          <li>8-table schema deployed to production with Prisma migrations</li>
+          <li>12 REST API endpoints operational with authentication and rate limiting</li>
+          <li>Full audit trail: every agent action is logged with timestamp, input, output, and duration</li>
+          <li>Pipeline trace query returns complete ticket-to-deploy history in &lt;200ms</li>
+          <li>Migration framework tested with 3 schema iterations during R1 development</li>
+        </ul>
+      </div>
+
+      <div class="example-box">
+        <div class="ex-label">Schema Overview</div>
+        <div class="ex-desc">
+          <code>tasks</code> &rarr; <code>signals</code> &rarr; <code>decompositions</code> &rarr; <code>reviews</code> &rarr; <code>deployments</code> &middot; Cross-cutting: <code>metrics</code>, <code>agents</code>, <code>history</code>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- ATLAS-1: DATA PIPELINE SCAFFOLD                         -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="item item-atlas" id="item-ATLAS-1">
+      <div class="item-header">
+        <div class="item-tag tag-atlas">C3 &middot; ATLAS Knowledge Base &middot; Backend</div><span class="tag-complete">&#10003; Complete</span>
+        <div class="item-title">ATLAS-1 &mdash; Data Pipeline Scaffold</div>
+        <div class="item-meta">
+          <span>Sprints 2&ndash;4 &middot; Apr&ndash;Jun 2026</span>
+          <span>~4 weeks</span>
+          <span>Team: Chris</span>
+        </div>
+        <div class="item-desc">Foundation of the ATLAS knowledge base &mdash; the centralized AI memory that all agents query for context. Ingests company documents and workflow data into a vector store, enabling AI agents to ground their responses in real Appello business context.</div>
+      </div>
+
+      <div class="section" id="item-ATLAS-1-plan">
+        <div class="section-title st-green">What Was Built</div>
+        <ul class="task-list">
+          <li><strong>Supabase pgvector store configured</strong> &mdash; PostgreSQL database with the pgvector extension for 1536-dimensional embeddings. Configured for cosine similarity search with HNSW indexing for sub-100ms query latency at scale.</li>
+          <li><strong>Google Drive ingestion pipeline</strong> &mdash; Python scripts that crawl the Appello Google Drive, extract text from documents (meeting notes, architecture decisions, product specs, customer communications), chunk into 1000-token segments, generate embeddings via OpenAI API, and upsert into Supabase.</li>
+          <li><strong>N8n workflow data pipeline</strong> &mdash; Ingestion connector for N8n automation workflow data (execution logs, workflow definitions, error reports). Converts structured workflow data into natural language descriptions for vectorization.</li>
+          <li><strong>Fathom transcript ingestion</strong> &mdash; Processes meeting transcripts from Fathom (customer calls, internal standups, strategy sessions). Extracts action items, decisions, and key discussion points as separate vector entries for high-relevance retrieval.</li>
+          <li><strong>Chunking and embedding strategy</strong> &mdash; 1000-token chunks with 200-token overlap to preserve context across boundaries. Metadata tags for source type, date, participants, and topic classification. Hybrid search combining vector similarity + metadata filtering.</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title st-green">Outcomes Delivered</div>
+        <ul class="outcome-list">
+          <li>Supabase pgvector store operational with HNSW index for fast similarity search</li>
+          <li>Google Drive documents ingested and vectorized (meeting notes, specs, architecture docs)</li>
+          <li>N8n workflow execution data flowing into ATLAS</li>
+          <li>Fathom meeting transcripts indexed with action item extraction</li>
+          <li>Query latency &lt;100ms for similarity search across all ingested data</li>
+          <li>Foundation ready for ATLAS-2 (MySQL schema vectorization in R2)</li>
+        </ul>
+      </div>
+
+      <div class="example-box">
+        <div class="ex-label">Data Flow</div>
+        <div class="ex-desc">
+          <code>Google Drive / N8n / Fathom</code> &rarr; <code>Python Ingestion Scripts</code> &rarr; <code>Text Extraction + Chunking (1000 tokens)</code> &rarr; <code>OpenAI Embeddings API</code> &rarr; <code>Supabase pgvector (HNSW index)</code> &rarr; <code>Agent Context Queries</code>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- FV-1: CONSTRUCTION TRAINING DATA COLLECTION             -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="item item-field" id="item-FV-1">
+      <div class="item-header">
+        <div class="item-tag tag-field">Field Validation &middot; Data Collection</div><span class="tag-complete">&#10003; Complete</span>
+        <div class="item-title">FV-1 &mdash; Construction Training Data Collection</div>
+        <div class="item-meta">
+          <span>Sprints 1&ndash;4 &middot; Apr&ndash;Jun 2026</span>
+          <span>~8 weeks (part-time)</span>
+          <span>Team: Nathan, Ian</span>
+        </div>
+        <div class="item-desc">AI models need domain-specific context to be useful for construction management software. This work stream collected, categorized, and formatted real customer data and industry terminology so the AI agents can understand Appello&rsquo;s domain.</div>
+      </div>
+
+      <div class="section" id="item-FV-1-plan">
+        <div class="section-title st-green">What Was Built</div>
+        <ul class="task-list">
+          <li><strong>30 real customer bug reports collected</strong> &mdash; Curated from Jira backlog: timesheet calculation errors, financial summary display bugs, equipment form validation issues, RFI workflow problems, and job costing discrepancies. Each annotated with root cause, affected module, fix description, and severity.</li>
+          <li><strong>Bug report categorization schema</strong> &mdash; Classified bugs into 6 categories: financial calculations (8), UI/display (7), data integrity (5), workflow/routing (4), permissions (3), performance (3). This distribution informs which modules the AI agents need to handle best.</li>
+          <li><strong>40+ construction-specific terms documented</strong> &mdash; Domain glossary covering Appello-specific terminology: job costing, progress billing, change orders, RFIs, submittals, punch lists, retainage, WBS codes, cost codes, time &amp; materials, lump sum, certified payroll, prevailing wage. Each term includes definition, how it appears in Appello, and common customer scenarios.</li>
+          <li><strong>15 construction job scenarios written</strong> &mdash; End-to-end scenarios representing real customer workflows: &ldquo;Residential renovation project from estimate to final invoice,&rdquo; &ldquo;Commercial subcontractor managing certified payroll across 3 job sites,&rdquo; &ldquo;GC tracking change orders and budget impact on a multi-phase project.&rdquo; Used to validate that AI agents produce contextually appropriate responses.</li>
+          <li><strong>Customer signal analysis</strong> &mdash; Reviewed HubSpot support tickets and Fathom call transcripts to identify the most common customer pain points and feature requests. Prioritized 12 high-frequency issue patterns for AI agent training data.</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title st-green">Outcomes Delivered</div>
+        <ul class="outcome-list">
+          <li>30 annotated bug reports ready as AI agent training and validation data</li>
+          <li>6-category bug taxonomy informing agent specialization priorities</li>
+          <li>40+ construction term glossary integrated into ATLAS for agent context</li>
+          <li>15 end-to-end construction job scenarios for agent validation testing</li>
+          <li>12 high-priority customer pain points identified for AI agent targeting</li>
+        </ul>
+      </div>
+
+      <div class="example-box">
+        <div class="ex-label">Sample Training Data &mdash; Real Bug Report</div>
+        <div class="ex-title">Q21030-7231: Missing Numbers in Financial Summary</div>
+        <div class="ex-desc">Customer: Chase McCabe (approved timesheet) &mdash; financial summary not displaying travel expense details. Root cause: <code>FinancialSummary</code> component&rsquo;s Prisma query missing <code>WHERE</code> clause for travel expense line items. Category: Financial Calculations. Severity: High. This bug + fix pair is used to train and evaluate the Bug Report Agent&rsquo;s ability to diagnose financial module issues.</div>
+      </div>
+    </div>
+
+  </div><!-- /timeline -->
+
+  <div class="footer">
+    <p>Appello IRAP &mdash; R1 Foundation &amp; First Agent &mdash; Apr&ndash;Jun 2026 &mdash; <a href="appello-irap-roadmap.html">Back to Roadmap</a></p>
+  </div>
+
+</div>
+</body>
+</html>
