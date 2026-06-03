@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UIS · C1-0044 · Write unit tests for migration tooling and agent APIs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+.in-iframe .top-nav { display: none !important; }
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',-apple-system,sans-serif;background:#f1f5f9;color:#1e293b;line-height:1.55}
+.top-nav{position:sticky;top:0;z-index:100;background:#0f172a;border-bottom:1px solid #1e293b;padding:0 24px;display:flex;align-items:center;gap:0}
+.top-nav a{display:inline-flex;align-items:center;padding:12px 18px;font-size:13px;font-weight:600;color:#94a3b8;text-decoration:none;border-bottom:2px solid transparent;transition:all .15s}
+.top-nav a:hover{color:#f8fafc;background:#1e293b}
+.top-nav .nav-logo{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#475569;padding-right:18px;margin-right:4px;border-right:1px solid #1e293b}
+.uis-wrap{max-width:980px;margin:0 auto;padding:36px 24px 80px}
+.crumb{font-size:12px;color:#64748b;margin-bottom:14px}
+.crumb a{color:#3b82f6;text-decoration:none}
+.crumb a:hover{text-decoration:underline}
+.uis-hdr{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:20px;flex-wrap:wrap}
+.uis-hdr-l{flex:1;min-width:280px}
+.code-badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:0.5px;padding:3px 10px;background:#1e293b;color:#cbd5e1;border-radius:4px;margin-bottom:8px}
+.uis-h1{font-size:26px;font-weight:800;letter-spacing:-0.01em;margin-bottom:6px}
+.uis-sub{font-size:14px;color:#475569}
+.state-pill{display:inline-block;font-size:11px;font-weight:700;padding:5px 12px;border-radius:4px;text-transform:uppercase;letter-spacing:0.5px}
+.kpi-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-bottom:16px}
+.kpi{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:10px 12px}
+.kpi .l{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#94a3b8;margin-bottom:3px}
+.kpi .v{font-size:15px;font-weight:800;color:#1e293b}
+.uis-section{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:20px 24px;margin-bottom:12px}
+.uis-section h2{font-size:14px;font-weight:700;color:#1e293b;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #f1f5f9;letter-spacing:0.2px}
+.uis-section p{color:#334155;margin-bottom:6px;white-space:pre-wrap}
+.uis-section .muted{color:#64748b;font-style:italic}
+.path{font-family:'JetBrains Mono',monospace;font-size:11px;color:#0369a1;background:#f0f9ff;padding:3px 8px;border-radius:4px;display:inline-block;margin:2px 4px 2px 0;border:1px solid #bae6fd;word-break:break-all}
+.meta-row{display:flex;flex-wrap:wrap;gap:18px;font-size:12px;color:#64748b}
+.meta-row strong{color:#334155}
+@media print{.top-nav{display:none}.uis-wrap{padding:8px}}
+</style>
+<script>if (self !== top) document.documentElement.classList.add("in-iframe");</script>
+</head><body>
+<nav class="top-nav">
+  <span class="nav-logo">Appello IRAP</span>
+  <a href="../index.html">← Roadmap</a>
+  <a href="https://useanzen.github.io/appello-roadmap/" target="_blank">Appello Product Roadmap</a>
+</nav>
+<div class="uis-wrap">
+  <div class="crumb"><a href="../index.html">IRAP Roadmap</a> › C1 SDLC Flywheel › P2 › <strong>C1-0044</strong></div>
+
+  <div class="uis-hdr">
+    <div class="uis-hdr-l">
+      <span class="code-badge">C1-0044</span>
+      <h1 class="uis-h1">Write unit tests for migration tooling and agent APIs</h1>
+      <p class="uis-sub">C1 SDLC Flywheel · P2</p>
+    </div>
+    <div><span class="state-pill" style="background:#2563eb;color:#fff">PLANNED NEXT</span></div>
+  </div>
+
+  <div class="kpi-strip">
+    <div class="kpi"><div class="l">Component</div><div class="v">C1</div></div>
+    <div class="kpi"><div class="l">Owner</div><div class="v">New Hire 1</div></div>
+    <div class="kpi"><div class="l">Month</div><div class="v">Jun 26</div></div>
+    <div class="kpi"><div class="l">Hours</div><div class="v">26h</div></div>
+    
+    
+  </div>
+
+  <div class="uis-section">
+    <h2>1 · Activity — what we are building</h2>
+    <p>Write unit tests for migration tooling and agent APIs</p>
+  </div>
+
+  <div class="uis-section">
+    <h2>2 · Status from master sheet</h2>
+    <p>PLANNED</p>
+  </div>
+
+  <div class="uis-section">
+    <h2>3 · Evidence — repo / path</h2>
+    <p><span class="path">age</span><span class="path">tc2/vitest.co</span><span class="path">fig.ts</span><span class="path">APPELLO-XRM/scripts/vitest-testco</span><span class="path">tai</span><span class="path">ers-global-setup.ts</span></p>
+  </div>
+
+  <div class="uis-section">
+    <h2>4 · What it is / what it does</h2>
+    <p>Vitest config + testcontainers global setup pattern from APPELLO-XRM is the template for isolated DB-backed tests.</p>
+  </div>
+
+  <div class="uis-section">
+    <h2>5 · How it connects to this epic</h2>
+    <p>Planned: writes Vitest suites for the migrate CLI (C1-0041) and the agent status hooks (C1-0043).</p>
+  </div>
+
+  <div class="uis-section">
+    <h2>6 · Originally proposed activity (pre-David revision)</h2>
+    <p class="muted">Jun 26</p>
+  </div>
+
+  <div class="uis-section">
+    <h2>7 · Audit metadata</h2>
+    <div class="meta-row">
+      <span><strong>State:</strong> PLANNED NEXT</span>
+      <span><strong>Code reference:</strong> —</span>
+      <span><strong>Audit flag:</strong> —</span>
+    </div>
+  </div>
+
+  <div class="uis-section">
+    <h2>8 · Source of truth</h2>
+    <p style="font-size:12px;color:#64748b">This UIS is a direct view of one row in the master IRAP forensic workbook (Google Sheet <code>1-QXxQ5fD…</code>, tab <em>C1 SDLC Flywheel</em>, epic <code>C1-0044</code>). All fields above are pulled live from the sheet at the time this page was generated. The sheet remains the single source of truth.</p>
+  </div>
+</div></body></html>
