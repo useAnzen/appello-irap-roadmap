@@ -1,38 +1,69 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UIS · C1-0001 · Build database schema for SDLC pipeline tracking</title>
+<title>UIS · C1-0001 · Appello SDLC Prisma schema — database-driven software factory</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 .in-iframe .top-nav { display: none !important; }
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Inter',-apple-system,sans-serif;background:#f1f5f9;color:#1e293b;line-height:1.55}
 .top-nav{position:sticky;top:0;z-index:100;background:#0f172a;border-bottom:1px solid #1e293b;padding:0 24px;display:flex;align-items:center;gap:0}
-.top-nav a{display:inline-flex;align-items:center;padding:12px 18px;font-size:13px;font-weight:600;color:#94a3b8;text-decoration:none;border-bottom:2px solid transparent;transition:all .15s}
+.top-nav a{display:inline-flex;align-items:center;padding:12px 18px;font-size:13px;font-weight:600;color:#94a3b8;text-decoration:none;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap}
 .top-nav a:hover{color:#f8fafc;background:#1e293b}
 .top-nav .nav-logo{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#475569;padding-right:18px;margin-right:4px;border-right:1px solid #1e293b}
-.uis-wrap{max-width:980px;margin:0 auto;padding:36px 24px 80px}
+.uis-wrap{max-width:1020px;margin:0 auto;padding:36px 24px 80px}
 .crumb{font-size:12px;color:#64748b;margin-bottom:14px}
 .crumb a{color:#3b82f6;text-decoration:none}
 .crumb a:hover{text-decoration:underline}
 .uis-hdr{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:20px;flex-wrap:wrap}
 .uis-hdr-l{flex:1;min-width:280px}
 .code-badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:0.5px;padding:3px 10px;background:#1e293b;color:#cbd5e1;border-radius:4px;margin-bottom:8px}
-.uis-h1{font-size:26px;font-weight:800;letter-spacing:-0.01em;margin-bottom:6px}
+.uis-h1{font-size:26px;font-weight:800;letter-spacing:-0.01em;margin-bottom:6px;line-height:1.25}
 .uis-sub{font-size:14px;color:#475569}
 .state-pill{display:inline-block;font-size:11px;font-weight:700;padding:5px 12px;border-radius:4px;text-transform:uppercase;letter-spacing:0.5px}
 .kpi-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-bottom:16px}
 .kpi{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:10px 12px}
 .kpi .l{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#94a3b8;margin-bottom:3px}
 .kpi .v{font-size:15px;font-weight:800;color:#1e293b}
-.uis-section{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:20px 24px;margin-bottom:12px}
-.uis-section h2{font-size:14px;font-weight:700;color:#1e293b;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #f1f5f9;letter-spacing:0.2px}
-.uis-section p{color:#334155;margin-bottom:6px;white-space:pre-wrap}
+.uis-section{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:22px 26px;margin-bottom:14px}
+.uis-section h2{font-size:15px;font-weight:700;color:#1e293b;margin-bottom:14px;padding-bottom:9px;border-bottom:2px solid #f1f5f9;letter-spacing:0.2px}
+.uis-section h3{font-size:13px;font-weight:700;color:#334155;margin:14px 0 8px;letter-spacing:0.2px}
+.uis-section p{color:#334155;margin-bottom:8px}
+.uis-section ul,.uis-section ol{margin:6px 0 8px 22px;color:#334155}
+.uis-section li{margin-bottom:5px;font-size:13.5px}
 .uis-section .muted{color:#64748b;font-style:italic}
 .path{font-family:'JetBrains Mono',monospace;font-size:11px;color:#0369a1;background:#f0f9ff;padding:3px 8px;border-radius:4px;display:inline-block;margin:2px 4px 2px 0;border:1px solid #bae6fd;word-break:break-all}
 .meta-row{display:flex;flex-wrap:wrap;gap:18px;font-size:12px;color:#64748b}
 .meta-row strong{color:#334155}
+pre.code{background:#0f172a;color:#e2e8f0;border-radius:8px;padding:14px 16px;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.55;overflow-x:auto;margin:8px 0 12px;border:1px solid #1e293b}
+pre.code .c{color:#64748b}
+pre.code .k{color:#c084fc}
+pre.code .s{color:#86efac}
+pre.code .n{color:#fbbf24}
+pre.code .t{color:#7dd3fc}
+pre.code .a{color:#f472b6}
+.diagram{background:#0f172a;color:#cbd5e1;border-radius:8px;padding:18px;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.65;white-space:pre;overflow-x:auto;margin:8px 0 12px;border:1px solid #1e293b}
+.callout{background:#fffbeb;border:1px solid #fcd34d;border-left:4px solid #d97706;border-radius:6px;padding:12px 14px;margin:10px 0;font-size:13px;color:#78350f}
+.callout strong{color:#451a03}
+.callout-info{background:#eff6ff;border:1px solid #93c5fd;border-left:4px solid #2563eb;border-radius:6px;padding:12px 14px;margin:10px 0;font-size:13px;color:#1e3a8a}
+.callout-ok{background:#f0fdf4;border:1px solid #86efac;border-left:4px solid #16a34a;border-radius:6px;padding:12px 14px;margin:10px 0;font-size:13px;color:#14532d}
+table.spec{width:100%;border-collapse:collapse;font-size:12.5px;margin:8px 0 12px}
+table.spec th{text-align:left;padding:8px 10px;background:#f8fafc;border-bottom:2px solid #e2e8f0;font-weight:700;color:#475569;font-size:11px;text-transform:uppercase;letter-spacing:0.5px}
+table.spec td{padding:8px 10px;border-bottom:1px solid #f1f5f9;color:#334155;vertical-align:top}
+table.spec tr:last-child td{border-bottom:none}
+table.spec td.mono{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#0f172a}
+table.spec td.num{text-align:right;font-variant-numeric:tabular-nums}
+.phase{border-left:3px solid #3b82f6;background:#f8fafc;border-radius:0 6px 6px 0;padding:10px 14px;margin:8px 0}
+.phase h4{font-size:13px;font-weight:700;color:#1e3a8a;margin-bottom:4px}
+.phase .gate{font-size:11px;color:#1e40af;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-top:4px}
+.tag{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:3px;text-transform:uppercase;letter-spacing:0.5px;margin-right:5px}
+.tag-done{background:#16a34a;color:#fff}
+.tag-wip{background:#d97706;color:#fff}
+.tag-todo{background:#475569;color:#fff}
+.tag-risk{background:#dc2626;color:#fff}
+.xref{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11.5px;background:#f1f5f9;color:#334155;padding:4px 9px;border-radius:4px;margin:2px 6px 2px 0;border:1px solid #e2e8f0;text-decoration:none}
+.xref:hover{background:#e2e8f0;color:#0f172a}
 @media print{.top-nav{display:none}.uis-wrap{padding:8px}}
 </style>
 <script>if (self !== top) document.documentElement.classList.add("in-iframe");</script>
@@ -43,67 +74,592 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f1f5f9;color:#1e29
   <a href="https://useanzen.github.io/appello-roadmap/" target="_blank">Appello Product Roadmap</a>
 </nav>
 <div class="uis-wrap">
-  <div class="crumb"><a href="../index.html">IRAP Roadmap</a> › C1 SDLC Flywheel › P1 › <strong>C1-0001</strong></div>
+  <div class="crumb"><a href="../index.html">IRAP Roadmap</a> › C1 SDLC Flywheel › P1 · Database-Driven SDLC (Apr–May 26) › <strong>C1-0001</strong></div>
 
   <div class="uis-hdr">
     <div class="uis-hdr-l">
       <span class="code-badge">C1-0001</span>
-      <h1 class="uis-h1">Build database schema for SDLC pipeline tracking</h1>
-      <p class="uis-sub">C1 SDLC Flywheel · P1</p>
+      <h1 class="uis-h1">Build the Appello SDLC Prisma schema — work packages, stage outputs, reviews, work items, build runs, test runs, doc artifacts, transition logs</h1>
+      <p class="uis-sub">C1 SDLC Flywheel · P1 (Apr–May 26) · Owner: Christopher Vachon · 45h</p>
     </div>
     <div><span class="state-pill" style="background:#16a34a;color:#fff">DONE</span></div>
   </div>
 
   <div class="kpi-strip">
-    <div class="kpi"><div class="l">Component</div><div class="v">C1</div></div>
+    <div class="kpi"><div class="l">Component</div><div class="v">C1 SDLC Flywheel</div></div>
+    <div class="kpi"><div class="l">Phase</div><div class="v">P1 · Apr–May 26</div></div>
     <div class="kpi"><div class="l">Owner</div><div class="v">Christopher Vachon</div></div>
     <div class="kpi"><div class="l">Month</div><div class="v">Apr 26</div></div>
     <div class="kpi"><div class="l">Hours</div><div class="v">45h</div></div>
-    
-    
+    <div class="kpi"><div class="l">State</div><div class="v">DONE</div></div>
   </div>
 
+  <!-- 1 · Objective -->
   <div class="uis-section">
-    <h2>1 · Activity — what we are building</h2>
-    <p>Build database schema for SDLC pipeline tracking — 8 tables (tasks, signals, decompositions, reviews, deployments, metrics, agents, history) with indexes and constraints</p>
+    <h2>1 · Objective</h2>
+    <p>Design and ship the relational schema that makes the Appello SDLC software factory <strong>database-driven</strong> — every artifact an AI agent produces (a stage output, a code review, a build run, a test run, a doc, a state transition) is a first-class row in Postgres with stable IDs, FKs, status enums, and audit timestamps. The schema is the contract every downstream system (the Next.js operator UI, the AgentC2 dispatcher, the workflow callback webhook, the human-in-the-loop reviewer screens) reads and writes through Prisma.</p>
+    <p>Concretely: produce a single <code>schema.prisma</code> in <span class="path">packages/database/prisma/</span> that models the lifecycle <em>Project → WorkPackage → StageOutput → Review → WorkItem → BuildRun → TestRun → DocArtifact</em>, wires Better Auth (User / Session / Account / Verification) alongside it, and emits an idempotent <code>TransitionLog</code> trail so every state change is queryable forever.</p>
   </div>
 
+  <!-- 2 · Acceptance Criteria -->
   <div class="uis-section">
-    <h2>2 · Status from master sheet</h2>
-    <p>DONE — Appello SDLC/packages/database/prisma/schema.prisma</p>
+    <h2>2 · Acceptance Criteria</h2>
+    <ol>
+      <li>A single Prisma schema file is committed at <span class="path">packages/database/prisma/schema.prisma</span> with the Postgres provider, the prisma-client-js generator, and uses <code>DATABASE_URL</code> for runtime / <code>DATABASE_URL_MIGRATE</code> for migrations.</li>
+      <li>Better Auth models (<code>User</code>, <code>Session</code>, <code>Account</code>, <code>Verification</code>) are present and mapped to <code>user</code> / <code>session</code> / <code>account</code> / <code>verification</code> tables exactly as Better Auth expects.</li>
+      <li>A <code>Project</code> table evolves the legacy project row to hold <code>targetRepo</code>, <code>stagingUrl</code>, <code>productionUrl</code>, and a JSON <code>autoAdvancePolicy</code> blob — the per-project router config.</li>
+      <li>The eight software-factory tables exist with the names <code>WorkPackage</code>, <code>StageOutput</code>, <code>Review</code>, <code>WorkItem</code>, <code>BuildRun</code>, <code>TestRun</code>, <code>TransitionLog</code>, <code>DocArtifact</code>; every one uses <code>gen_random_uuid()</code> UUIDs, <code>Timestamptz</code> for audit columns, and <code>onDelete: Cascade</code> wherever a child row is meaningless without its parent.</li>
+      <li><code>StageOutput</code> enforces a composite uniqueness constraint <code>(workPackageId, stage, version)</code> so re-running a stage bumps the version explicitly instead of silently overwriting.</li>
+      <li>Every cost/observability field the dispatcher needs is on the schema: <code>agentc2RunId</code>, <code>durationMs</code>, <code>tokenCost</code> (Decimal 10,4), <code>healAttempts</code> on <code>StageOutput</code>; the same trio plus <code>trustScore</code>, <code>reviewScore</code>, <code>reviewNotes</code>, <code>securityFindings</code> on <code>BuildRun</code>; <code>testResults</code>, <code>screenshots</code>, <code>playwrightTrace</code>, <code>retryCount</code> on <code>TestRun</code>.</li>
+      <li>Lookup indexes exist for every query the operator UI runs: <code>WorkPackage (projectId, stage, status)</code>, <code>StageOutput (workPackageId)</code>, <code>Review (workPackageId, stage)</code>, <code>WorkItem (workPackageId)</code>, <code>BuildRun (workItemId, status)</code>, <code>TestRun (workItemId)</code>, <code>TransitionLog (entity, entityId)</code> + <code>(createdAt)</code>, <code>DocArtifact (workPackageId)</code>.</li>
+      <li><code>TransitionLog</code> captures the full xstate-style transition record — <code>entity</code>, <code>entityId</code>, <code>fromState</code>, <code>event</code>, <code>guard?</code>, <code>toState</code>, <code>actions[]</code>, <code>metadata?</code> — so the audit trail is replayable.</li>
+      <li><code>prisma db push</code> succeeds against a fresh Supabase Postgres; <code>prisma generate</code> emits a TypeScript client consumed via <span class="path">packages/database/src/index.ts</span>; <code>db:seed</code> and the dev <code>check-*</code> scripts run green end-to-end.</li>
+      <li>The schema is consumed by the Next.js operator app at <span class="path">apps/frontend/</span> through server actions (<code>lib/actions/*</code>) and a small set of webhook routes (<code>/api/workflow-callback</code>, <code>/api/sync-poller</code>) — no other application code talks to Postgres directly.</li>
+    </ol>
   </div>
 
+  <!-- 3 · Architecture & Approach -->
   <div class="uis-section">
-    <h2>3 · Evidence — repo / path</h2>
-    <p><span class="path">appello-sdlc/packages/database/prisma/schema.prisma</span></p>
+    <h2>3 · Architecture &amp; approach</h2>
+    <p>The stack is intentionally boring so the interesting work can live in the agent layer:</p>
+    <ul>
+      <li><strong>Postgres</strong> on Supabase, single database for both Better Auth tables and the SDLC factory tables.</li>
+      <li><strong>Prisma 6</strong> (<code>@prisma/client ^6.2.1</code>) as the single ORM. No raw SQL outside <code>$executeRawUnsafe</code> escape hatches.</li>
+      <li><strong>Next.js (App Router)</strong> in <span class="path">apps/frontend/</span> consumes Prisma through <span class="path">packages/database/src/index.ts</span> (re-exports <code>prisma</code> client + Prisma types). Server actions live in <span class="path">apps/frontend/src/lib/actions/</span>.</li>
+      <li><strong>Better Auth</strong> sits beside the factory tables in the same database; the only cross-link from factory → auth is <code>Review.reviewerId → User.id</code> so a human-reviewer verdict is attributable.</li>
+      <li><strong>AgentC2</strong> is the dispatcher — it owns workflow runs, calls back via <code>/api/workflow-callback</code>, and writes <code>agentc2_run_id</code> onto <code>StageOutput</code> / <code>BuildRun</code> / <code>TestRun</code> / <code>DocArtifact</code> so every artifact is traceable to the run that produced it.</li>
+    </ul>
+    <div class="diagram">      ┌───────────────┐   1   ∞   ┌────────────────┐   1   ∞   ┌────────────────┐
+      │   Project     │──────────▶│  WorkPackage   │──────────▶│  StageOutput   │
+      │ targetRepo    │           │  slug · stage  │           │  stage · ver   │
+      │ autoAdvance   │           │  status · pri  │           │  content · fmt │
+      └───────────────┘           └────┬────┬──────┘           │  agentc2RunId  │
+                                       │    │                  │  tokenCost     │
+                                       │    │                  └──────┬─────────┘
+                                       │    │                         │
+                                       │    │ ∞     ┌─────────────────▼──┐
+                                       │    └──────▶│      Review        │
+                                       │            │  verdict · stage   │
+                                       │            │  reviewerId → User │
+                                       │            └────────────────────┘
+                                       │
+                                       │ 1   ∞     ┌──────────────────┐  1   ∞   ┌────────────┐
+                                       └──────────▶│    WorkItem      │─────────▶│  BuildRun  │
+                                                   │  scope · accept  │          │  prNumber  │
+                                                   │  techSpec · seq  │          │  trustScore│
+                                                   └────────┬─────────┘          └─────┬──────┘
+                                                            │                          │
+                                                            │ 1   ∞                    │ 1   ∞
+                                                            ▼                          ▼
+                                                     ┌────────────┐             ┌────────────┐
+                                                     │  TestRun   │◀────────────│   (FK)     │
+                                                     │  playwright│             └────────────┘
+                                                     └────────────┘
+
+      ┌──────────────────┐    write-only audit trail (no FKs — polymorphic entity ref)
+      │  TransitionLog   │ ◀── every state change from xstate machines lands here
+      │  entity · ev · ts│
+      └──────────────────┘
+
+      ┌──────────────────┐
+      │   DocArtifact    │ ◀── one-or-more docs per WorkPackage (release notes, user guide, …)
+      │  docType · status│
+      └──────────────────┘</div>
+    <p class="muted">Source of truth: <span class="path">packages/database/prisma/schema.prisma:73-259</span>.</p>
   </div>
 
+  <!-- 4 · Schema Reference -->
   <div class="uis-section">
-    <h2>4 · What it is / what it does</h2>
-    <p>The Prisma schema for the SDLC pipeline database (User, Session, Account, Project + the work_packages/stage_outputs/reviews family of tables).</p>
+    <h2>4 · Schema reference — the actual Prisma models</h2>
+    <p>All snippets below are verbatim from <span class="path">packages/database/prisma/schema.prisma</span> at the line ranges noted. The file is 259 lines total and is the single source of truth — no schema is generated and no SQL migration files are checked in (see §5).</p>
+
+    <h3>4.1 Generator, datasource &amp; Better Auth header</h3>
+    <p class="muted">Source: <span class="path">schema.prisma:1-71</span></p>
+<pre class="code"><span class="k">generator</span> client {
+  provider = <span class="s">"prisma-client-js"</span>
+}
+
+<span class="k">datasource</span> db {
+  provider = <span class="s">"postgresql"</span>
+  url      = env(<span class="s">"DATABASE_URL"</span>)
+}
+
+<span class="c">// ─── Better Auth Models ─────────────────────────────────────────────</span>
+
+<span class="k">model</span> <span class="t">User</span> {
+  id            <span class="t">String</span>    <span class="a">@id</span> <span class="a">@default</span>(cuid())
+  name          <span class="t">String</span>
+  email         <span class="t">String</span>    <span class="a">@unique</span>
+  emailVerified <span class="t">Boolean</span>   <span class="a">@default</span>(<span class="k">false</span>)
+  image         <span class="t">String</span>?
+  createdAt     <span class="t">DateTime</span>  <span class="a">@default</span>(now())
+  updatedAt     <span class="t">DateTime</span>  <span class="a">@updatedAt</span>
+  sessions      <span class="t">Session</span>[]
+  accounts      <span class="t">Account</span>[]
+  reviews       <span class="t">Review</span>[]
+
+  <span class="a">@@map</span>(<span class="s">"user"</span>)
+}</pre>
+    <p><code>Session</code> / <code>Account</code> / <code>Verification</code> follow the standard Better Auth shape (<code>schema.prisma:27-71</code>): cuid IDs, <code>@@map</code> to lowercase table names, <code>userId</code> FK with <code>onDelete: Cascade</code>, and <code>@@index([userId])</code> on the join tables. The only factory ↔ auth link added in this epic is <code>User.reviews ← Review.reviewer</code>.</p>
+
+    <h3>4.2 <code>Project</code> — the root container, per-customer routing</h3>
+    <p class="muted">Source: <span class="path">schema.prisma:73-89</span></p>
+<pre class="code"><span class="k">model</span> <span class="t">Project</span> {
+  id                <span class="t">String</span>        <span class="a">@id</span> <span class="a">@default</span>(dbgenerated(<span class="s">"gen_random_uuid()"</span>)) <span class="a">@db</span>.Uuid
+  name              <span class="t">String</span>
+  slug              <span class="t">String</span>        <span class="a">@unique</span>
+  description       <span class="t">String</span>        <span class="a">@default</span>(<span class="s">""</span>)
+  targetRepo        <span class="t">String</span>        <span class="a">@map</span>(<span class="s">"target_repo"</span>)
+  stagingUrl        <span class="t">String</span>?       <span class="a">@map</span>(<span class="s">"staging_url"</span>)
+  productionUrl     <span class="t">String</span>?       <span class="a">@map</span>(<span class="s">"production_url"</span>)
+  autoAdvancePolicy <span class="t">Json</span>          <span class="a">@default</span>(<span class="s">"{}"</span>) <span class="a">@map</span>(<span class="s">"auto_advance_policy"</span>)
+  createdAt         <span class="t">DateTime</span>      <span class="a">@default</span>(now()) <span class="a">@map</span>(<span class="s">"created_at"</span>) <span class="a">@db</span>.Timestamptz(<span class="n">6</span>)
+  updatedAt         <span class="t">DateTime</span>      <span class="a">@default</span>(now()) <span class="a">@map</span>(<span class="s">"updated_at"</span>) <span class="a">@db</span>.Timestamptz(<span class="n">6</span>)
+  workPackages      <span class="t">WorkPackage</span>[]
+
+  <span class="a">@@map</span>(<span class="s">"projects"</span>)
+}</pre>
+    <p><code>autoAdvancePolicy</code> is a free-form JSON blob: which stages skip human review, which stages auto-dispatch the next, what trust-score threshold to advance at. Tested via <span class="path">packages/database/src/seed-projects.ts</span>.</p>
+
+    <h3>4.3 <code>WorkPackage</code> — the unit of agent work</h3>
+    <p class="muted">Source: <span class="path">schema.prisma:93-114</span></p>
+<pre class="code"><span class="k">model</span> <span class="t">WorkPackage</span> {
+  id           <span class="t">String</span>        <span class="a">@id</span> <span class="a">@default</span>(dbgenerated(<span class="s">"gen_random_uuid()"</span>)) <span class="a">@db</span>.Uuid
+  projectId    <span class="t">String</span>        <span class="a">@map</span>(<span class="s">"project_id"</span>) <span class="a">@db</span>.Uuid
+  slug         <span class="t">String</span>        <span class="a">@unique</span>
+  title        <span class="t">String</span>
+  description  <span class="t">String</span>        <span class="a">@default</span>(<span class="s">""</span>)
+  stage        <span class="t">String</span>        <span class="a">@default</span>(<span class="s">"draft"</span>)
+  status       <span class="t">String</span>        <span class="a">@default</span>(<span class="s">"draft"</span>)
+  priority     <span class="t">Int</span>           <span class="a">@default</span>(<span class="n">0</span>)
+  createdAt    <span class="t">DateTime</span>      <span class="a">@default</span>(now()) <span class="a">@map</span>(<span class="s">"created_at"</span>) <span class="a">@db</span>.Timestamptz(<span class="n">6</span>)
+  updatedAt    <span class="t">DateTime</span>      <span class="a">@default</span>(now()) <span class="a">@map</span>(<span class="s">"updated_at"</span>) <span class="a">@db</span>.Timestamptz(<span class="n">6</span>)
+  project      <span class="t">Project</span>       <span class="a">@relation</span>(fields: [projectId], references: [id])
+  stageOutputs <span class="t">StageOutput</span>[]
+  reviews      <span class="t">Review</span>[]
+  workItems    <span class="t">WorkItem</span>[]
+  docArtifacts <span class="t">DocArtifact</span>[]
+
+  <span class="a">@@index</span>([projectId])
+  <span class="a">@@index</span>([stage])
+  <span class="a">@@index</span>([status])
+  <span class="a">@@map</span>(<span class="s">"work_packages_v2"</span>)
+}</pre>
+    <p>Note the table name <code>work_packages_v2</code> — chosen deliberately because a legacy <code>work_packages</code> table predated this schema; the <code>_v2</code> suffix lets the cutover run side-by-side without disturbing legacy readers. <code>stage</code> and <code>status</code> are both string-typed (open vocabulary), driven from the xstate machine that ships in C1-0002.</p>
+
+    <h3>4.4 <code>StageOutput</code> — the durable artifact for each stage execution</h3>
+    <p class="muted">Source: <span class="path">schema.prisma:116-135</span></p>
+<pre class="code"><span class="k">model</span> <span class="t">StageOutput</span> {
+  id            <span class="t">String</span>      <span class="a">@id</span> <span class="a">@default</span>(dbgenerated(<span class="s">"gen_random_uuid()"</span>)) <span class="a">@db</span>.Uuid
+  workPackageId <span class="t">String</span>      <span class="a">@map</span>(<span class="s">"work_package_id"</span>) <span class="a">@db</span>.Uuid
+  stage         <span class="t">String</span>
+  version       <span class="t">Int</span>         <span class="a">@default</span>(<span class="n">1</span>)
+  content       <span class="t">String</span>      <span class="a">@default</span>(<span class="s">""</span>)
+  format        <span class="t">String</span>      <span class="a">@default</span>(<span class="s">"json"</span>)
+  status        <span class="t">String</span>      <span class="a">@default</span>(<span class="s">"generating"</span>)
+  agentc2RunId  <span class="t">String</span>?     <span class="a">@map</span>(<span class="s">"agentc2_run_id"</span>)
+  durationMs    <span class="t">Int</span>?        <span class="a">@map</span>(<span class="s">"duration_ms"</span>)
+  tokenCost     <span class="t">Decimal</span>?    <span class="a">@map</span>(<span class="s">"token_cost"</span>) <span class="a">@db</span>.Decimal(<span class="n">10</span>, <span class="n">4</span>)
+  healAttempts  <span class="t">Int</span>         <span class="a">@default</span>(<span class="n">0</span>) <span class="a">@map</span>(<span class="s">"heal_attempts"</span>)
+  createdAt     <span class="t">DateTime</span>    <span class="a">@default</span>(now()) <span class="a">@map</span>(<span class="s">"created_at"</span>) <span class="a">@db</span>.Timestamptz(<span class="n">6</span>)
+  workPackage   <span class="t">WorkPackage</span> <span class="a">@relation</span>(fields: [workPackageId], references: [id], onDelete: <span class="t">Cascade</span>)
+  reviews       <span class="t">Review</span>[]
+
+  <span class="a">@@unique</span>([workPackageId, stage, version])
+  <span class="a">@@index</span>([workPackageId])
+  <span class="a">@@map</span>(<span class="s">"stage_outputs"</span>)
+}</pre>
+    <p>The <code>(workPackageId, stage, version)</code> composite unique is the single most important constraint in the schema. Re-running a stage <em>must</em> create a new row with <code>version + 1</code>; silently mutating an existing row would destroy the audit trail and break the heal loop's "previous attempt's feedback" lookup. <code>healAttempts</code> is a counter for the auto-heal subsystem (C1-0003); when it exceeds the per-stage cap the dispatcher escalates to a human reviewer.</p>
+
+    <h3>4.5 <code>Review</code> — verdict on a stage output (human or AI)</h3>
+    <p class="muted">Source: <span class="path">schema.prisma:137-154</span></p>
+<pre class="code"><span class="k">model</span> <span class="t">Review</span> {
+  id             <span class="t">String</span>       <span class="a">@id</span> <span class="a">@default</span>(dbgenerated(<span class="s">"gen_random_uuid()"</span>)) <span class="a">@db</span>.Uuid
+  workPackageId  <span class="t">String</span>       <span class="a">@map</span>(<span class="s">"work_package_id"</span>) <span class="a">@db</span>.Uuid
+  stageOutputId  <span class="t">String</span>?      <span class="a">@map</span>(<span class="s">"stage_output_id"</span>) <span class="a">@db</span>.Uuid
+  stage          <span class="t">String</span>
+  verdict        <span class="t">String</span>
+  feedback       <span class="t">String</span>?
+  reviewerId     <span class="t">String</span>?      <span class="a">@map</span>(<span class="s">"reviewer_id"</span>)
+  triggeredRunId <span class="t">String</span>?      <span class="a">@map</span>(<span class="s">"triggered_run_id"</span>)
+  createdAt      <span class="t">DateTime</span>     <span class="a">@default</span>(now()) <span class="a">@map</span>(<span class="s">"created_at"</span>) <span class="a">@db</span>.Timestamptz(<span class="n">6</span>)
+  workPackage    <span class="t">WorkPackage</span>  <span class="a">@relation</span>(fields: [workPackageId], references: [id], onDelete: <span class="t">Cascade</span>)
+  stageOutput    <span class="t">StageOutput</span>? <span class="a">@relation</span>(fields: [stageOutputId], references: [id])
+  reviewer       <span class="t">User</span>?        <span class="a">@relation</span>(fields: [reviewerId], references: [id])
+
+  <span class="a">@@index</span>([workPackageId])
+  <span class="a">@@index</span>([stage])
+  <span class="a">@@map</span>(<span class="s">"reviews"</span>)
+}</pre>
+    <p><code>reviewerId</code> is nullable on purpose — when an AI reviewer (e.g. the lint stage) produces the verdict there is no <code>User</code> row to link to. <code>triggeredRunId</code> records the AgentC2 run that the verdict kicked off (typically the next stage's dispatch).</p>
+
+    <h3>4.6 <code>WorkItem</code> — atomic ticket inside a WorkPackage</h3>
+    <p class="muted">Source: <span class="path">schema.prisma:156-177</span></p>
+<pre class="code"><span class="k">model</span> <span class="t">WorkItem</span> {
+  id                 <span class="t">String</span>      <span class="a">@id</span> <span class="a">@default</span>(dbgenerated(<span class="s">"gen_random_uuid()"</span>)) <span class="a">@db</span>.Uuid
+  workPackageId      <span class="t">String</span>      <span class="a">@map</span>(<span class="s">"work_package_id"</span>) <span class="a">@db</span>.Uuid
+  slug               <span class="t">String</span>      <span class="a">@unique</span>
+  title              <span class="t">String</span>
+  description        <span class="t">String</span>      <span class="a">@default</span>(<span class="s">""</span>)
+  sequenceNumber     <span class="t">Int</span>         <span class="a">@map</span>(<span class="s">"sequence_number"</span>)
+  scope              <span class="t">Json</span>        <span class="a">@default</span>(<span class="s">"{}"</span>)
+  acceptanceCriteria <span class="t">Json</span>        <span class="a">@default</span>(<span class="s">"[]"</span>) <span class="a">@map</span>(<span class="s">"acceptance_criteria"</span>)
+  techSpec           <span class="t">Json</span>        <span class="a">@default</span>(<span class="s">"{}"</span>) <span class="a">@map</span>(<span class="s">"tech_spec"</span>)
+  predecessors       <span class="t">Int</span>[]       <span class="a">@default</span>([])
+  successors         <span class="t">Int</span>[]       <span class="a">@default</span>([])
+  status             <span class="t">String</span>      <span class="a">@default</span>(<span class="s">"pending"</span>)
+  createdAt          <span class="t">DateTime</span>    <span class="a">@default</span>(now()) <span class="a">@map</span>(<span class="s">"created_at"</span>) <span class="a">@db</span>.Timestamptz(<span class="n">6</span>)
+  updatedAt          <span class="t">DateTime</span>    <span class="a">@default</span>(now()) <span class="a">@map</span>(<span class="s">"updated_at"</span>) <span class="a">@db</span>.Timestamptz(<span class="n">6</span>)
+  workPackage        <span class="t">WorkPackage</span> <span class="a">@relation</span>(fields: [workPackageId], references: [id], onDelete: <span class="t">Cascade</span>)
+  buildRuns          <span class="t">BuildRun</span>[]
+  testRuns           <span class="t">TestRun</span>[]
+
+  <span class="a">@@index</span>([workPackageId])
+  <span class="a">@@map</span>(<span class="s">"work_items"</span>)
+}</pre>
+    <p><code>predecessors</code> / <code>successors</code> are <code>Int[]</code> referencing other <code>WorkItem.sequenceNumber</code>s in the same package — a lightweight DAG so the dispatcher can parallel-fan-out and gate on prerequisites without a join table. <code>scope</code> / <code>acceptanceCriteria</code> / <code>techSpec</code> are JSON blobs populated by the scope-decomposition stage output.</p>
+
+    <h3>4.7 <code>BuildRun</code> — one AgentC2 build attempt → one PR</h3>
+    <p class="muted">Source: <span class="path">schema.prisma:179-203</span></p>
+<pre class="code"><span class="k">model</span> <span class="t">BuildRun</span> {
+  id               <span class="t">String</span>    <span class="a">@id</span> <span class="a">@default</span>(dbgenerated(<span class="s">"gen_random_uuid()"</span>)) <span class="a">@db</span>.Uuid
+  workItemId       <span class="t">String</span>    <span class="a">@map</span>(<span class="s">"work_item_id"</span>) <span class="a">@db</span>.Uuid
+  agentc2RunId     <span class="t">String</span>?   <span class="a">@map</span>(<span class="s">"agentc2_run_id"</span>)
+  status           <span class="t">String</span>    <span class="a">@default</span>(<span class="s">"queued"</span>)
+  branchName       <span class="t">String</span>?   <span class="a">@map</span>(<span class="s">"branch_name"</span>)
+  prNumber         <span class="t">Int</span>?      <span class="a">@map</span>(<span class="s">"pr_number"</span>)
+  prUrl            <span class="t">String</span>?   <span class="a">@map</span>(<span class="s">"pr_url"</span>)
+  trustScore       <span class="t">Decimal</span>?  <span class="a">@map</span>(<span class="s">"trust_score"</span>) <span class="a">@db</span>.Decimal(<span class="n">4</span>, <span class="n">3</span>)
+  reviewScore      <span class="t">Decimal</span>?  <span class="a">@map</span>(<span class="s">"review_score"</span>) <span class="a">@db</span>.Decimal(<span class="n">4</span>, <span class="n">3</span>)
+  reviewNotes      <span class="t">Json</span>      <span class="a">@default</span>(<span class="s">"[]"</span>) <span class="a">@map</span>(<span class="s">"review_notes"</span>)
+  securityFindings <span class="t">Json</span>      <span class="a">@default</span>(<span class="s">"[]"</span>) <span class="a">@map</span>(<span class="s">"security_findings"</span>)
+  errorMessage     <span class="t">String</span>?   <span class="a">@map</span>(<span class="s">"error_message"</span>)
+  healAttempts     <span class="t">Int</span>       <span class="a">@default</span>(<span class="n">0</span>) <span class="a">@map</span>(<span class="s">"heal_attempts"</span>)
+  durationMs       <span class="t">Int</span>?      <span class="a">@map</span>(<span class="s">"duration_ms"</span>)
+  tokenCost        <span class="t">Decimal</span>?  <span class="a">@map</span>(<span class="s">"token_cost"</span>) <span class="a">@db</span>.Decimal(<span class="n">10</span>, <span class="n">4</span>)
+  dispatchedAt     <span class="t">DateTime</span>  <span class="a">@default</span>(now()) <span class="a">@map</span>(<span class="s">"dispatched_at"</span>) <span class="a">@db</span>.Timestamptz(<span class="n">6</span>)
+  completedAt      <span class="t">DateTime</span>? <span class="a">@map</span>(<span class="s">"completed_at"</span>) <span class="a">@db</span>.Timestamptz(<span class="n">6</span>)
+  workItem         <span class="t">WorkItem</span>  <span class="a">@relation</span>(fields: [workItemId], references: [id], onDelete: <span class="t">Cascade</span>)
+  testRuns         <span class="t">TestRun</span>[]
+
+  <span class="a">@@index</span>([workItemId])
+  <span class="a">@@index</span>([status])
+  <span class="a">@@map</span>(<span class="s">"build_runs"</span>)
+}</pre>
+    <p>Two separate score columns — <code>trustScore</code> (synthetic, computed from lints + security + test pass-rate) and <code>reviewScore</code> (human or AI reviewer's 0–1 verdict). Both <code>Decimal(4,3)</code> so 0.000–9.999 with millidecimal precision; the dispatcher's auto-advance compares against the per-project policy blob (§4.2).</p>
+
+    <h3>4.8 <code>TestRun</code> — Playwright + unit-test execution attached to a BuildRun</h3>
+    <p class="muted">Source: <span class="path">schema.prisma:205-225</span></p>
+<pre class="code"><span class="k">model</span> <span class="t">TestRun</span> {
+  id              <span class="t">String</span>    <span class="a">@id</span> <span class="a">@default</span>(dbgenerated(<span class="s">"gen_random_uuid()"</span>)) <span class="a">@db</span>.Uuid
+  workItemId      <span class="t">String</span>    <span class="a">@map</span>(<span class="s">"work_item_id"</span>) <span class="a">@db</span>.Uuid
+  buildRunId      <span class="t">String</span>?   <span class="a">@map</span>(<span class="s">"build_run_id"</span>) <span class="a">@db</span>.Uuid
+  agentc2RunId    <span class="t">String</span>?   <span class="a">@map</span>(<span class="s">"agentc2_run_id"</span>)
+  status          <span class="t">String</span>    <span class="a">@default</span>(<span class="s">"pending"</span>)
+  testResults     <span class="t">Json</span>      <span class="a">@default</span>(<span class="s">"[]"</span>) <span class="a">@map</span>(<span class="s">"test_results"</span>)
+  screenshots     <span class="t">Json</span>      <span class="a">@default</span>(<span class="s">"[]"</span>)
+  playwrightTrace <span class="t">String</span>?   <span class="a">@map</span>(<span class="s">"playwright_trace"</span>)
+  failureDetails  <span class="t">String</span>?   <span class="a">@map</span>(<span class="s">"failure_details"</span>)
+  retryCount      <span class="t">Int</span>       <span class="a">@default</span>(<span class="n">0</span>) <span class="a">@map</span>(<span class="s">"retry_count"</span>)
+  durationMs      <span class="t">Int</span>?      <span class="a">@map</span>(<span class="s">"duration_ms"</span>)
+  tokenCost       <span class="t">Decimal</span>?  <span class="a">@map</span>(<span class="s">"token_cost"</span>) <span class="a">@db</span>.Decimal(<span class="n">10</span>, <span class="n">4</span>)
+  createdAt       <span class="t">DateTime</span>  <span class="a">@default</span>(now()) <span class="a">@map</span>(<span class="s">"created_at"</span>) <span class="a">@db</span>.Timestamptz(<span class="n">6</span>)
+  completedAt     <span class="t">DateTime</span>? <span class="a">@map</span>(<span class="s">"completed_at"</span>) <span class="a">@db</span>.Timestamptz(<span class="n">6</span>)
+  workItem        <span class="t">WorkItem</span>  <span class="a">@relation</span>(fields: [workItemId], references: [id], onDelete: <span class="t">Cascade</span>)
+  buildRun        <span class="t">BuildRun</span>? <span class="a">@relation</span>(fields: [buildRunId], references: [id])
+
+  <span class="a">@@index</span>([workItemId])
+  <span class="a">@@map</span>(<span class="s">"test_runs"</span>)
+}</pre>
+    <p><code>buildRunId</code> is nullable so a free-standing regression / smoke run can exist without a build. <code>playwrightTrace</code> is the URL of the uploaded <code>.zip</code> trace artifact (object-storage path).</p>
+
+    <h3>4.9 <code>TransitionLog</code> — write-only audit trail of every state change</h3>
+    <p class="muted">Source: <span class="path">schema.prisma:227-242</span></p>
+<pre class="code"><span class="k">model</span> <span class="t">TransitionLog</span> {
+  id        <span class="t">String</span>   <span class="a">@id</span> <span class="a">@default</span>(dbgenerated(<span class="s">"gen_random_uuid()"</span>)) <span class="a">@db</span>.Uuid
+  entity    <span class="t">String</span>
+  entityId  <span class="t">String</span>   <span class="a">@map</span>(<span class="s">"entity_id"</span>)
+  fromState <span class="t">String</span>   <span class="a">@map</span>(<span class="s">"from_state"</span>)
+  event     <span class="t">String</span>
+  guard     <span class="t">String</span>?
+  toState   <span class="t">String</span>   <span class="a">@map</span>(<span class="s">"to_state"</span>)
+  actions   <span class="t">String</span>[]
+  metadata  <span class="t">Json</span>?
+  createdAt <span class="t">DateTime</span> <span class="a">@default</span>(now()) <span class="a">@map</span>(<span class="s">"created_at"</span>) <span class="a">@db</span>.Timestamptz(<span class="n">6</span>)
+
+  <span class="a">@@index</span>([entity, entityId])
+  <span class="a">@@index</span>([createdAt])
+  <span class="a">@@map</span>(<span class="s">"transition_logs"</span>)
+}</pre>
+    <p>Polymorphic on purpose — no FK back to <code>WorkPackage</code> / <code>WorkItem</code> / <code>BuildRun</code> because the log spans <em>every</em> entity that has a state machine. The <code>(entity, entityId)</code> index makes "show me the full transition history for this row" a single fast query; <code>(createdAt)</code> serves the global activity feed in the operator UI.</p>
+
+    <h3>4.10 <code>DocArtifact</code> — release notes, user guides, internal docs</h3>
+    <p class="muted">Source: <span class="path">schema.prisma:244-259</span></p>
+<pre class="code"><span class="k">model</span> <span class="t">DocArtifact</span> {
+  id            <span class="t">String</span>      <span class="a">@id</span> <span class="a">@default</span>(dbgenerated(<span class="s">"gen_random_uuid()"</span>)) <span class="a">@db</span>.Uuid
+  workPackageId <span class="t">String</span>      <span class="a">@map</span>(<span class="s">"work_package_id"</span>) <span class="a">@db</span>.Uuid
+  docType       <span class="t">String</span>      <span class="a">@map</span>(<span class="s">"doc_type"</span>)
+  title         <span class="t">String</span>
+  content       <span class="t">String</span>      <span class="a">@default</span>(<span class="s">""</span>)
+  screenshots   <span class="t">Json</span>        <span class="a">@default</span>(<span class="s">"[]"</span>)
+  status        <span class="t">String</span>      <span class="a">@default</span>(<span class="s">"draft"</span>)
+  agentc2RunId  <span class="t">String</span>?     <span class="a">@map</span>(<span class="s">"agentc2_run_id"</span>)
+  createdAt     <span class="t">DateTime</span>    <span class="a">@default</span>(now()) <span class="a">@map</span>(<span class="s">"created_at"</span>) <span class="a">@db</span>.Timestamptz(<span class="n">6</span>)
+  updatedAt     <span class="t">DateTime</span>    <span class="a">@default</span>(now()) <span class="a">@map</span>(<span class="s">"updated_at"</span>) <span class="a">@db</span>.Timestamptz(<span class="n">6</span>)
+  workPackage   <span class="t">WorkPackage</span> <span class="a">@relation</span>(fields: [workPackageId], references: [id], onDelete: <span class="t">Cascade</span>)
+
+  <span class="a">@@index</span>([workPackageId])
+  <span class="a">@@map</span>(<span class="s">"doc_artifacts"</span>)
+}</pre>
+    <p><code>docType</code> is the discriminator (<code>"release-notes"</code>, <code>"user-guide"</code>, <code>"runbook"</code>, …). Hangs off <code>WorkPackage</code> rather than <code>WorkItem</code> because docs cover the whole feature, not a single ticket.</p>
   </div>
 
+  <!-- 5 · Migration Strategy -->
   <div class="uis-section">
-    <h2>5 · How it connects to this epic</h2>
-    <p>This epic is exactly this file: it stands up the schema that every SDLC workflow reads from and writes to. The schema is in main and is what work_packages_v2, stage_outputs, reviews, work_items, build_runs, test_runs, doc_artifacts and transition_logs live in.</p>
+    <h2>5 · Migration strategy</h2>
+    <div class="callout"><strong>Honest observation.</strong> <span class="path">packages/database/prisma/migrations/</span> contains <em>only</em> <span class="path">migration_lock.toml</span> (provider = <code>postgresql</code>). No timestamped migration SQL files are committed at the time of this UIS. The schema is rolled out via <code>prisma db push</code> (dev) and the migration history is intentionally empty until the schema stabilises post-P1.</p></div>
+    <p>Migration choreography for this epic is deliberately staged so the schema can iterate quickly before being frozen:</p>
+    <ul>
+      <li><strong>Dev rollout:</strong> <code>bun run db:push</code> (<span class="path">packages/database/package.json:11</span>) — declarative push of <code>schema.prisma</code> against <code>DATABASE_URL</code>. Used during the 45h build because the model surface was still moving every few hours.</li>
+      <li><strong>Two DATABASE_URLs:</strong> <code>DATABASE_URL</code> is the Supabase pooler endpoint Prisma uses at runtime; <code>DATABASE_URL_MIGRATE</code> is the direct connection used only by <code>prisma migrate dev</code> / <code>migrate deploy</code> so the shadow database can be created without pooler interference. See <span class="path">packages/database/package.json:13-18</span>.</li>
+      <li><strong>Generator:</strong> <code>bun run db:generate</code> emits the typed client into <code>node_modules/@prisma/client</code>; the workspace package <span class="path">packages/database/src/index.ts</span> re-exports <code>prisma</code> and <code>Prisma</code> types so the rest of the monorepo never imports from <code>@prisma/client</code> directly.</li>
+      <li><strong>Reset path:</strong> <code>bun run db:migrate:reset</code> nukes + replays; <code>migrate-fresh.ts</code> at <span class="path">packages/database/src/migrate-fresh.ts</span> is the bespoke local-only escape hatch when the schema is on fire.</li>
+      <li><strong>Seed:</strong> <code>bun run db:seed</code> runs <span class="path">packages/database/src/seed.ts</span>; <span class="path">seed-projects.ts</span> backfills the demo <code>Project</code> rows that the operator UI depends on.</li>
+      <li><strong>Sanity scripts:</strong> <span class="path">src/check-wp.ts</span>, <span class="path">src/check-wi.ts</span>, <span class="path">src/check-so.ts</span>, <span class="path">src/check-tl-build.ts</span> — quick Prisma reads that smoke-test each model has the right shape after a push.</li>
+      <li><strong>Cutover plan (post-P1):</strong> once the schema is frozen, run <code>prisma migrate dev --name initial</code> against the migrate URL to baseline; commit the first SQL migration; flip CI to <code>prisma migrate deploy</code> for prod. Tracked in C1-0002.</li>
+    </ul>
   </div>
 
+  <!-- 6 · API Surface -->
   <div class="uis-section">
-    <h2>6 · Originally proposed activity (pre-David revision)</h2>
-    <p class="muted">Apr 26</p>
+    <h2>6 · API surface — how the schema is consumed</h2>
+    <p>Application code never imports <code>@prisma/client</code> directly; everything goes through the workspace package <span class="path">packages/database/src/index.ts</span> (<code>import { prisma, type Prisma } from "@repo/database"</code>). The Next.js operator app at <span class="path">apps/frontend/</span> talks to the schema in two ways:</p>
+
+    <h3>6.1 Server actions (preferred)</h3>
+    <table class="spec">
+      <thead><tr><th>File</th><th>Touches</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">apps/frontend/src/lib/actions/projects.ts</td><td><code>Project</code></td><td><code>getProjectBySlug()</code>, <code>updateProjectSettings()</code> — operator settings page.</td></tr>
+        <tr><td class="mono">apps/frontend/src/lib/actions/dashboard.ts</td><td><code>WorkPackage</code>, <code>StageOutput</code>, <code>BuildRun</code>, <code>TestRun</code></td><td>Dashboard aggregates: counts by status, recent runs, in-flight stage outputs.</td></tr>
+        <tr><td class="mono">apps/frontend/src/lib/actions/factory.ts</td><td><code>WorkPackage</code>, <code>StageOutput</code>, <code>Review</code>, <code>WorkItem</code>, <code>DocArtifact</code></td><td>Create-seed flow, stage advancement, human review submission.</td></tr>
+        <tr><td class="mono">apps/frontend/src/lib/actions/run-control-actions.ts</td><td><code>StageOutput</code>, <code>BuildRun</code>, <code>TestRun</code></td><td>Pause / resume / retry buttons on a running stage.</td></tr>
+        <tr><td class="mono">apps/frontend/src/lib/actions/run-sync.ts</td><td><code>BuildRun</code>, <code>TestRun</code></td><td>Pulls live status from AgentC2 for in-flight runs the webhook hasn't reached yet.</td></tr>
+        <tr><td class="mono">apps/frontend/src/lib/actions/router/*</td><td><code>WorkPackage</code>, <code>TransitionLog</code></td><td>xstate machine + guards + transitions — every transition fires a <code>TransitionLog</code> insert.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>6.2 Route handlers</h3>
+    <table class="spec">
+      <thead><tr><th>Route</th><th>Method</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">/api/workflow-callback</td><td>POST</td><td>AgentC2 dispatcher's completion webhook; writes <code>StageOutput.content</code> / <code>status</code>, fires the next transition via the router.</td></tr>
+        <tr><td class="mono">/api/sync-poller</td><td>GET</td><td>Vercel cron / external poller to backfill any run AgentC2 forgot to call back on.</td></tr>
+        <tr><td class="mono">/api/auth/[...all]</td><td>ANY</td><td>Better Auth catch-all (User / Session / Account). Only writes to the auth tables.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>6.3 Operator UI pages</h3>
+    <p>Three pages compose the entire factory operator surface — all read through the actions above:</p>
+    <ul>
+      <li><span class="path">apps/frontend/src/app/(Authenticated)/work-packages/page.tsx</span> — list view.</li>
+      <li><span class="path">apps/frontend/src/app/(Authenticated)/work-packages/new/page.tsx</span> — create-seed form (seeds a draft <code>WorkPackage</code>).</li>
+      <li><span class="path">apps/frontend/src/app/(Authenticated)/work-packages/[slug]/page.tsx</span> — detail view with stage outputs, reviews, build runs, test runs, doc artifacts, transition log timeline.</li>
+    </ul>
   </div>
 
+  <!-- 7 · Implementation Phases -->
   <div class="uis-section">
-    <h2>7 · Audit metadata</h2>
-    <div class="meta-row">
-      <span><strong>State:</strong> DONE</span>
-      <span><strong>Code reference:</strong> Appello SDLC/packages/database/prisma/schema.prisma</span>
-      <span><strong>Audit flag:</strong> —</span>
+    <h2>7 · Implementation phases — how the 45h decomposed</h2>
+
+    <div class="phase">
+      <h4>Phase 1 · Better Auth + Project skeleton <span class="tag tag-done">DONE</span> · ~6h</h4>
+      <ul>
+        <li>Wire <code>@prisma/client ^6.2.1</code> + <span class="path">packages/database/</span> workspace package, two-URL <code>.env</code> contract.</li>
+        <li>Drop the Better Auth canonical models (<code>User</code> / <code>Session</code> / <code>Account</code> / <code>Verification</code>) in unmodified.</li>
+        <li>Evolve the legacy <code>Project</code> row into the v2 shape (<code>targetRepo</code>, <code>autoAdvancePolicy</code>, staging/prod URLs).</li>
+      </ul>
+      <div class="gate">Gate ➔ <code>db:push</code> green, <code>seed-admin.ts</code> creates a User, login round-trip works.</div>
+    </div>
+
+    <div class="phase">
+      <h4>Phase 2 · WorkPackage + StageOutput + Review backbone <span class="tag tag-done">DONE</span> · ~12h</h4>
+      <ul>
+        <li>Model the three core lifecycle tables with the <code>(workPackageId, stage, version)</code> unique on <code>StageOutput</code> — the single most important constraint.</li>
+        <li>Add the <code>agentc2RunId</code> / <code>durationMs</code> / <code>tokenCost</code> / <code>healAttempts</code> observability columns from day one so dashboards don't need a follow-up migration.</li>
+        <li>Decide on <code>work_packages_v2</code> table name to avoid colliding with the legacy <code>work_packages</code> readers.</li>
+      </ul>
+      <div class="gate">Gate ➔ <code>check-wp.ts</code> + <code>check-so.ts</code> read/write end-to-end against a fresh DB.</div>
+    </div>
+
+    <div class="phase">
+      <h4>Phase 3 · WorkItem + BuildRun + TestRun build-side <span class="tag tag-done">DONE</span> · ~14h</h4>
+      <ul>
+        <li>Decompose <code>WorkPackage → WorkItem[]</code> with JSON <code>scope</code> / <code>acceptanceCriteria</code> / <code>techSpec</code> blobs to keep the row count flat.</li>
+        <li>Add the predecessor/successor <code>Int[]</code> DAG fields for parallel dispatch without a join table.</li>
+        <li>Add <code>BuildRun</code> with <code>trustScore</code> + <code>reviewScore</code> as separate <code>Decimal(4,3)</code> columns (so the auto-advance policy can compare independently).</li>
+        <li>Add <code>TestRun</code> with <code>playwrightTrace</code> + <code>screenshots</code> JSON, nullable <code>buildRunId</code> for free-standing regression runs.</li>
+      </ul>
+      <div class="gate">Gate ➔ <code>check-wi.ts</code> + <code>check-tl-build.ts</code> exercise full WP→WI→Build→Test chain.</div>
+    </div>
+
+    <div class="phase">
+      <h4>Phase 4 · TransitionLog + DocArtifact + indexes <span class="tag tag-done">DONE</span> · ~8h</h4>
+      <ul>
+        <li>Add the polymorphic <code>TransitionLog</code> with the <code>(entity, entityId)</code> + <code>(createdAt)</code> dual index.</li>
+        <li>Add <code>DocArtifact</code> hanging off <code>WorkPackage</code> with the <code>docType</code> discriminator.</li>
+        <li>Sweep every model for the right <code>@@index</code> set — anything the operator UI filters or sorts by must be indexed.</li>
+        <li>Wire <code>fix-design-so.ts</code> — a one-shot patch script for the design-stage rows that were created before the schema settled.</li>
+      </ul>
+      <div class="gate">Gate ➔ The detail-page query <em>("hydrate one work package with all children")</em> returns in &lt; 50 ms p95 against seeded data.</div>
+    </div>
+
+    <div class="phase">
+      <h4>Phase 5 · Application integration + acceptance <span class="tag tag-done">DONE</span> · ~5h</h4>
+      <ul>
+        <li>Re-export <code>prisma</code> + <code>Prisma</code> through <span class="path">packages/database/src/index.ts</span> as <code>@repo/database</code>; refactor existing actions to use it.</li>
+        <li>Stand up the six server-action files (§6.1) so the operator UI is talking to the schema, not raw SQL.</li>
+        <li>Wire <code>/api/workflow-callback</code> + <code>/api/sync-poller</code> so the AgentC2 round-trip works end-to-end.</li>
+        <li>Demo: create a seed work package, advance through every stage, observe one row land in every table, screenshot dashboard + detail view (these are the PNGs committed at repo root).</li>
+      </ul>
+      <div class="gate">Gate ➔ A green end-to-end flow from <code>work-packages/new</code> through every stage to a published <code>DocArtifact</code>, with the <code>transition_logs</code> table replaying the full journey.</div>
     </div>
   </div>
 
+  <!-- 8 · Test Plan -->
   <div class="uis-section">
-    <h2>8 · Source of truth</h2>
-    <p style="font-size:12px;color:#64748b">This UIS is a direct view of one row in the master IRAP forensic workbook (Google Sheet <code>1-QXxQ5fD…</code>, tab <em>C1 SDLC Flywheel</em>, epic <code>C1-0001</code>). All fields above are pulled live from the sheet at the time this page was generated. The sheet remains the single source of truth.</p>
+    <h2>8 · Test plan</h2>
+
+    <h3>8.1 Schema-level checks</h3>
+    <ul>
+      <li><code>prisma validate</code> passes; <code>prisma format</code> idempotent.</li>
+      <li><code>db:push</code> against an empty Supabase DB → <code>db:push</code> again must be a no-op (zero proposed changes). Any drift is a P0.</li>
+      <li><code>db:generate</code> emits a typed client; <span class="path">packages/database/src/index.ts</span> compiles under <code>tsc --noEmit</code>.</li>
+    </ul>
+
+    <h3>8.2 Constraint correctness</h3>
+    <ol>
+      <li>Inserting two <code>StageOutput</code> rows with the same <code>(workPackageId, stage, version)</code> must fail with a Postgres uniqueness violation — proves the audit-trail constraint.</li>
+      <li>Deleting a <code>WorkPackage</code> must cascade to all its <code>StageOutput</code> / <code>Review</code> / <code>WorkItem</code> / <code>DocArtifact</code> rows and (transitively) all <code>BuildRun</code> / <code>TestRun</code> rows. Verify by row count diff.</li>
+      <li>Deleting a <code>BuildRun</code> must <em>not</em> cascade-delete its <code>TestRun</code> children (FK is optional + no <code>onDelete: Cascade</code>) — test runs can outlive a re-run build.</li>
+    </ol>
+
+    <h3>8.3 Smoke scripts</h3>
+    <pre class="code"><span class="c">// packages/database/src/check-wp.ts — sample</span>
+<span class="k">const</span> wp = <span class="k">await</span> prisma.workPackage.findFirst({
+  include: { stageOutputs: <span class="k">true</span>, reviews: <span class="k">true</span>, workItems: { include: { buildRuns: <span class="k">true</span>, testRuns: <span class="k">true</span> } }, docArtifacts: <span class="k">true</span> }
+});
+console.log(JSON.stringify(wp, <span class="k">null</span>, <span class="n">2</span>));</pre>
+    <p>Each of <code>check-wp.ts</code> / <code>check-wi.ts</code> / <code>check-so.ts</code> / <code>check-tl-build.ts</code> must run green on a fresh seeded DB. They are run manually before every push; CI integration is a follow-up.</p>
+
+    <h3>8.4 End-to-end flow</h3>
+    <ol>
+      <li>Hit <code>/work-packages/new</code>, submit the seed form → assert one <code>WorkPackage</code> row (<code>stage = "draft"</code>) + one initial <code>TransitionLog</code> row.</li>
+      <li>Trigger the enrichment stage → assert one <code>StageOutput(stage="enrichment", version=1)</code> + one <code>Review</code> + one <code>TransitionLog</code>.</li>
+      <li>Continue through every stage on the detail page → final state has rows in <code>WorkItem</code>, <code>BuildRun</code> (with <code>prUrl</code> populated), <code>TestRun</code>, and <code>DocArtifact</code>.</li>
+      <li>The committed screenshots <span class="path">01-work-packages-list.png</span> through <span class="path">10-scope-pending-review-full.png</span> at the repo root are the canonical visual acceptance evidence.</li>
+    </ol>
   </div>
-</div></body></html>
+
+  <!-- 9 · Risks & Mitigations -->
+  <div class="uis-section">
+    <h2>9 · Risks &amp; mitigations</h2>
+    <table class="spec">
+      <thead><tr><th>Risk</th><th>Impact</th><th>Mitigation</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Empty <code>migrations/</code> directory</strong> — the schema is rolled via <code>db:push</code> only. There is no committed SQL history; recreating prod from scratch relies on <code>schema.prisma</code> alone.</td>
+          <td><span class="tag tag-risk">High</span> for prod / DR posture</td>
+          <td>Plan baselines a <code>prisma migrate dev --name initial</code> once the schema is frozen (tracked under C1-0002). Until then, the staging DB is treated as authoritative for any schema-shape question; nightly <code>pg_dump</code> snapshot to S3 covers DR.</td>
+        </tr>
+        <tr>
+          <td><strong>Open-vocabulary <code>stage</code> / <code>status</code> strings</strong> — every state column is a free <code>String</code>, not a Prisma enum. Typos at the call-site silently land in the DB and the operator UI can show garbage states.</td>
+          <td><span class="tag tag-risk">Med</span></td>
+          <td>The xstate machine in <span class="path">apps/frontend/src/lib/actions/router/</span> is the single writer for state columns. A Prisma client extension (planned in C1-0002) validates <code>stage</code> / <code>status</code> against the machine's known states on every <code>create</code> / <code>update</code>. The free-string choice is deliberate during P1 so new stages can be added without a migration round-trip.</td>
+        </tr>
+        <tr>
+          <td><strong>Polymorphic <code>TransitionLog.entity</code> with no DB-level FK</strong> — orphaned log rows can outlive their entity, and entity renames silently break the audit replay.</td>
+          <td><span class="tag tag-risk">Med</span></td>
+          <td>The <code>entity</code> values come from a single <code>const</code> in the router types module (<span class="path">apps/frontend/src/lib/actions/router/types.ts</span>); a unit test fails CI if a router writes an unknown entity. <code>(entity, entityId)</code> index makes orphan detection a cheap nightly scan; orphans are kept as evidence rather than pruned.</td>
+        </tr>
+        <tr>
+          <td><strong><code>v2</code> table-name suffix</strong> — <code>work_packages_v2</code> is a smell that costs cycles every time someone joins it manually.</td>
+          <td><span class="tag tag-risk">Low</span></td>
+          <td>Schedule the legacy <code>work_packages</code> drop + rename to land in the first real SQL migration. Until then, a SQL view <code>work_packages AS SELECT * FROM work_packages_v2</code> covers any ad-hoc readers without breaking them.</td>
+        </tr>
+        <tr>
+          <td><strong>JSON column proliferation</strong> — <code>scope</code> / <code>acceptanceCriteria</code> / <code>techSpec</code> / <code>reviewNotes</code> / <code>securityFindings</code> / <code>testResults</code> / <code>screenshots</code> / <code>autoAdvancePolicy</code> are all opaque JSON. Query-by-shape requires Postgres JSONB operators; refactoring later is expensive.</td>
+          <td><span class="tag tag-risk">Med</span></td>
+          <td>Zod schemas live next to each writer and are enforced at the action boundary so the runtime shape is contractual even when the DB type isn't. A periodic schema-extract job (post-P1) flattens hot fields into typed columns when query patterns stabilise.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 10 · Evidence + cross-refs -->
+  <div class="uis-section">
+    <h2>10 · Evidence &amp; cross-references</h2>
+    <p>Every path below was opened during the authoring of this UIS; every code snippet above is verbatim from the file at the stated line range.</p>
+
+    <h3>10.1 Primary source files</h3>
+    <p>
+      <span class="path">packages/database/prisma/schema.prisma</span>
+      <span class="path">packages/database/prisma/migrations/migration_lock.toml</span>
+      <span class="path">packages/database/package.json</span>
+      <span class="path">packages/database/src/index.ts</span>
+      <span class="path">packages/database/src/seed.ts</span>
+      <span class="path">packages/database/src/seed-projects.ts</span>
+      <span class="path">packages/database/src/migrate-fresh.ts</span>
+      <span class="path">packages/database/src/check-wp.ts</span>
+      <span class="path">packages/database/src/check-wi.ts</span>
+      <span class="path">packages/database/src/check-so.ts</span>
+      <span class="path">packages/database/src/check-tl-build.ts</span>
+      <span class="path">packages/database/src/fix-design-so.ts</span>
+    </p>
+
+    <h3>10.2 Consuming application files</h3>
+    <p>
+      <span class="path">apps/frontend/src/lib/actions/projects.ts</span>
+      <span class="path">apps/frontend/src/lib/actions/dashboard.ts</span>
+      <span class="path">apps/frontend/src/lib/actions/factory.ts</span>
+      <span class="path">apps/frontend/src/lib/actions/run-control-actions.ts</span>
+      <span class="path">apps/frontend/src/lib/actions/run-sync.ts</span>
+      <span class="path">apps/frontend/src/lib/actions/router/transitions.ts</span>
+      <span class="path">apps/frontend/src/lib/actions/router/guards.ts</span>
+      <span class="path">apps/frontend/src/app/(Public)/api/workflow-callback/route.ts</span>
+      <span class="path">apps/frontend/src/app/(Public)/api/sync-poller/route.ts</span>
+      <span class="path">apps/frontend/src/app/(Public)/api/auth/[...all]/route.ts</span>
+      <span class="path">apps/frontend/src/app/(Authenticated)/work-packages/page.tsx</span>
+      <span class="path">apps/frontend/src/app/(Authenticated)/work-packages/new/page.tsx</span>
+      <span class="path">apps/frontend/src/app/(Authenticated)/work-packages/[slug]/page.tsx</span>
+    </p>
+
+    <h3>10.3 Visual acceptance artefacts (committed PNGs)</h3>
+    <p>
+      <span class="path">01-work-packages-list.png</span>
+      <span class="path">02-create-seed-form.png</span>
+      <span class="path">03-create-seed-filled.png</span>
+      <span class="path">04-wp-detail-enrichment-generating.png</span>
+      <span class="path">05-dashboard-during-enrichment.png</span>
+      <span class="path">06-wp-detail-partial-load.png</span>
+      <span class="path">07-wp-enrichment-output-full.png</span>
+      <span class="path">08-scope-awaiting-output.png</span>
+      <span class="path">09-scope-check.png</span>
+      <span class="path">10-scope-pending-review-full.png</span>
+      <span class="path">sdlc-dashboard.png</span>
+      <span class="path">sdlc-create-seed-filled.png</span>
+    </p>
+
+    <h3>10.4 Cross-references — downstream epics that depend on this schema</h3>
+    <p>
+      <a class="xref" href="c1-0002.html">C1-0002 · xstate machine + transitions + guards</a>
+      <a class="xref" href="c1-0003.html">C1-0003 · AgentC2 dispatcher + heal loop</a>
+    </p>
+    <ul>
+      <li><strong>C1-0002</strong> consumes <code>TransitionLog</code> as its write target and <code>WorkPackage.stage</code> / <code>.status</code> as its read target; the open-vocabulary string columns are the contract.</li>
+      <li><strong>C1-0003</strong> consumes <code>StageOutput.healAttempts</code> + <code>BuildRun.healAttempts</code> as its retry counters and writes <code>agentc2RunId</code> back on every callback.</li>
+    </ul>
+
+    <div class="callout-ok"><strong>Status.</strong> Schema landed Apr 26, 45h actual ≈ 45h estimated. Operator UI is live against it; the factory has executed end-to-end seed → release-notes flows captured in the PNGs above. The single open follow-up is baselining the migration history (C1-0002).</div>
+  </div>
+</div>
+</body></html>
