@@ -50,17 +50,17 @@ h1 span{background:linear-gradient(135deg,#3b82f6,#a78bfa 50%,#f59e0b);-webkit-b
 
 .epic-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:8px;margin-top:10px}
 .ep{background:#0f172a;border:1px solid #334155;border-left:3px solid #475569;border-radius:8px;padding:10px 12px;display:block;text-decoration:none;color:inherit;transition:border-color .15s,transform .1s}
-.ep:hover{border-color:#3b82f6;transform:translateY(-1px)}
+a.ep:hover{border-color:#3b82f6;transform:translateY(-1px)}
+div.ep{cursor:default;opacity:0.72}
 .ep.s-DONE{border-left-color:#22c55e}
 .ep.s-WIP{border-left-color:#f59e0b}
 .ep.s-PLAN{border-left-color:#3b82f6}
+.ep.s-TODO{border-left-color:#475569}
 .ep .row1{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:4px}
 .ep .id{font-family:'JetBrains Mono',monospace;font-size:11px;color:#94a3b8;font-weight:700}
 .ep .pill{font-size:9px;font-weight:700;padding:2px 7px;border-radius:3px;text-transform:uppercase;letter-spacing:0.4px}
 .ep .name{font-size:13px;color:#e2e8f0;line-height:1.35;margin-bottom:6px}
 .ep .meta{font-size:10px;color:#64748b;display:flex;gap:10px}
-.todo-line{background:#0f172a;border:1px dashed #334155;border-radius:8px;padding:10px 14px;font-size:12px;color:#94a3b8;margin-top:10px}
-.todo-line strong{color:#cbd5e1}
 
 .team{margin-top:36px;padding:22px;background:#1e293b;border:1px solid #334155;border-radius:12px}
 .team h2{font-size:18px;font-weight:700;margin-bottom:14px}
@@ -82,7 +82,7 @@ h1 span{background:linear-gradient(135deg,#3b82f6,#a78bfa 50%,#f59e0b);-webkit-b
 <div class="page">
   <div class="logo">Appello IRAP — NRC Project Plan</div>
   <h1>AI-Powered <span>Development & Customer Intelligence</span> Platform</h1>
-  <p class="subtitle">22-month R&D project (Apr 2026 – Jan 2028) building four integrated AI systems. This roadmap is a direct view of the master forensic workbook (543 epics, 18,365 hours). Calendar-window state rule: <strong style="color:#4ade80">DONE</strong> = completed, <strong style="color:#fbbf24">WORK IN PROCESS</strong> = Apr–May 26 active, <strong style="color:#93c5fd">PLANNED NEXT</strong> = Jun 26 next-up, <strong style="color:#94a3b8">TO DO</strong> = Jul 26 onward. Click any active epic to open its UIS spec.</p>
+  <p class="subtitle">22-month R&D project (Apr 2026 – Jan 2028) building four integrated AI systems. This roadmap is a direct view of the master forensic workbook (543 epics, 18,365 hours). Calendar-window state rule: <strong style="color:#4ade80">DONE</strong> = completed, <strong style="color:#fbbf24">WORK IN PROCESS</strong> = Apr–May 26 active, <strong style="color:#93c5fd">PLANNED NEXT</strong> = Jun 26 next-up, <strong style="color:#94a3b8">TO DO</strong> = Jul 26 onward. Every epic in the master sheet is shown below. Active epics (DONE / WIP / PLANNED) are clickable into their UIS spec; TO DO epics show as static cards until their UIS is authored.</p>
 
   <div class="exec-grid">
     <div class="exec-card"><div class="label">Total Project Hours</div><div class="value">18,365</div><div class="sub">543 epics across 4 components × 5 phases</div></div>
@@ -396,8 +396,82 @@ h1 span{background:linear-gradient(135deg,#3b82f6,#a78bfa 50%,#f59e0b);-webkit-b
             <div class="name">Implement infrastructure-as-code templates (Terraform/Pulumi) for all new resources with parameterized configs</div>
             <div class="meta"><span>Travis McKenna</span><span>Jun 26</span><span>41h</span></div>
           </a>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0050</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Optimize code review backend performance</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Jul 26</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0051</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Write integration tests connecting code review to CI/CD pipeline covering the full review-to-merge flow</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Jul 26</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0052</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Refine decomposition architecture based on sample testing</div>
+            <div class="meta"><span>Corey Shelson</span><span>Jul 26</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0054</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Write integration tests connecting AI decomposition to code generation</div>
+            <div class="meta"><span>Emma Mann</span><span>Jul 26</span><span>45h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0055</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Create quality scoring dashboards</div>
+            <div class="meta"><span>Emma Mann</span><span>Jul 26</span><span>38h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0056</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Build developer approval workflow UI</div>
+            <div class="meta"><span>Filip Altankov</span><span>Jul 26</span><span>50h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0057</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Track AI decomposition quality metrics</div>
+            <div class="meta"><span>Ian Haase</span><span>Jul 26</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0058</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Validate new AI decompositions</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Jul 26</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0059</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Run field tests with customer crews</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Jul 26</span><span>38h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0060</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Build decomposition review interface</div>
+            <div class="meta"><span>New Hire 1</span><span>Jul 26</span><span>60h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0061</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Implement real-time status update system using WebSocket subscriptions</div>
+            <div class="meta"><span>New Hire 1</span><span>Jul 26</span><span>50h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0062</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Build automated code review integration</div>
+            <div class="meta"><span>New Hire 2</span><span>Jul 26</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0063</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Build webhook handlers for CI/CD events with retry logic and error handling</div>
+            <div class="meta"><span>New Hire 2</span><span>Jul 26</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0064</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Scale AI pipeline infrastructure based on load testing</div>
+            <div class="meta"><span>Travis McKenna</span><span>Jul 26</span><span>50h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0065</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Optimize CI/CD pipeline speed</div>
+            <div class="meta"><span>Travis McKenna</span><span>Jul 26</span><span>41h</span></div>
+          </div>
         </div>
-        <div class="todo-line">○ <strong>15</strong> epics still <strong>TO DO</strong> in this phase (602h, Jul 26 → Jul 26). View detail in the master Google Sheet.</div>
       </div>
 
       <div class="phase">
@@ -413,7 +487,168 @@ h1 span{background:linear-gradient(135deg,#3b82f6,#a78bfa 50%,#f59e0b);-webkit-b
           </div>
         </div>
         <div class="state-bar"><span class="sb-seg" style="width:100.0%;background:#334155;color:#94a3b8" title="TO DO 32">32</span></div>
-        <div class="todo-line">○ <strong>32</strong> epics still <strong>TO DO</strong> in this phase (1,090h, Aug 26 → Sep 26). View detail in the master Google Sheet.</div>
+        <div class="epic-grid">
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0066</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Build end-to-end backend connecting all pipeline stages</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Aug 26</span><span>50h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0067</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Implement error handling and retry logic for each pipeline stage (immediate, backoff, skip, manual, abort s…</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Aug 26</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0068</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Write integration tests for the end-to-end pipeline covering happy path and failure scenarios</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Aug 26</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0069</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Architect the full end-to-end automated development loop (bug report → AI plan → AI code → test → deploy)</div>
+            <div class="meta"><span>Corey Shelson</span><span>Aug 26</span><span>50h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0070</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Write technical specification document for end-to-end loop covering all stages, failure modes, and recovery…</div>
+            <div class="meta"><span>Corey Shelson</span><span>Aug 26</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0071</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Build integration tests for the full end-to-end pipeline (bug report → AI plan → AI code → test → deploy)</div>
+            <div class="meta"><span>Emma Mann</span><span>Aug 26</span><span>45h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0072</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Validate AI-generated code passes all existing test suites</div>
+            <div class="meta"><span>Emma Mann</span><span>Aug 26</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0073</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Write edge case tests</div>
+            <div class="meta"><span>Emma Mann</span><span>Aug 26</span><span>27h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0074</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Build end-to-end pipeline monitoring UI</div>
+            <div class="meta"><span>Filip Altankov</span><span>Aug 26</span><span>55h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0075</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Create deployment status dashboard</div>
+            <div class="meta"><span>Filip Altankov</span><span>Aug 26</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0076</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Review AI-generated output quality with QA lead</div>
+            <div class="meta"><span>Ian Haase</span><span>Aug 26</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0077</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Sprint planning sessions</div>
+            <div class="meta"><span>Ian Haase</span><span>Aug 26</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0078</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Test AI-generated code changes against real construction use cases</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Aug 26</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0079</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Build end-to-end pipeline integration code</div>
+            <div class="meta"><span>New Hire 1</span><span>Aug 26</span><span>70h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0080</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Implement pipeline stage transition logic</div>
+            <div class="meta"><span>New Hire 1</span><span>Aug 26</span><span>50h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0081</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Write integration tests for pipeline stage transitions</div>
+            <div class="meta"><span>New Hire 1</span><span>Aug 26</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0082</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Bug fixes and code review feedback incorporation from previous month&#x27;s work</div>
+            <div class="meta"><span>New Hire 1</span><span>Aug 26</span><span>15h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0083</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Build pipeline stage connector code</div>
+            <div class="meta"><span>New Hire 2</span><span>Aug 26</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0084</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Implement retry logic and error handling for agent failures</div>
+            <div class="meta"><span>New Hire 2</span><span>Aug 26</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0085</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Write unit tests for connector and retry logic</div>
+            <div class="meta"><span>New Hire 2</span><span>Aug 26</span><span>15h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0086</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Deploy end-to-end pipeline to staging</div>
+            <div class="meta"><span>Travis McKenna</span><span>Aug 26</span><span>55h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0087</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Harden pipeline backend for production</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Sep 26</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0088</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Finalize end-to-end loop architecture</div>
+            <div class="meta"><span>Corey Shelson</span><span>Sep 26</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0089</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Design error handling and automated rollback mechanisms</div>
+            <div class="meta"><span>Corey Shelson</span><span>Sep 26</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0090</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Write stress tests for pipeline under high load</div>
+            <div class="meta"><span>Emma Mann</span><span>Sep 26</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0091</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Build test results display</div>
+            <div class="meta"><span>Filip Altankov</span><span>Sep 26</span><span>45h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0092</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Manage Spider testing (C2) kickoff</div>
+            <div class="meta"><span>Ian Haase</span><span>Sep 26</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0093</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Sprint planning sessions</div>
+            <div class="meta"><span>Ian Haase</span><span>Sep 26</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0094</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Cross-team dependency syncs</div>
+            <div class="meta"><span>Ian Haase</span><span>Sep 26</span><span>8h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0095</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Create test scripts for field worker workflows</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Sep 26</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0096</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Connect Spider test framework to SDLC pipeline</div>
+            <div class="meta"><span>New Hire 1</span><span>Sep 26</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0097</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Write tests for deployment automation and result aggregation</div>
+            <div class="meta"><span>New Hire 1</span><span>Sep 26</span><span>20h</span></div>
+          </div>
+        </div>
       </div>
 
       <div class="phase">
@@ -429,7 +664,73 @@ h1 span{background:linear-gradient(135deg,#3b82f6,#a78bfa 50%,#f59e0b);-webkit-b
           </div>
         </div>
         <div class="state-bar"><span class="sb-seg" style="width:100.0%;background:#334155;color:#94a3b8" title="TO DO 13">13</span></div>
-        <div class="todo-line">○ <strong>13</strong> epics still <strong>TO DO</strong> in this phase (503h, Oct 26 → Nov 26). View detail in the master Google Sheet.</div>
+        <div class="epic-grid">
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0098</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Build documentation browser</div>
+            <div class="meta"><span>Filip Altankov</span><span>Oct 26</span><span>45h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0099</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Coordinate agent development priorities across Spider swarm, SDLC pipeline, and documentation automation</div>
+            <div class="meta"><span>Ian Haase</span><span>Oct 26</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0100</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Sprint planning sessions</div>
+            <div class="meta"><span>Ian Haase</span><span>Oct 26</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0101</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Document corrections needed in AI-generated documentation</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Oct 26</span><span>38h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0102</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Build agent monitoring dashboard showing agent status, job queues, success rates, errors, and resource usage</div>
+            <div class="meta"><span>New Hire 1</span><span>Oct 26</span><span>60h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0103</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Write unit tests for orchestration and documentation components</div>
+            <div class="meta"><span>New Hire 2</span><span>Oct 26</span><span>15h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0104</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Evaluate model performance baselines</div>
+            <div class="meta"><span>New Hire 3</span><span>Oct 26</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0105</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Write tests for agent error handling and recovery</div>
+            <div class="meta"><span>Emma Mann</span><span>Nov 26</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0106</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Build agent management UI</div>
+            <div class="meta"><span>Filip Altankov</span><span>Nov 26</span><span>50h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0107</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Build agent management interface</div>
+            <div class="meta"><span>New Hire 1</span><span>Nov 26</span><span>55h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0108</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Implement configuration management UI</div>
+            <div class="meta"><span>New Hire 1</span><span>Nov 26</span><span>45h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0109</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Build performance metric collection system</div>
+            <div class="meta"><span>New Hire 1</span><span>Nov 26</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0110</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Develop prompt engineering templates for code understanding tasks</div>
+            <div class="meta"><span>New Hire 3</span><span>Nov 26</span><span>45h</span></div>
+          </div>
+        </div>
       </div>
 
       <div class="phase">
@@ -445,7 +746,238 @@ h1 span{background:linear-gradient(135deg,#3b82f6,#a78bfa 50%,#f59e0b);-webkit-b
           </div>
         </div>
         <div class="state-bar"><span class="sb-seg" style="width:100.0%;background:#334155;color:#94a3b8" title="TO DO 46">46</span></div>
-        <div class="todo-line">○ <strong>46</strong> epics still <strong>TO DO</strong> in this phase (1,553h, Dec 26 → Nov 27). View detail in the master Google Sheet.</div>
+        <div class="epic-grid">
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0111</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Finalize production feedback loop architecture</div>
+            <div class="meta"><span>Corey Shelson</span><span>Dec 26</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0112</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Build production feedback dashboard</div>
+            <div class="meta"><span>Filip Altankov</span><span>Dec 26</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0113</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Review production deployment metrics for C1 pipeline</div>
+            <div class="meta"><span>Ian Haase</span><span>Dec 26</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0114</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Build production feedback data capture frontend</div>
+            <div class="meta"><span>New Hire 1</span><span>Dec 26</span><span>50h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0115</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Implement data pipeline connectors</div>
+            <div class="meta"><span>New Hire 1</span><span>Dec 26</span><span>45h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0116</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Implement customer data import workflows</div>
+            <div class="meta"><span>New Hire 1</span><span>Jan 27</span><span>32h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0117</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Build skill instruction editor</div>
+            <div class="meta"><span>New Hire 1</span><span>Jan 27</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0118</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Implement result formatting</div>
+            <div class="meta"><span>New Hire 2</span><span>Jan 27</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0119</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Sprint planning sessions and manage backlog</div>
+            <div class="meta"><span>Ian Haase</span><span>Feb 27</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0120</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Build automated quality monitoring</div>
+            <div class="meta"><span>New Hire 3</span><span>Feb 27</span><span>50h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0121</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Implement tool evaluation framework</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Mar 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0122</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Facilitate hands-on AI accuracy testing with field workers</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Mar 27</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0123</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Final feature work</div>
+            <div class="meta"><span>New Hire 1</span><span>Mar 27</span><span>4h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0124</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Deploy security audit logging</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Apr 27</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0125</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Validate security audit logging completeness</div>
+            <div class="meta"><span>Emma Mann</span><span>Apr 27</span><span>33h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0126</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Build quota configuration screens</div>
+            <div class="meta"><span>Filip Altankov</span><span>Apr 27</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0127</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Sprint planning sessions for C4-P2 completion and C4-P3 kickoff</div>
+            <div class="meta"><span>Ian Haase</span><span>Apr 27</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0128</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Train chat model on construction-specific Q&amp;A pairs</div>
+            <div class="meta"><span>New Hire 3</span><span>Apr 27</span><span>32h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0129</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Configure automated security scanning</div>
+            <div class="meta"><span>Travis McKenna</span><span>Apr 27</span><span>41h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0130</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Build advanced chat features</div>
+            <div class="meta"><span>New Hire 2</span><span>May 27</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0131</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Build file attachment support in chat</div>
+            <div class="meta"><span>Filip Altankov</span><span>Jun 27</span><span>45h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0132</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Implement rich formatting in AI responses</div>
+            <div class="meta"><span>Filip Altankov</span><span>Jun 27</span><span>45h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0133</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Coordinate rapid bug fixes</div>
+            <div class="meta"><span>Ian Haase</span><span>Jun 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0134</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Document and categorize AI successes and failures</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Jun 27</span><span>29h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0135</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Build role-based access control enforcement</div>
+            <div class="meta"><span>New Hire 2</span><span>Jun 27</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0136</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Build advanced chat features</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Jul 27</span><span>50h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0137</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Optimize AI response latency</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Jul 27</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0138</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Conduct mid-project review, ensure alignment with team and objectives</div>
+            <div class="meta"><span>Ian Haase</span><span>Jul 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0139</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Manage team priorities for second half of C4</div>
+            <div class="meta"><span>Ian Haase</span><span>Jul 27</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0140</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Run sprint planning sessions</div>
+            <div class="meta"><span>Ian Haase</span><span>Jul 27</span><span>15h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0141</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Test AI with complex construction scenarios</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Jul 27</span><span>55h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0142</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Document AI accuracy on multi-step construction problems</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Jul 27</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0143</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Implement data visualization components</div>
+            <div class="meta"><span>New Hire 2</span><span>Jul 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0144</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Build role-based permission system for construction roles (Foreman, PM, Bookkeeper, Estimator) with per-tab…</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Aug 27</span><span>50h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0145</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Develop orchestration backend for multi-step AI workflows</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Aug 27</span><span>50h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0146</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Build model regression test suite that runs after every model update to catch accuracy degradation</div>
+            <div class="meta"><span>Emma Mann</span><span>Sep 27</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0147</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Create drill-down views</div>
+            <div class="meta"><span>Filip Altankov</span><span>Sep 27</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0148</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Implement alert management</div>
+            <div class="meta"><span>Filip Altankov</span><span>Sep 27</span><span>28h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0149</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Implement drill-down data views</div>
+            <div class="meta"><span>New Hire 2</span><span>Sep 27</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0150</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Implement A/B testing infrastructure</div>
+            <div class="meta"><span>Travis McKenna</span><span>Sep 27</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0151</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Configure automated model retraining pipelines</div>
+            <div class="meta"><span>Travis McKenna</span><span>Sep 27</span><span>36h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0152</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Build scheduling optimization display</div>
+            <div class="meta"><span>Filip Altankov</span><span>Oct 27</span><span>45h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0153</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Document prediction accuracy</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Oct 27</span><span>23h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0154</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Implement resource sharing between tenants</div>
+            <div class="meta"><span>Travis McKenna</span><span>Oct 27</span><span>32h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0155</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Collect test evidence for compliance documentation</div>
+            <div class="meta"><span>Emma Mann</span><span>Nov 27</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C1-0156</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">Polish all customer-facing interfaces</div>
+            <div class="meta"><span>Filip Altankov</span><span>Nov 27</span><span>33h</span></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -505,8 +1037,122 @@ h1 span{background:linear-gradient(135deg,#3b82f6,#a78bfa 50%,#f59e0b);-webkit-b
             <div class="name">PLANNED</div>
             <div class="meta"><span>Ian Haase</span><span>Jun 26</span><span>20h</span></div>
           </a>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0162</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Corey Shelson</span><span>Jul 26</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0163</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Filip Altankov</span><span>Jul 26</span><span>33h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0164</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Corey Shelson</span><span>Aug 26</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0165</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Filip Altankov</span><span>Aug 26</span><span>22h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0166</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Ian Haase</span><span>Aug 26</span><span>15h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0167</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Aug 26</span><span>32h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0168</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Travis McKenna</span><span>Aug 26</span><span>33h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0169</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Sep 26</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0170</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Corey Shelson</span><span>Sep 26</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0171</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Emma Mann</span><span>Sep 26</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0172</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Emma Mann</span><span>Sep 26</span><span>42h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0173</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Filip Altankov</span><span>Sep 26</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0174</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Ian Haase</span><span>Sep 26</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0175</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Ian Haase</span><span>Sep 26</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0176</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL POC</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Sep 26</span><span>45h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0177</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL POC</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Sep 26</span><span>27h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0178</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 1</span><span>Sep 26</span><span>55h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0179</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL POC</div>
+            <div class="meta"><span>New Hire 1</span><span>Sep 26</span><span>45h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0180</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>New Hire 2</span><span>Sep 26</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0181</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 2</span><span>Sep 26</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0182</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Travis McKenna</span><span>Sep 26</span><span>48h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0183</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Travis McKenna</span><span>Sep 26</span><span>50h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0184</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Travis McKenna</span><span>Sep 26</span><span>30h</span></div>
+          </div>
         </div>
-        <div class="todo-line">○ <strong>23</strong> epics still <strong>TO DO</strong> in this phase (767h, Jul 26 → Sep 26). View detail in the master Google Sheet.</div>
       </div>
 
       <div class="phase">
@@ -522,7 +1168,98 @@ h1 span{background:linear-gradient(135deg,#3b82f6,#a78bfa 50%,#f59e0b);-webkit-b
           </div>
         </div>
         <div class="state-bar"><span class="sb-seg" style="width:100.0%;background:#334155;color:#94a3b8" title="TO DO 18">18</span></div>
-        <div class="todo-line">○ <strong>18</strong> epics still <strong>TO DO</strong> in this phase (710h, Oct 26 → Nov 26). View detail in the master Google Sheet.</div>
+        <div class="epic-grid">
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0185</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Oct 26</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0186</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL POC</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Oct 26</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0187</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Oct 26</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0188</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL POC</div>
+            <div class="meta"><span>Emma Mann</span><span>Oct 26</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0189</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Filip Altankov</span><span>Oct 26</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0190</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL POC</div>
+            <div class="meta"><span>Filip Altankov</span><span>Oct 26</span><span>33h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0191</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Oct 26</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0192</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL POC</div>
+            <div class="meta"><span>New Hire 1</span><span>Oct 26</span><span>50h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0193</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL POC</div>
+            <div class="meta"><span>New Hire 2</span><span>Oct 26</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0194</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>New Hire 3</span><span>Oct 26</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0195</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Travis McKenna</span><span>Oct 26</span><span>50h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0196</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Nov 26</span><span>45h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0197</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Corey Shelson</span><span>Nov 26</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0198</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Emma Mann</span><span>Nov 26</span><span>55h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0199</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Filip Altankov</span><span>Nov 26</span><span>27h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0200</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Ian Haase</span><span>Nov 26</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0201</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>New Hire 3</span><span>Nov 26</span><span>60h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0202</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL POC</div>
+            <div class="meta"><span>New Hire 3</span><span>Nov 26</span><span>55h</span></div>
+          </div>
+        </div>
       </div>
 
       <div class="phase">
@@ -538,7 +1275,38 @@ h1 span{background:linear-gradient(135deg,#3b82f6,#a78bfa 50%,#f59e0b);-webkit-b
           </div>
         </div>
         <div class="state-bar"><span class="sb-seg" style="width:100.0%;background:#334155;color:#94a3b8" title="TO DO 6">6</span></div>
-        <div class="todo-line">○ <strong>6</strong> epics still <strong>TO DO</strong> in this phase (190h, Dec 26 → Jan 27). View detail in the master Google Sheet.</div>
+        <div class="epic-grid">
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0203</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Ian Haase</span><span>Dec 26</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0204</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Ian Haase</span><span>Dec 26</span><span>14h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0205</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>New Hire 3</span><span>Dec 26</span><span>46h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0206</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Travis McKenna</span><span>Dec 26</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0207</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Corey Shelson</span><span>Jan 27</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0208</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>New Hire 3</span><span>Jan 27</span><span>50h</span></div>
+          </div>
+        </div>
       </div>
 
       <div class="phase">
@@ -554,7 +1322,18 @@ h1 span{background:linear-gradient(135deg,#3b82f6,#a78bfa 50%,#f59e0b);-webkit-b
           </div>
         </div>
         <div class="state-bar"><span class="sb-seg" style="width:100.0%;background:#334155;color:#94a3b8" title="TO DO 2">2</span></div>
-        <div class="todo-line">○ <strong>2</strong> epics still <strong>TO DO</strong> in this phase (60h, Feb 27 → Feb 27). View detail in the master Google Sheet.</div>
+        <div class="epic-grid">
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0209</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Corey Shelson</span><span>Feb 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0210</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Feb 27</span><span>30h</span></div>
+          </div>
+        </div>
       </div>
 
       <div class="phase">
@@ -570,7 +1349,103 @@ h1 span{background:linear-gradient(135deg,#3b82f6,#a78bfa 50%,#f59e0b);-webkit-b
           </div>
         </div>
         <div class="state-bar"><span class="sb-seg" style="width:100.0%;background:#334155;color:#94a3b8" title="TO DO 19">19</span></div>
-        <div class="todo-line">○ <strong>19</strong> epics still <strong>TO DO</strong> in this phase (637h, Mar 27 → Dec 27). View detail in the master Google Sheet.</div>
+        <div class="epic-grid">
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0211</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Ian Haase</span><span>Mar 27</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0212</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Mar 27</span><span>28h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0213</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 3</span><span>Mar 27</span><span>60h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0214</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 3</span><span>Mar 27</span><span>55h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0215</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 3</span><span>Mar 27</span><span>61h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0216</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Travis McKenna</span><span>Mar 27</span><span>41h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0217</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Corey Shelson</span><span>Apr 27</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0218</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 3</span><span>Apr 27</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0219</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Corey Shelson</span><span>May 27</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0220</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Ian Haase</span><span>May 27</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0221</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Travis McKenna</span><span>May 27</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0222</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Travis McKenna</span><span>Jul 27</span><span>28h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0223</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>New Hire 3</span><span>Aug 27</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0224</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Sep 27</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0225</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Travis McKenna</span><span>Oct 27</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0226</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Nov 27</span><span>14h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0227</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Dec 27</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0228</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Corey Shelson</span><span>Dec 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C2-0229</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Emma Mann</span><span>Dec 27</span><span>25h</span></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -707,8 +1582,42 @@ h1 span{background:linear-gradient(135deg,#3b82f6,#a78bfa 50%,#f59e0b);-webkit-b
             <div class="name">PLANNED</div>
             <div class="meta"><span>Nathan Friesen</span><span>Jun 26</span><span>33h</span></div>
           </a>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0247</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Jul 26</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0248</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL POC</div>
+            <div class="meta"><span>Ian Haase</span><span>Jul 26</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0249</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Ian Haase</span><span>Jul 26</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0250</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Jul 26</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0251</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>New Hire 1</span><span>Jul 26</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0252</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 1</span><span>Jul 26</span><span>26h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0253</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Travis McKenna</span><span>Jul 26</span><span>50h</span></div>
+          </div>
         </div>
-        <div class="todo-line">○ <strong>7</strong> epics still <strong>TO DO</strong> in this phase (231h, Jul 26 → Jul 26). View detail in the master Google Sheet.</div>
       </div>
 
       <div class="phase">
@@ -724,7 +1633,18 @@ h1 span{background:linear-gradient(135deg,#3b82f6,#a78bfa 50%,#f59e0b);-webkit-b
           </div>
         </div>
         <div class="state-bar"><span class="sb-seg" style="width:100.0%;background:#334155;color:#94a3b8" title="TO DO 2">2</span></div>
-        <div class="todo-line">○ <strong>2</strong> epics still <strong>TO DO</strong> in this phase (75h, Aug 26 → Sep 26). View detail in the master Google Sheet.</div>
+        <div class="epic-grid">
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0254</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL POC</div>
+            <div class="meta"><span>Ian Haase</span><span>Aug 26</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0255</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Sep 26</span><span>35h</span></div>
+          </div>
+        </div>
       </div>
 
       <div class="phase">
@@ -740,7 +1660,118 @@ h1 span{background:linear-gradient(135deg,#3b82f6,#a78bfa 50%,#f59e0b);-webkit-b
           </div>
         </div>
         <div class="state-bar"><span class="sb-seg" style="width:100.0%;background:#334155;color:#94a3b8" title="TO DO 22">22</span></div>
-        <div class="todo-line">○ <strong>22</strong> epics still <strong>TO DO</strong> in this phase (748h, Oct 26 → Nov 26). View detail in the master Google Sheet.</div>
+        <div class="epic-grid">
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0256</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Corey Shelson</span><span>Oct 26</span><span>45h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0257</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Corey Shelson</span><span>Oct 26</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0258</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Corey Shelson</span><span>Oct 26</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0259</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Emma Mann</span><span>Oct 26</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0260</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Emma Mann</span><span>Oct 26</span><span>38h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0261</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Ian Haase</span><span>Oct 26</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0262</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Ian Haase</span><span>Oct 26</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0263</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL POC</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Oct 26</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0264</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>New Hire 1</span><span>Oct 26</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0265</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>New Hire 1</span><span>Oct 26</span><span>18h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0266</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>New Hire 3</span><span>Oct 26</span><span>70h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0267</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Travis McKenna</span><span>Oct 26</span><span>50h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0268</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Nov 26</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0269</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Corey Shelson</span><span>Nov 26</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0270</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Corey Shelson</span><span>Nov 26</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0271</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Emma Mann</span><span>Nov 26</span><span>27h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0272</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Ian Haase</span><span>Nov 26</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0273</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Ian Haase</span><span>Nov 26</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0274</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>New Hire 1</span><span>Nov 26</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0275</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 2</span><span>Nov 26</span><span>45h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0276</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 2</span><span>Nov 26</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0277</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Travis McKenna</span><span>Nov 26</span><span>45h</span></div>
+          </div>
+        </div>
       </div>
 
       <div class="phase">
@@ -756,7 +1787,318 @@ h1 span{background:linear-gradient(135deg,#3b82f6,#a78bfa 50%,#f59e0b);-webkit-b
           </div>
         </div>
         <div class="state-bar"><span class="sb-seg" style="width:100.0%;background:#334155;color:#94a3b8" title="TO DO 62">62</span></div>
-        <div class="todo-line">○ <strong>62</strong> epics still <strong>TO DO</strong> in this phase (2,017h, Dec 26 → Dec 27). View detail in the master Google Sheet.</div>
+        <div class="epic-grid">
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0278</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL POC</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Dec 26</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0279</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Dec 26</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0280</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Dec 26</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0281</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Corey Shelson</span><span>Dec 26</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0282</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Emma Mann</span><span>Dec 26</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0283</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL POC</div>
+            <div class="meta"><span>Emma Mann</span><span>Dec 26</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0284</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Emma Mann</span><span>Dec 26</span><span>31h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0285</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL POC</div>
+            <div class="meta"><span>Filip Altankov</span><span>Dec 26</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0286</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Filip Altankov</span><span>Dec 26</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0287</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL POC</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Dec 26</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0288</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Dec 26</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0289</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL POC</div>
+            <div class="meta"><span>New Hire 1</span><span>Dec 26</span><span>41h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0290</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 2</span><span>Dec 26</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0291</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>New Hire 3</span><span>Dec 26</span><span>50h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0292</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>New Hire 3</span><span>Dec 26</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0293</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Travis McKenna</span><span>Dec 26</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0294</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Travis McKenna</span><span>Dec 26</span><span>34h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0295</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Emma Mann</span><span>Jan 27</span><span>27h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0296</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Ian Haase</span><span>Jan 27</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0297</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 1</span><span>Jan 27</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0298</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 3</span><span>Jan 27</span><span>60h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0299</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Travis McKenna</span><span>Jan 27</span><span>38h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0300</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Feb 27</span><span>50h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0301</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Feb 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0302</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Emma Mann</span><span>Feb 27</span><span>21h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0303</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Filip Altankov</span><span>Feb 27</span><span>26h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0304</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 1</span><span>Feb 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0305</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>New Hire 1</span><span>Feb 27</span><span>18h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0306</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 2</span><span>Feb 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0307</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 2</span><span>Feb 27</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0308</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>New Hire 2</span><span>Feb 27</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0309</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>New Hire 3</span><span>Feb 27</span><span>55h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0310</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Travis McKenna</span><span>Feb 27</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0311</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Corey Shelson</span><span>Mar 27</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0312</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Corey Shelson</span><span>Mar 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0313</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Emma Mann</span><span>Mar 27</span><span>53h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0314</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Ian Haase</span><span>Mar 27</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0315</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Mar 27</span><span>50h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0316</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Travis McKenna</span><span>Mar 27</span><span>50h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0317</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Corey Shelson</span><span>Apr 27</span><span>45h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0318</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Filip Altankov</span><span>Apr 27</span><span>33h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0319</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Apr 27</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0320</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Apr 27</span><span>32h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0321</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Travis McKenna</span><span>Apr 27</span><span>55h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0322</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Travis McKenna</span><span>Apr 27</span><span>45h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0323</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Corey Shelson</span><span>Jul 27</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0324</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Corey Shelson</span><span>Jul 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0325</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Filip Altankov</span><span>Jul 27</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0326</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Jul 27</span><span>13h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0327</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Emma Mann</span><span>Aug 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0328</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>New Hire 3</span><span>Aug 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0329</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Travis McKenna</span><span>Aug 27</span><span>32h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0330</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Ian Haase</span><span>Sep 27</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0331</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Sep 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0332</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Emma Mann</span><span>Oct 27</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0333</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Ian Haase</span><span>Oct 27</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0334</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 2</span><span>Oct 27</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0335</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Corey Shelson</span><span>Nov 27</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0336</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Emma Mann</span><span>Nov 27</span><span>18h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0337</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Ian Haase</span><span>Dec 27</span><span>5h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0338</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Ian Haase</span><span>Dec 27</span><span>15h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C3-0339</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 2</span><span>Dec 27</span><span>15h</span></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -821,8 +2163,302 @@ h1 span{background:linear-gradient(135deg,#3b82f6,#a78bfa 50%,#f59e0b);-webkit-b
             <div class="name">PLANNED</div>
             <div class="meta"><span>New Hire 2</span><span>Jun 26</span><span>25h</span></div>
           </a>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0346</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Emma Mann</span><span>Jul 26</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0347</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Filip Altankov</span><span>Jul 26</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0348</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Ian Haase</span><span>Jul 26</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0349</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 2</span><span>Jul 26</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0350</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Aug 26</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0351</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Travis McKenna</span><span>Aug 26</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0352</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Filip Altankov</span><span>Sep 26</span><span>32h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0353</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>New Hire 2</span><span>Sep 26</span><span>15h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0354</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>New Hire 2</span><span>Oct 26</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0355</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>New Hire 3</span><span>Oct 26</span><span>18h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0356</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Travis McKenna</span><span>Oct 26</span><span>34h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0357</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Nov 26</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0358</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Filip Altankov</span><span>Nov 26</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0359</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Ian Haase</span><span>Nov 26</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0360</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Nov 26</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0361</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Nov 26</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0362</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Nov 26</span><span>33h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0363</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Travis McKenna</span><span>Nov 26</span><span>45h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0364</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Travis McKenna</span><span>Nov 26</span><span>38h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0365</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Corey Shelson</span><span>Dec 26</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0366</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Ian Haase</span><span>Dec 26</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0367</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Dec 26</span><span>22h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0368</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>New Hire 2</span><span>Dec 26</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0369</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Jan 27</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0370</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Jan 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0371</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Jan 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0372</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Corey Shelson</span><span>Jan 27</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0373</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Corey Shelson</span><span>Jan 27</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0374</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Emma Mann</span><span>Jan 27</span><span>50h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0375</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Emma Mann</span><span>Jan 27</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0376</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Filip Altankov</span><span>Jan 27</span><span>45h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0377</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Filip Altankov</span><span>Jan 27</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0378</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Filip Altankov</span><span>Jan 27</span><span>27h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0379</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Ian Haase</span><span>Jan 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0380</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Ian Haase</span><span>Jan 27</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0381</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Ian Haase</span><span>Jan 27</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0382</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Jan 27</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0383</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Jan 27</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0384</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Jan 27</span><span>27h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0385</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 2</span><span>Jan 27</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0386</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>New Hire 2</span><span>Jan 27</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0387</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 3</span><span>Jan 27</span><span>50h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0388</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Travis McKenna</span><span>Jan 27</span><span>50h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0389</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Travis McKenna</span><span>Jan 27</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0390</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Feb 27</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0391</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Corey Shelson</span><span>Feb 27</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0392</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Corey Shelson</span><span>Feb 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0393</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Emma Mann</span><span>Feb 27</span><span>50h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0394</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Emma Mann</span><span>Feb 27</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0395</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Filip Altankov</span><span>Feb 27</span><span>45h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0396</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Filip Altankov</span><span>Feb 27</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0397</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Ian Haase</span><span>Feb 27</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0398</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Ian Haase</span><span>Feb 27</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0399</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Ian Haase</span><span>Feb 27</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0400</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Feb 27</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0401</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Feb 27</span><span>27h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0402</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 3</span><span>Feb 27</span><span>47h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0403</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Travis McKenna</span><span>Feb 27</span><span>45h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0404</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Travis McKenna</span><span>Feb 27</span><span>36h</span></div>
+          </div>
         </div>
-        <div class="todo-line">○ <strong>59</strong> epics still <strong>TO DO</strong> in this phase (1,981h, Jul 26 → Feb 27). View detail in the master Google Sheet.</div>
       </div>
 
       <div class="phase">
@@ -838,7 +2474,153 @@ h1 span{background:linear-gradient(135deg,#3b82f6,#a78bfa 50%,#f59e0b);-webkit-b
           </div>
         </div>
         <div class="state-bar"><span class="sb-seg" style="width:100.0%;background:#334155;color:#94a3b8" title="TO DO 29">29</span></div>
-        <div class="todo-line">○ <strong>29</strong> epics still <strong>TO DO</strong> in this phase (975h, Mar 27 → Apr 27). View detail in the master Google Sheet.</div>
+        <div class="epic-grid">
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0405</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Mar 27</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0406</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Mar 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0407</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Corey Shelson</span><span>Mar 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0408</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Emma Mann</span><span>Mar 27</span><span>45h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0409</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Emma Mann</span><span>Mar 27</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0410</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Filip Altankov</span><span>Mar 27</span><span>50h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0411</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Filip Altankov</span><span>Mar 27</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0412</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Filip Altankov</span><span>Mar 27</span><span>33h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0413</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Ian Haase</span><span>Mar 27</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0414</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Ian Haase</span><span>Mar 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0415</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 2</span><span>Mar 27</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0416</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 2</span><span>Mar 27</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0417</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 2</span><span>Mar 27</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0418</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Travis McKenna</span><span>Mar 27</span><span>50h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0419</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Apr 27</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0420</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Apr 27</span><span>32h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0421</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Corey Shelson</span><span>Apr 27</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0422</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Emma Mann</span><span>Apr 27</span><span>50h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0423</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Emma Mann</span><span>Apr 27</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0424</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Filip Altankov</span><span>Apr 27</span><span>50h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0425</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Ian Haase</span><span>Apr 27</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0426</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Ian Haase</span><span>Apr 27</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0427</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Ian Haase</span><span>Apr 27</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0428</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Ian Haase</span><span>Apr 27</span><span>10h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0429</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Apr 27</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0430</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 2</span><span>Apr 27</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0431</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 2</span><span>Apr 27</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0432</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 2</span><span>Apr 27</span><span>15h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0433</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 3</span><span>Apr 27</span><span>60h</span></div>
+          </div>
+        </div>
       </div>
 
       <div class="phase">
@@ -854,7 +2636,218 @@ h1 span{background:linear-gradient(135deg,#3b82f6,#a78bfa 50%,#f59e0b);-webkit-b
           </div>
         </div>
         <div class="state-bar"><span class="sb-seg" style="width:100.0%;background:#334155;color:#94a3b8" title="TO DO 42">42</span></div>
-        <div class="todo-line">○ <strong>42</strong> epics still <strong>TO DO</strong> in this phase (1,359h, May 27 → Jul 27). View detail in the master Google Sheet.</div>
+        <div class="epic-grid">
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0434</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Christopher Vachon</span><span>May 27</span><span>53h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0435</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Corey Shelson</span><span>May 27</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0436</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Corey Shelson</span><span>May 27</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0437</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Emma Mann</span><span>May 27</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0438</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Emma Mann</span><span>May 27</span><span>39h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0439</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Filip Altankov</span><span>May 27</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0440</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Filip Altankov</span><span>May 27</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0441</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Filip Altankov</span><span>May 27</span><span>19h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0442</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Ian Haase</span><span>May 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0443</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Ian Haase</span><span>May 27</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0444</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Ian Haase</span><span>May 27</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0445</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Nathan Friesen</span><span>May 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0446</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Nathan Friesen</span><span>May 27</span><span>19h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0447</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 2</span><span>May 27</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0448</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 3</span><span>May 27</span><span>50h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0449</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 3</span><span>May 27</span><span>38h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0450</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Travis McKenna</span><span>May 27</span><span>55h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0451</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Travis McKenna</span><span>May 27</span><span>26h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0452</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Jun 27</span><span>41h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0453</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Corey Shelson</span><span>Jun 27</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0454</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Corey Shelson</span><span>Jun 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0455</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Corey Shelson</span><span>Jun 27</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0456</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Emma Mann</span><span>Jun 27</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0457</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Emma Mann</span><span>Jun 27</span><span>34h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0458</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Filip Altankov</span><span>Jun 27</span><span>33h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0459</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Ian Haase</span><span>Jun 27</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0460</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Ian Haase</span><span>Jun 27</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0461</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Jun 27</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0462</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 2</span><span>Jun 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0463</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>New Hire 3</span><span>Jun 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0464</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 3</span><span>Jun 27</span><span>14h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0465</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Travis McKenna</span><span>Jun 27</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0466</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Travis McKenna</span><span>Jun 27</span><span>32h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0467</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Emma Mann</span><span>Jul 27</span><span>50h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0468</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Emma Mann</span><span>Jul 27</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0469</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Emma Mann</span><span>Jul 27</span><span>33h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0470</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Filip Altankov</span><span>Jul 27</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0471</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Filip Altankov</span><span>Jul 27</span><span>27h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0472</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Ian Haase</span><span>Jul 27</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0473</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>New Hire 2</span><span>Jul 27</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0474</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 3</span><span>Jul 27</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0475</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>New Hire 3</span><span>Jul 27</span><span>21h</span></div>
+          </div>
+        </div>
       </div>
 
       <div class="phase">
@@ -870,7 +2863,213 @@ h1 span{background:linear-gradient(135deg,#3b82f6,#a78bfa 50%,#f59e0b);-webkit-b
           </div>
         </div>
         <div class="state-bar"><span class="sb-seg" style="width:100.0%;background:#334155;color:#94a3b8" title="TO DO 41">41</span></div>
-        <div class="todo-line">○ <strong>41</strong> epics still <strong>TO DO</strong> in this phase (1,280h, Aug 27 → Oct 27). View detail in the master Google Sheet.</div>
+        <div class="epic-grid">
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0476</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Corey Shelson</span><span>Aug 27</span><span>28h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0477</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Emma Mann</span><span>Aug 27</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0478</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Emma Mann</span><span>Aug 27</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0479</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Emma Mann</span><span>Aug 27</span><span>18h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0480</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Filip Altankov</span><span>Aug 27</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0481</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Filip Altankov</span><span>Aug 27</span><span>24h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0482</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Ian Haase</span><span>Aug 27</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0483</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Ian Haase</span><span>Aug 27</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0484</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Aug 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0485</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Aug 27</span><span>24h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0486</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Aug 27</span><span>10h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0487</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 2</span><span>Aug 27</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0488</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 2</span><span>Aug 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0489</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>New Hire 3</span><span>Aug 27</span><span>50h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0490</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Travis McKenna</span><span>Aug 27</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0491</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Sep 27</span><span>50h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0492</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Corey Shelson</span><span>Sep 27</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0493</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Corey Shelson</span><span>Sep 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0494</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Emma Mann</span><span>Sep 27</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0495</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Emma Mann</span><span>Sep 27</span><span>37h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0496</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Filip Altankov</span><span>Sep 27</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0497</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Ian Haase</span><span>Sep 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0498</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Ian Haase</span><span>Sep 27</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0499</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Ian Haase</span><span>Sep 27</span><span>23h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0500</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Sep 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0501</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Sep 27</span><span>42h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0502</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>New Hire 2</span><span>Sep 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0503</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>New Hire 3</span><span>Sep 27</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0504</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 3</span><span>Sep 27</span><span>21h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0505</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Travis McKenna</span><span>Sep 27</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0506</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Oct 27</span><span>42h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0507</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Corey Shelson</span><span>Oct 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0508</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Corey Shelson</span><span>Oct 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0509</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Emma Mann</span><span>Oct 27</span><span>45h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0510</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Emma Mann</span><span>Oct 27</span><span>32h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0511</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Filip Altankov</span><span>Oct 27</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0512</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Filip Altankov</span><span>Oct 27</span><span>27h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0513</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Ian Haase</span><span>Oct 27</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0514</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Nathan Friesen</span><span>Oct 27</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0515</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 2</span><span>Oct 27</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0516</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>New Hire 3</span><span>Oct 27</span><span>12h</span></div>
+          </div>
+        </div>
       </div>
 
       <div class="phase">
@@ -886,7 +3085,143 @@ h1 span{background:linear-gradient(135deg,#3b82f6,#a78bfa 50%,#f59e0b);-webkit-b
           </div>
         </div>
         <div class="state-bar"><span class="sb-seg" style="width:100.0%;background:#334155;color:#94a3b8" title="TO DO 27">27</span></div>
-        <div class="todo-line">○ <strong>27</strong> epics still <strong>TO DO</strong> in this phase (827h, Nov 27 → Dec 27). View detail in the master Google Sheet.</div>
+        <div class="epic-grid">
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0517</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Nov 27</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0518</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Nov 27</span><span>37h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0519</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Corey Shelson</span><span>Nov 27</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0520</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Corey Shelson</span><span>Nov 27</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0521</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Emma Mann</span><span>Nov 27</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0522</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Filip Altankov</span><span>Nov 27</span><span>50h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0523</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Filip Altankov</span><span>Nov 27</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0524</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Ian Haase</span><span>Nov 27</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0525</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Ian Haase</span><span>Nov 27</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0526</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Ian Haase</span><span>Nov 27</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0527</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Ian Haase</span><span>Nov 27</span><span>18h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0528</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 2</span><span>Nov 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0529</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Travis McKenna</span><span>Nov 27</span><span>29h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0530</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Dec 27</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0531</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Christopher Vachon</span><span>Dec 27</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0532</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Corey Shelson</span><span>Dec 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0533</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Corey Shelson</span><span>Dec 27</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0534</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Emma Mann</span><span>Dec 27</span><span>40h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0535</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Emma Mann</span><span>Dec 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0536</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Filip Altankov</span><span>Dec 27</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0537</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Filip Altankov</span><span>Dec 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0538</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Filip Altankov</span><span>Dec 27</span><span>30h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0539</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Ian Haase</span><span>Dec 27</span><span>25h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0540</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>New Hire 2</span><span>Dec 27</span><span>15h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0541</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Travis McKenna</span><span>Dec 27</span><span>35h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0542</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PARTIAL</div>
+            <div class="meta"><span>Travis McKenna</span><span>Dec 27</span><span>20h</span></div>
+          </div>
+          <div class="ep s-TODO">
+            <div class="row1"><span class="id">C4-0543</span><span class="pill" style="background:#334155;color:#94a3b8">TO DO</span></div>
+            <div class="name">PLANNED</div>
+            <div class="meta"><span>Travis McKenna</span><span>Dec 27</span><span>18h</span></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
