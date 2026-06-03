@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UIS · INFRA-1 · AI Pipeline Infrastructure</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+.in-iframe .top-nav { display: none !important; }
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',-apple-system,sans-serif;background:#f1f5f9;color:#1e293b;line-height:1.55}
+.top-nav{position:sticky;top:0;z-index:100;background:#0f172a;border-bottom:1px solid #1e293b;padding:0 24px;display:flex;align-items:center;gap:0}
+.top-nav a{display:inline-flex;align-items:center;padding:12px 18px;font-size:13px;font-weight:600;color:#94a3b8;text-decoration:none;border-bottom:2px solid transparent;transition:all .15s}
+.top-nav a:hover{color:#f8fafc;background:#1e293b}
+.top-nav .nav-logo{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#475569;padding-right:18px;margin-right:4px;border-right:1px solid #1e293b}
+.uis-wrap{max-width:1060px;margin:0 auto;padding:40px 24px 80px}
+.crumb{font-size:12px;color:#64748b;margin-bottom:14px}
+.crumb a{color:#3b82f6;text-decoration:none}
+.crumb a:hover{text-decoration:underline}
+.uis-hdr{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:24px;flex-wrap:wrap}
+.uis-hdr-l{flex:1;min-width:280px}
+.code-badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:0.5px;padding:3px 10px;background:#1e293b;color:#cbd5e1;border-radius:4px;margin-bottom:8px}
+.uis-h1{font-size:28px;font-weight:800;letter-spacing:-0.01em;margin-bottom:8px}
+.uis-sub{font-size:15px;color:#475569;max-width:760px}
+.state-pill{display:inline-block;font-size:11px;font-weight:700;padding:4px 10px;border-radius:4px;text-transform:uppercase;letter-spacing:0.5px;margin-right:6px}
+.kpi-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:18px}
+.kpi{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:12px 14px}
+.kpi .l{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#94a3b8;margin-bottom:4px}
+.kpi .v{font-size:18px;font-weight:800;color:#1e293b}
+.uis-section{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:22px 26px;margin-bottom:14px}
+.uis-section h2{font-size:15px;font-weight:700;color:#1e293b;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid #f1f5f9;letter-spacing:0.2px}
+.uis-section p{color:#334155;margin-bottom:8px}
+.uis-section ul{padding-left:22px;color:#334155}
+.uis-section ul li{margin-bottom:6px}
+.epics-tbl{width:100%;border-collapse:collapse;font-size:13px}
+.epics-tbl th{text-align:left;padding:8px 10px;background:#f8fafc;border-bottom:2px solid #e2e8f0;font-weight:600;color:#64748b;font-size:11px;text-transform:uppercase;letter-spacing:0.5px}
+.epics-tbl td{padding:8px 10px;border-bottom:1px solid #f1f5f9;color:#334155;vertical-align:top}
+.epics-tbl tr:last-child td{border-bottom:none}
+.epics-tbl .mono{font-family:'JetBrains Mono',monospace;font-size:11px;color:#64748b;white-space:nowrap}
+.epics-tbl .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.path{font-family:'JetBrains Mono',monospace;font-size:11px;color:#0369a1;background:#f0f9ff;padding:3px 8px;border-radius:4px;display:inline-block;margin:2px 4px 2px 0;border:1px solid #bae6fd}
+.meta-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.meta-grid div .l{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#94a3b8;margin-bottom:4px}
+.meta-grid div .v{font-size:13px;color:#1e293b;font-weight:500}
+@media print{.top-nav{display:none}.uis-wrap{padding:8px}}
+</style>
+<script>if (self !== top) document.documentElement.classList.add("in-iframe");</script>
+</head><body>
+<nav class="top-nav">
+  <span class="nav-logo">Appello IRAP</span>
+  <a href="../irap-roadmap-v2.html">← Roadmap</a>
+  <a href="https://useanzen.github.io/appello-roadmap/" target="_blank">Appello Product Roadmap</a>
+</nav>
+<div class="uis-wrap">
+  <div class="crumb"><a href="../irap-roadmap-v2.html">IRAP Roadmap</a> › Component C1 · Phase P1 · R1 › UIS</div>
+
+  <div class="uis-hdr">
+    <div class="uis-hdr-l">
+      <span class="code-badge">INFRA-1</span>
+      <h1 class="uis-h1">AI Pipeline Infrastructure</h1>
+      <p class="uis-sub">Provision the AWS/Supabase/Inngest foundation that every AI agent in the pipeline runs on.</p>
+    </div>
+    <div><span class="state-pill" style="background:#16a34a;color:#fff">DONE</span></div>
+  </div>
+
+  <div class="kpi-strip">
+    <div class="kpi"><div class="l">Component</div><div class="v">C1</div></div>
+    <div class="kpi"><div class="l">Phase</div><div class="v">P1</div></div>
+    <div class="kpi"><div class="l">Owners</div><div class="v">Travis, Corey</div></div>
+    <div class="kpi"><div class="l">Release</div><div class="v">R1</div></div>
+    <div class="kpi"><div class="l">Epics</div><div class="v">36</div></div>
+    <div class="kpi"><div class="l">Total hours</div><div class="v">1,422h</div></div>
+  </div>
+
+  <div class="uis-section">
+    <h2>State Breakdown</h2>
+    <div><span class="state-pill" style="background:#16a34a;color:#fff">DONE 2</span> <span class="state-pill" style="background:#d97706;color:#fff">WORK IN PROCESS 4</span> <span class="state-pill" style="background:#475569;color:#fff">TO DO 30</span></div>
+  </div>
+
+  <div class="uis-section">
+    <h2>1 · Objective</h2>
+    <p>Stand up the cloud + CI/CD + runtime foundation required for the SDLC Flywheel. 3 GPU-enabled AWS compute instances for model inference; VPC, subnets, security groups, IAM service accounts; GitHub Actions → Docker → AWS ECS CI/CD pipeline; observability (logs, metrics, traces).</p>
+  </div>
+
+  <div class="uis-section">
+    <h2>2 · Acceptance Criteria</h2>
+    <ul><li>AWS account, VPC, subnets, security groups, IAM service accounts provisioned via IaC (Terraform or CDK).</li><li>3 GPU-enabled instances available for model inference (cost-capped).</li><li>GitHub Actions → Docker → AWS ECS deploy pipeline green on appello-sdlc main branch.</li><li>Cost dashboard live (AgentCostDaily) — daily spend visible to the team.</li><li>Run-and-queue observability live (Inngest job board, structured logs, error pages).</li></ul>
+  </div>
+
+  <div class="uis-section">
+    <h2>3 · Architecture &amp; Approach</h2>
+    <p>AWS (compute) + Supabase Postgres (state, pgvector) + Inngest (job queue) + Doppler (secrets) + GitHub Actions (CI). The `appello-sdlc` Next.js app is the SDLC control plane; Inngest workers run the agent steps; Supabase holds work_packages_v2 + stage_outputs.</p>
+  </div>
+
+  <div class="uis-section">
+    <h2>4 · Epic Breakdown — 36 epics from master sheet</h2>
+    <table class="epics-tbl">
+      <thead><tr><th>ID</th><th>State</th><th>Month</th><th>Owner</th><th class="num">Hours</th><th>Activity (from sheet)</th></tr></thead>
+      <tbody>
+        <tr>
+  <td class="mono">C1-0011</td>
+  <td><span class="state-pill" style="background:#16a34a;color:#fff;font-size:10px;padding:2px 8px">DONE</span></td>
+  <td>Apr 26</td>
+  <td>Travis McKenna</td>
+  <td class="num">50h</td>
+  <td>Provision the AgentC2 runtime (Supabase Postgres &amp; Inngest workers &amp; DigitalOcean compute) hosting the hamburger-factory and Cursor Cloud dispatch; networking, storage, IAM roles.</td>
+</tr><tr>
+  <td class="mono">C1-0013</td>
+  <td><span class="state-pill" style="background:#16a34a;color:#fff;font-size:10px;padding:2px 8px">DONE</span></td>
+  <td>Apr 26</td>
+  <td>Travis McKenna</td>
+  <td class="num">39h</td>
+  <td>Build the AgentC2 monorepo local-dev bootstrap (Bun &amp; Turborepo, docker-compose, seed scripts) so a dev can run the pipeline locally.</td>
+</tr><tr>
+  <td class="mono">C1-0012</td>
+  <td><span class="state-pill" style="background:#d97706;color:#fff;font-size:10px;padding:2px 8px">WORK IN PROCESS</span></td>
+  <td>Apr 26</td>
+  <td>Travis McKenna</td>
+  <td class="num">45h</td>
+  <td>Configure GitHub Actions CI/CD that the pipeline drives, including the verify-* / wait-for-checks gates cursor-launch-agent uses before auto-merge.</td>
+</tr><tr>
+  <td class="mono">C1-0014</td>
+  <td><span class="state-pill" style="background:#d97706;color:#fff;font-size:10px;padding:2px 8px">WORK IN PROCESS</span></td>
+  <td>May 26</td>
+  <td>Christopher Vachon</td>
+  <td class="num">25h</td>
+  <td>Build webhook handlers for the 4 GitHub/CI events that drive Appello SDLC state transitions, with retry &amp; dead-letter &amp; E2E test.</td>
+</tr><tr>
+  <td class="mono">C1-0017</td>
+  <td><span class="state-pill" style="background:#d97706;color:#fff;font-size:10px;padding:2px 8px">WORK IN PROCESS</span></td>
+  <td>May 26</td>
+  <td>Ian Haase</td>
+  <td class="num">20h</td>
+  <td>Solo backlog grooming of the appello-roadmap (UIS specs, hamburger-manifest.json) ahead of the NH1/NH3 hire — no sprint ceremonies yet (no dev team).</td>
+</tr><tr>
+  <td class="mono">C1-0024</td>
+  <td><span class="state-pill" style="background:#d97706;color:#fff;font-size:10px;padding:2px 8px">WORK IN PROCESS</span></td>
+  <td>May 26</td>
+  <td>Travis McKenna</td>
+  <td class="num">45h</td>
+  <td>Configure GitHub Actions stages that run on Cursor Cloud build branches: tsc/ESLint, unit, and the Playwright E2E suite, feeding pass/fail into the sdlc-reviewer trust score.</td>
+</tr><tr>
+  <td class="mono">C1-0097</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Sep 26</td>
+  <td>New Hire 1</td>
+  <td class="num">20h</td>
+  <td>Tests for the provisioning hooks &amp; aggregation.</td>
+</tr><tr>
+  <td class="mono">C1-0115</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Dec 26</td>
+  <td>New Hire 1</td>
+  <td class="num">45h</td>
+  <td>Build the inbound connectors (GitHub/Jira/CI/CD/monitoring) feeding the feedback loop.</td>
+</tr><tr>
+  <td class="mono">C1-0129</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Apr 27</td>
+  <td>Travis McKenna</td>
+  <td class="num">41h</td>
+  <td>Configure automated security scanning — integrate SAST/DAST tools into CI/CD pipeline, set up vulnerability reports  →  anchored in Apex security &amp; governance (agentc2 security/tool-permissions.ts, egress-control.ts, financial-audit.ts; Aud</td>
+</tr><tr>
+  <td class="mono">C1-0150</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Sep 27</td>
+  <td>Travis McKenna</td>
+  <td class="num">40h</td>
+  <td>Implement A/B testing infrastructure — traffic splitting, metric collection, and statistical significance calculation for model comparison  →  anchored in the Apex response-quality eval harness (MastraScorer/AgentEvaluation over AgentConver</td>
+</tr><tr>
+  <td class="mono">C2-0178</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Sep 26</td>
+  <td>New Hire 1</td>
+  <td class="num">55h</td>
+  <td>Build feature branch deployment automation tooling — scripts to provision and destroy isolated test environments on demand  →  anchored in per-tenant customer infrastructure (agentc2 tenant-scope.ts, tenant-lifecycle.ts; Organization/Worksp</td>
+</tr><tr>
+  <td class="mono">C2-0180</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Sep 26</td>
+  <td>New Hire 2</td>
+  <td class="num">40h</td>
+  <td>Build test infrastructure scaffolding for Spider framework — base classes, configuration, and test runner integration  →  anchored in the Spider test harness (Playwright in agentc2 tests-e2e/; test runs/test results, AgentTestRun/TestSuite)</td>
+</tr><tr>
+  <td class="mono">C2-0181</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Sep 26</td>
+  <td>New Hire 2</td>
+  <td class="num">30h</td>
+  <td>Implement feature branch environment provisioning — automated scripts to create/destroy isolated test instances  →  anchored in per-tenant customer infrastructure (agentc2 tenant-scope.ts, tenant-lifecycle.ts; Organization/Workspace/Provisi</td>
+</tr><tr>
+  <td class="mono">C2-0183</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Sep 26</td>
+  <td>Travis McKenna</td>
+  <td class="num">50h</td>
+  <td>Set up isolated test environments per feature branch — automated provisioning of full Appello instance for Spider testing  →  anchored in per-tenant customer infrastructure (agentc2 tenant-scope.ts, tenant-lifecycle.ts; Organization/Workspa</td>
+</tr><tr>
+  <td class="mono">C2-0195</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Oct 26</td>
+  <td>Travis McKenna</td>
+  <td class="num">50h</td>
+  <td>Build infrastructure for Spider testing and documentation swarms — provision dedicated compute for concurrent test agents  →  anchored in per-tenant customer infrastructure (agentc2 tenant-scope.ts, tenant-lifecycle.ts; Organization/Workspa</td>
+</tr><tr>
+  <td class="mono">C2-0206</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Dec 26</td>
+  <td>Travis McKenna</td>
+  <td class="num">35h</td>
+  <td>Configure web scraping infrastructure — scraping workers with rate limiting, proxy rotation, and result storage  →  anchored in Apex security &amp; governance (agentc2 security/tool-permissions.ts, egress-control.ts; BudgetPolicy/CostEvent/Agen</td>
+</tr><tr>
+  <td class="mono">C2-0215</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Mar 27</td>
+  <td>New Hire 3</td>
+  <td class="num">61h</td>
+  <td>Build model A/B testing framework — infrastructure to run model versions simultaneously and compare accuracy and cost metrics  →  anchored in the Apex response-quality eval harness (MastraScorer/AgentEvaluation over AgentConversation).</td>
+</tr><tr>
+  <td class="mono">C2-0222</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Jul 27</td>
+  <td>Travis McKenna</td>
+  <td class="num">28h</td>
+  <td>Optimize cloud costs — analyze spending data, implement reserved instances, right-size over-provisioned services  →  anchored in per-tenant customer infrastructure (agentc2 tenant-scope.ts, tenant-lifecycle.ts; Organization/Workspace/Provis</td>
+</tr><tr>
+  <td class="mono">C2-0225</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Oct 27</td>
+  <td>Travis McKenna</td>
+  <td class="num">40h</td>
+  <td>Optimize AI infrastructure costs across customer tenants — shared model serving, request batching, and cache optimization  →  anchored in ATLAS domain model tuning on the construction corpus (RagDocument/RagChunk; eval via MastraScorer).</td>
+</tr><tr>
+  <td class="mono">C2-0226</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Nov 27</td>
+  <td>Nathan Friesen</td>
+  <td class="num">14h</td>
+  <td>Validate AI system administration workflows — test tenant configuration, user provisioning, data management, and error recovery procedures with construction company administrators  →  anchored in per-tenant customer infrastructure (agentc2 </td>
+</tr><tr>
+  <td class="mono">C3-0294</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Dec 26</td>
+  <td>Travis McKenna</td>
+  <td class="num">34h</td>
+  <td>Finalize C1/C3 infrastructure — security audit of all 15+ deployed services, patch vulnerabilities, update dependencies  →  anchored in Apex security &amp; governance (agentc2 security/tool-permissions.ts, egress-control.ts, financial-audit.ts;</td>
+</tr><tr>
+  <td class="mono">C3-0310</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Feb 27</td>
+  <td>Travis McKenna</td>
+  <td class="num">40h</td>
+  <td>Configure backup and disaster recovery — automated daily backups for all customer data, test recovery procedure  →  anchored in per-tenant customer infrastructure (agentc2 tenant-scope.ts, tenant-lifecycle.ts; Organization/Workspace/Provisi</td>
+</tr><tr>
+  <td class="mono">C3-0316</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Mar 27</td>
+  <td>Travis McKenna</td>
+  <td class="num">50h</td>
+  <td>Build cost tracking and audit logging infrastructure — centralized log aggregation with appropriate retention  →  anchored in Apex security &amp; governance (agentc2 security/tool-permissions.ts, egress-control.ts, financial-audit.ts; AuditLog/</td>
+</tr><tr>
+  <td class="mono">C3-0322</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Apr 27</td>
+  <td>Travis McKenna</td>
+  <td class="num">45h</td>
+  <td>Conduct infrastructure penetration testing — automated security scan, manual testing of attack vectors, remediate findings  →  anchored in the ATLAS knowledge-base workstream (AgentC2 pgvector RAG: rag/pipeline.ts, RagDocument/RagChunk).</td>
+</tr><tr>
+  <td class="mono">C4-0363</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Nov 26</td>
+  <td>Travis McKenna</td>
+  <td class="num">45h</td>
+  <td>Scale agent infrastructure for concurrent operation — load test with simultaneous agents, optimize resource allocation  →  anchored in the Spider test harness (Playwright in agentc2 tests-e2e/; test runs/test results, AgentTestRun/TestSuite</td>
+</tr><tr>
+  <td class="mono">C4-0388</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Jan 27</td>
+  <td>Travis McKenna</td>
+  <td class="num">50h</td>
+  <td>Set up infrastructure for customer-facing AI toolboxes — per-tenant compute isolation using namespace-based separation  →  anchored in the Apex toolbox/skill engine (agentc2 tools/, skills/service.ts; AgentTool/AgentSkill/SkillVersion, Agen</td>
+</tr><tr>
+  <td class="mono">C4-0402</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Feb 27</td>
+  <td>New Hire 3</td>
+  <td class="num">47h</td>
+  <td>Run test queries per customer and document per-tenant accuracy rates  →  anchored in per-tenant customer infrastructure (agentc2 tenant-scope.ts, tenant-lifecycle.ts; Organization/Workspace/ProvisionedResource).</td>
+</tr><tr>
+  <td class="mono">C4-0403</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Feb 27</td>
+  <td>Travis McKenna</td>
+  <td class="num">45h</td>
+  <td>Build per-tenant compute isolation — resource limits, network policies, and data partitioning for customer AI workloads  →  anchored in per-tenant customer infrastructure (agentc2 tenant-scope.ts, tenant-lifecycle.ts; Organization/Workspace</td>
+</tr><tr>
+  <td class="mono">C4-0404</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Feb 27</td>
+  <td>Travis McKenna</td>
+  <td class="num">36h</td>
+  <td>Set up usage metering infrastructure — real-time tracking of API calls, compute time, and storage per customer  →  anchored in Apex security &amp; governance (agentc2 security/tool-permissions.ts, egress-control.ts; BudgetPolicy/CostEvent/Agent</td>
+</tr><tr>
+  <td class="mono">C4-0450</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>May 27</td>
+  <td>Travis McKenna</td>
+  <td class="num">55h</td>
+  <td>Deploy real-time chat infrastructure — WebSocket server cluster with load balancing and message queuing (Redis/RabbitMQ)  →  anchored in the Embedded Chat MVP (agentc2 channels/, sessions/; ChatMessage/AgentConversation/ChannelSession, WebS</td>
+</tr><tr>
+  <td class="mono">C4-0465</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Jun 27</td>
+  <td>Travis McKenna</td>
+  <td class="num">40h</td>
+  <td>Scale chat infrastructure for pilot customer load — load test with concurrent connections, optimize WebSocket handling  →  anchored in the Embedded Chat MVP (agentc2 channels/, sessions/; ChatMessage/AgentConversation/ChannelSession, WebSoc</td>
+</tr><tr>
+  <td class="mono">C4-0490</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Aug 27</td>
+  <td>Travis McKenna</td>
+  <td class="num">40h</td>
+  <td>Set up GPU compute infrastructure for predictive AI models — configure model training instances, inference endpoints, and batch processing pipeline  →  anchored in the Predictive Analytics pipeline (feature extraction + trained model; Learn</td>
+</tr><tr>
+  <td class="mono">C4-0505</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Sep 27</td>
+  <td>Travis McKenna</td>
+  <td class="num">40h</td>
+  <td>Scale predictive AI infrastructure — configure auto-scaling for model inference based on request volume  →  anchored in the Predictive Analytics pipeline (feature extraction + trained model; LearningExperiment/LearningDataset, processors/).</td>
+</tr><tr>
+  <td class="mono">C4-0529</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Nov 27</td>
+  <td>Travis McKenna</td>
+  <td class="num">29h</td>
+  <td>Lead SOC 2 infrastructure preparation — comprehensive logging across all services, change management tracking, and automated access reviews  →  anchored in SOC 2 readiness (agentc2 audit/, security/; AuditLog/AdminAuditLog/ConsentRecord/Dat</td>
+</tr><tr>
+  <td class="mono">C4-0541</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Dec 27</td>
+  <td>Travis McKenna</td>
+  <td class="num">35h</td>
+  <td>Final SOC 2 infrastructure review — validate logging completeness, run compliance checklist against all controls  →  anchored in SOC 2 readiness (agentc2 audit/, security/; AuditLog/AdminAuditLog/ConsentRecord/DataSubjectRequest).</td>
+</tr><tr>
+  <td class="mono">C4-0543</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Dec 27</td>
+  <td>Travis McKenna</td>
+  <td class="num">18h</td>
+  <td>Scale infrastructure for GA launch — capacity planning, configure CDN, and implement geographic redundancy  →  anchored in the Apex / Appello Intelligence workstream (agentc2 tools/, skills/, mcp/).</td>
+</tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="uis-section">
+    <h2>5 · Evidence — file paths referenced in the sheet</h2>
+    <div><span class="path">PM/coordination.</span><span class="path">GitHub/Jira</span><span class="path">AuditLog/GuardrailPolicy</span><span class="path">BudgetPolicy/CostEvent</span><span class="path">ChatMessage/AgentConversation</span><span class="path">AuditLog/ConsentRecord</span></div>
+  </div>
+
+  <div class="uis-section">
+    <h2>6 · Dependencies</h2>
+    <ul><li>—</li></ul>
+  </div>
+
+  <div class="uis-section">
+    <h2>7 · Risks &amp; Open Questions</h2>
+    <ul><li>GPU cost overrun if usage not capped</li><li>ECS cold-start latency for low-volume agents</li><li>Secrets management across environments (Doppler vs AWS Secrets Manager not decided)</li></ul>
+  </div>
+
+  <div class="uis-section">
+    <h2>8 · Ownership &amp; Status</h2>
+    <div class="meta-grid">
+      <div><div class="l">Lead</div><div class="v">Travis</div></div>
+      <div><div class="l">Contributors</div><div class="v">Travis, Corey</div></div>
+      <div><div class="l">Component</div><div class="v">C1</div></div>
+      <div><div class="l">Phase</div><div class="v">P1</div></div>
+      <div><div class="l">Release</div><div class="v">R1</div></div>
+      <div><div class="l">Current state</div><div class="v">DONE</div></div>
+    </div>
+  </div>
+</div></body></html>

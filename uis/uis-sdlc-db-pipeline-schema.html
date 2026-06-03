@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UIS · SDLC-DB · Pipeline Tracking Schema (Appello-SDLC)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+.in-iframe .top-nav { display: none !important; }
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',-apple-system,sans-serif;background:#f1f5f9;color:#1e293b;line-height:1.55}
+.top-nav{position:sticky;top:0;z-index:100;background:#0f172a;border-bottom:1px solid #1e293b;padding:0 24px;display:flex;align-items:center;gap:0}
+.top-nav a{display:inline-flex;align-items:center;padding:12px 18px;font-size:13px;font-weight:600;color:#94a3b8;text-decoration:none;border-bottom:2px solid transparent;transition:all .15s}
+.top-nav a:hover{color:#f8fafc;background:#1e293b}
+.top-nav .nav-logo{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#475569;padding-right:18px;margin-right:4px;border-right:1px solid #1e293b}
+.uis-wrap{max-width:1060px;margin:0 auto;padding:40px 24px 80px}
+.crumb{font-size:12px;color:#64748b;margin-bottom:14px}
+.crumb a{color:#3b82f6;text-decoration:none}
+.crumb a:hover{text-decoration:underline}
+.uis-hdr{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:24px;flex-wrap:wrap}
+.uis-hdr-l{flex:1;min-width:280px}
+.code-badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:0.5px;padding:3px 10px;background:#1e293b;color:#cbd5e1;border-radius:4px;margin-bottom:8px}
+.uis-h1{font-size:28px;font-weight:800;letter-spacing:-0.01em;margin-bottom:8px}
+.uis-sub{font-size:15px;color:#475569;max-width:760px}
+.state-pill{display:inline-block;font-size:11px;font-weight:700;padding:4px 10px;border-radius:4px;text-transform:uppercase;letter-spacing:0.5px;margin-right:6px}
+.kpi-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:18px}
+.kpi{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:12px 14px}
+.kpi .l{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#94a3b8;margin-bottom:4px}
+.kpi .v{font-size:18px;font-weight:800;color:#1e293b}
+.uis-section{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:22px 26px;margin-bottom:14px}
+.uis-section h2{font-size:15px;font-weight:700;color:#1e293b;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid #f1f5f9;letter-spacing:0.2px}
+.uis-section p{color:#334155;margin-bottom:8px}
+.uis-section ul{padding-left:22px;color:#334155}
+.uis-section ul li{margin-bottom:6px}
+.epics-tbl{width:100%;border-collapse:collapse;font-size:13px}
+.epics-tbl th{text-align:left;padding:8px 10px;background:#f8fafc;border-bottom:2px solid #e2e8f0;font-weight:600;color:#64748b;font-size:11px;text-transform:uppercase;letter-spacing:0.5px}
+.epics-tbl td{padding:8px 10px;border-bottom:1px solid #f1f5f9;color:#334155;vertical-align:top}
+.epics-tbl tr:last-child td{border-bottom:none}
+.epics-tbl .mono{font-family:'JetBrains Mono',monospace;font-size:11px;color:#64748b;white-space:nowrap}
+.epics-tbl .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.path{font-family:'JetBrains Mono',monospace;font-size:11px;color:#0369a1;background:#f0f9ff;padding:3px 8px;border-radius:4px;display:inline-block;margin:2px 4px 2px 0;border:1px solid #bae6fd}
+.meta-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.meta-grid div .l{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#94a3b8;margin-bottom:4px}
+.meta-grid div .v{font-size:13px;color:#1e293b;font-weight:500}
+@media print{.top-nav{display:none}.uis-wrap{padding:8px}}
+</style>
+<script>if (self !== top) document.documentElement.classList.add("in-iframe");</script>
+</head><body>
+<nav class="top-nav">
+  <span class="nav-logo">Appello IRAP</span>
+  <a href="../irap-roadmap-v2.html">← Roadmap</a>
+  <a href="https://useanzen.github.io/appello-roadmap/" target="_blank">Appello Product Roadmap</a>
+</nav>
+<div class="uis-wrap">
+  <div class="crumb"><a href="../irap-roadmap-v2.html">IRAP Roadmap</a> › Component C1 · Phase P1 · R1 › UIS</div>
+
+  <div class="uis-hdr">
+    <div class="uis-hdr-l">
+      <span class="code-badge">SDLC-DB</span>
+      <h1 class="uis-h1">Pipeline Tracking Schema (Appello-SDLC)</h1>
+      <p class="uis-sub">The Prisma schema + Next.js API that every other SDLC agent reads and writes — the database backbone of the pipeline.</p>
+    </div>
+    <div><span class="state-pill" style="background:#16a34a;color:#fff">DONE</span></div>
+  </div>
+
+  <div class="kpi-strip">
+    <div class="kpi"><div class="l">Component</div><div class="v">C1</div></div>
+    <div class="kpi"><div class="l">Phase</div><div class="v">P1</div></div>
+    <div class="kpi"><div class="l">Owners</div><div class="v">Chris, Travis</div></div>
+    <div class="kpi"><div class="l">Release</div><div class="v">R1</div></div>
+    <div class="kpi"><div class="l">Epics</div><div class="v">26</div></div>
+    <div class="kpi"><div class="l">Total hours</div><div class="v">914h</div></div>
+  </div>
+
+  <div class="uis-section">
+    <h2>State Breakdown</h2>
+    <div><span class="state-pill" style="background:#16a34a;color:#fff">DONE 1</span> <span class="state-pill" style="background:#d97706;color:#fff">WORK IN PROCESS 4</span> <span class="state-pill" style="background:#475569;color:#fff">TO DO 21</span></div>
+  </div>
+
+  <div class="uis-section">
+    <h2>1 · Objective</h2>
+    <p>Build the `appello-sdlc` Postgres/Prisma schema and API surface that tracks every work package as it moves through the 7-stage pipeline. Define tables, FK integrity, idempotent migrations, and a Next.js App-Router API for CRUD + agent state transitions.</p>
+  </div>
+
+  <div class="uis-section">
+    <h2>2 · Acceptance Criteria</h2>
+    <ul><li>8+ Prisma models live: WorkPackageV2, WorkItem, StageOutput, Review, BuildRun, TestRun, DocArtifact, TransitionLog (+ FKs/indexes).</li><li>Idempotent migration framework with safe rollback (see appello-xrm-prisma-migrations skill).</li><li>Next.js API routes for CRUD on every model + agent status endpoints.</li><li>Zod validation on every API route; unit tests for FK + referential integrity.</li><li>appello-sdlc Next.js dashboard live: stage-board, work-package detail, transition log.</li></ul>
+  </div>
+
+  <div class="uis-section">
+    <h2>3 · Architecture &amp; Approach</h2>
+    <p>Next.js 16 App Router app in `appello-sdlc/`. Prisma schema in `appello-sdlc/prisma/schema.prisma`. API routes in `appello-sdlc/app/api/`. Frontend in `appello-sdlc/app/(dashboard)/`. All other SDLC agents talk to this app via REST. Migration discipline enforced by `assert-safe-db.ts` script in CI.</p>
+  </div>
+
+  <div class="uis-section">
+    <h2>4 · Epic Breakdown — 26 epics from master sheet</h2>
+    <table class="epics-tbl">
+      <thead><tr><th>ID</th><th>State</th><th>Month</th><th>Owner</th><th class="num">Hours</th><th>Activity (from sheet)</th></tr></thead>
+      <tbody>
+        <tr>
+  <td class="mono">C1-0001</td>
+  <td><span class="state-pill" style="background:#16a34a;color:#fff;font-size:10px;padding:2px 8px">DONE</span></td>
+  <td>Apr 26</td>
+  <td>Christopher Vachon</td>
+  <td class="num">45h</td>
+  <td>Build the Appello SDLC Prisma schema: work packages, stage outputs, reviews, work items, build runs, test runs, doc artifacts, transition logs &amp; FKs/indexes/migrations.</td>
+</tr><tr>
+  <td class="mono">C1-0002</td>
+  <td><span class="state-pill" style="background:#d97706;color:#fff;font-size:10px;padding:2px 8px">WORK IN PROCESS</span></td>
+  <td>Apr 26</td>
+  <td>Christopher Vachon</td>
+  <td class="num">35h</td>
+  <td>Build Appello SDLC Next.js API routes (CRUD for work packages v2 / work items / stage outputs / reviews &amp; agent status) with validation &amp; tests.</td>
+</tr><tr>
+  <td class="mono">C1-0020</td>
+  <td><span class="state-pill" style="background:#d97706;color:#fff;font-size:10px;padding:2px 8px">WORK IN PROCESS</span></td>
+  <td>May 26</td>
+  <td>New Hire 1</td>
+  <td class="num">40h</td>
+  <td>NH1 onboarding to the AgentC2 &amp; Appello SDLC monorepos (Bun/Turborepo, Prisma, hamburger-factory). Reads the appello-native-code-conventions &amp; sdlc docs.</td>
+</tr><tr>
+  <td class="mono">C1-0022</td>
+  <td><span class="state-pill" style="background:#d97706;color:#fff;font-size:10px;padding:2px 8px">WORK IN PROCESS</span></td>
+  <td>May 26</td>
+  <td>New Hire 1</td>
+  <td class="num">50h</td>
+  <td>Build the frontend data-fetching layer &amp; decomposition review UI consuming Christopher&#x27;s Appello SDLC API routes.</td>
+</tr><tr>
+  <td class="mono">C1-0023</td>
+  <td><span class="state-pill" style="background:#d97706;color:#fff;font-size:10px;padding:2px 8px">WORK IN PROCESS</span></td>
+  <td>May 26</td>
+  <td>New Hire 1</td>
+  <td class="num">20h</td>
+  <td>Write Vitest unit tests for the Appello SDLC API routes (work items / reviews CRUD) per the appello-xrm-test-isolation conventions.</td>
+</tr><tr>
+  <td class="mono">C1-0087</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Sep 26</td>
+  <td>Christopher Vachon</td>
+  <td class="num">40h</td>
+  <td>Production-harden the Appello SDLC API: per-tenant rate limiting (AgentC2 rate-limit-tier.ts), validation schemas for 10 endpoints, sanitization, security tests (XSS/SQLi/IDOR).</td>
+</tr><tr>
+  <td class="mono">C1-0126</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Apr 27</td>
+  <td>Filip Altankov</td>
+  <td class="num">40h</td>
+  <td>Build quota configuration screens — rate-limit tier selection, threshold management, usage alerts  →  anchored in the AgentC2 SDLC-flywheel workstream (uis-generator → hamburger-factory → cursor-launch-agent; Appello SDLC work_packages_v2).</td>
+</tr><tr>
+  <td class="mono">C1-0127</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Apr 27</td>
+  <td>Ian Haase</td>
+  <td class="num">20h</td>
+  <td>Sprint planning sessions for C4-P2 completion and C4-P3 kickoff  →  anchored in the AgentC2 SDLC-flywheel workstream (uis-generator → hamburger-factory → cursor-launch-agent; Appello SDLC work_packages_v2).</td>
+</tr><tr>
+  <td class="mono">C1-0128</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Apr 27</td>
+  <td>New Hire 3</td>
+  <td class="num">32h</td>
+  <td>Train chat model on construction-specific Q&amp;A pairs  →  anchored in the AgentC2 SDLC-flywheel workstream (uis-generator → hamburger-factory → cursor-launch-agent; Appello SDLC work_packages_v2).</td>
+</tr><tr>
+  <td class="mono">C1-0132</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Jun 27</td>
+  <td>Filip Altankov</td>
+  <td class="num">45h</td>
+  <td>Implement rich formatting in AI responses — tables, charts, action buttons, expandable sections  →  anchored in the AgentC2 SDLC-flywheel workstream (uis-generator → hamburger-factory → cursor-launch-agent; Appello SDLC work_packages_v2).</td>
+</tr><tr>
+  <td class="mono">C1-0133</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Jun 27</td>
+  <td>Ian Haase</td>
+  <td class="num">30h</td>
+  <td>Coordinate rapid bug fixes — triage customer-reported issues, prioritize with dev team, track resolution  →  anchored in the AgentC2 SDLC-flywheel workstream (uis-generator → hamburger-factory → cursor-launch-agent; Appello SDLC work_packag</td>
+</tr><tr>
+  <td class="mono">C1-0134</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Jun 27</td>
+  <td>Nathan Friesen</td>
+  <td class="num">29h</td>
+  <td>Document and categorize AI successes and failures — analyze what topics AI handles well vs. poorly in construction context  →  anchored in the AgentC2 SDLC-flywheel workstream (uis-generator → hamburger-factory → cursor-launch-agent; Appell</td>
+</tr><tr>
+  <td class="mono">C1-0136</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Jul 27</td>
+  <td>Christopher Vachon</td>
+  <td class="num">50h</td>
+  <td>Build advanced chat features — multi-step workflow execution engine, approval chain logic, and scheduled action system  →  anchored in the AgentC2 SDLC-flywheel workstream (uis-generator → hamburger-factory → cursor-launch-agent; Appello SD</td>
+</tr><tr>
+  <td class="mono">C1-0138</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Jul 27</td>
+  <td>Ian Haase</td>
+  <td class="num">30h</td>
+  <td>Conduct mid-project review, ensure alignment with team and objectives  →  anchored in the AgentC2 SDLC-flywheel workstream (uis-generator → hamburger-factory → cursor-launch-agent; Appello SDLC work_packages_v2).</td>
+</tr><tr>
+  <td class="mono">C1-0139</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Jul 27</td>
+  <td>Ian Haase</td>
+  <td class="num">25h</td>
+  <td>Manage team priorities for second half of C4 — re-plan resource allocation for C4-P4 and P5 based on learnings  →  anchored in the AgentC2 SDLC-flywheel workstream (uis-generator → hamburger-factory → cursor-launch-agent; Appello SDLC work_</td>
+</tr><tr>
+  <td class="mono">C1-0140</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Jul 27</td>
+  <td>Ian Haase</td>
+  <td class="num">15h</td>
+  <td>Run sprint planning sessions  →  anchored in the AgentC2 SDLC-flywheel workstream (uis-generator → hamburger-factory → cursor-launch-agent; Appello SDLC work_packages_v2).</td>
+</tr><tr>
+  <td class="mono">C1-0141</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Jul 27</td>
+  <td>Nathan Friesen</td>
+  <td class="num">55h</td>
+  <td>Test AI with complex construction scenarios — change orders, weather delays, crew reassignment, budget overruns, subcontractor disputes  →  anchored in the AgentC2 SDLC-flywheel workstream (uis-generator → hamburger-factory → cursor-launch-</td>
+</tr><tr>
+  <td class="mono">C1-0142</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Jul 27</td>
+  <td>Nathan Friesen</td>
+  <td class="num">40h</td>
+  <td>Document AI accuracy on multi-step construction problems — detailed test reports showing AI reasoning and where it breaks down  →  anchored in the AgentC2 SDLC-flywheel workstream (uis-generator → hamburger-factory → cursor-launch-agent; Ap</td>
+</tr><tr>
+  <td class="mono">C1-0143</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Jul 27</td>
+  <td>New Hire 2</td>
+  <td class="num">30h</td>
+  <td>Implement data visualization components — bar charts, line charts, pie charts, tables, heat maps, progress bars, gauges, and KPI cards  →  anchored in the AgentC2 SDLC-flywheel workstream (uis-generator → hamburger-factory → cursor-launch-a</td>
+</tr><tr>
+  <td class="mono">C1-0145</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Aug 27</td>
+  <td>Christopher Vachon</td>
+  <td class="num">50h</td>
+  <td>Develop orchestration backend for multi-step AI workflows — sequential and parallel task execution with state management and rollback  →  anchored in the AgentC2 SDLC-flywheel workstream (uis-generator → hamburger-factory → cursor-launch-ag</td>
+</tr><tr>
+  <td class="mono">C1-0147</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Sep 27</td>
+  <td>Filip Altankov</td>
+  <td class="num">35h</td>
+  <td>Create drill-down views — click any alert to see underlying data, contributing factors, and recommended actions  →  anchored in the AgentC2 SDLC-flywheel workstream (uis-generator → hamburger-factory → cursor-launch-agent; Appello SDLC work</td>
+</tr><tr>
+  <td class="mono">C1-0149</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Sep 27</td>
+  <td>New Hire 2</td>
+  <td class="num">25h</td>
+  <td>Implement drill-down data views — click-through from alert to underlying data with filtering and sorting  →  anchored in the AgentC2 SDLC-flywheel workstream (uis-generator → hamburger-factory → cursor-launch-agent; Appello SDLC work_packag</td>
+</tr><tr>
+  <td class="mono">C1-0152</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Oct 27</td>
+  <td>Filip Altankov</td>
+  <td class="num">45h</td>
+  <td>Build scheduling optimization display — crew assignment recommendations, timeline suggestions, resource utilization heat map  →  anchored in the AgentC2 SDLC-flywheel workstream (uis-generator → hamburger-factory → cursor-launch-agent; Appe</td>
+</tr><tr>
+  <td class="mono">C1-0153</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Oct 27</td>
+  <td>Nathan Friesen</td>
+  <td class="num">23h</td>
+  <td>Document prediction accuracy — calculate average error rate, identify which cost categories AI estimates best/worst  →  anchored in the AgentC2 SDLC-flywheel workstream (uis-generator → hamburger-factory → cursor-launch-agent; Appello SDLC </td>
+</tr><tr>
+  <td class="mono">C1-0154</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Oct 27</td>
+  <td>Travis McKenna</td>
+  <td class="num">32h</td>
+  <td>Implement resource sharing between tenants — fair scheduling, priority queues, and burst capacity management  →  anchored in the AgentC2 SDLC-flywheel workstream (uis-generator → hamburger-factory → cursor-launch-agent; Appello SDLC work_pa</td>
+</tr><tr>
+  <td class="mono">C1-0156</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Nov 27</td>
+  <td>Filip Altankov</td>
+  <td class="num">33h</td>
+  <td>Polish all customer-facing interfaces — consistency review, accessibility audit (WCAG 2.1 AA), and responsive design fixes  →  anchored in the AgentC2 SDLC-flywheel workstream (uis-generator → hamburger-factory → cursor-launch-agent; Appell</td>
+</tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="uis-section">
+    <h2>5 · Evidence — file paths referenced in the sheet</h2>
+    <div><span class="path">SDLC/packages/database/prisma/schema.prisma</span><span class="path">DONE/PARTIAL</span></div>
+  </div>
+
+  <div class="uis-section">
+    <h2>6 · Dependencies</h2>
+    <ul><li>INFRA-1 (Supabase)</li></ul>
+  </div>
+
+  <div class="uis-section">
+    <h2>7 · Risks &amp; Open Questions</h2>
+    <ul><li>Schema churn risk as agent contracts evolve (mitigated by migration framework)</li><li>Multi-stage transition logic complexity (state machine vs ad-hoc updates)</li><li>Auth/RBAC scoping for cross-team visibility</li></ul>
+  </div>
+
+  <div class="uis-section">
+    <h2>8 · Ownership &amp; Status</h2>
+    <div class="meta-grid">
+      <div><div class="l">Lead</div><div class="v">Chris</div></div>
+      <div><div class="l">Contributors</div><div class="v">Chris, Travis</div></div>
+      <div><div class="l">Component</div><div class="v">C1</div></div>
+      <div><div class="l">Phase</div><div class="v">P1</div></div>
+      <div><div class="l">Release</div><div class="v">R1</div></div>
+      <div><div class="l">Current state</div><div class="v">DONE</div></div>
+    </div>
+  </div>
+</div></body></html>

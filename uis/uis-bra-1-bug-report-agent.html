@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UIS · BRA-1 · Bug Report Agent v1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+.in-iframe .top-nav { display: none !important; }
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',-apple-system,sans-serif;background:#f1f5f9;color:#1e293b;line-height:1.55}
+.top-nav{position:sticky;top:0;z-index:100;background:#0f172a;border-bottom:1px solid #1e293b;padding:0 24px;display:flex;align-items:center;gap:0}
+.top-nav a{display:inline-flex;align-items:center;padding:12px 18px;font-size:13px;font-weight:600;color:#94a3b8;text-decoration:none;border-bottom:2px solid transparent;transition:all .15s}
+.top-nav a:hover{color:#f8fafc;background:#1e293b}
+.top-nav .nav-logo{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#475569;padding-right:18px;margin-right:4px;border-right:1px solid #1e293b}
+.uis-wrap{max-width:1060px;margin:0 auto;padding:40px 24px 80px}
+.crumb{font-size:12px;color:#64748b;margin-bottom:14px}
+.crumb a{color:#3b82f6;text-decoration:none}
+.crumb a:hover{text-decoration:underline}
+.uis-hdr{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:24px;flex-wrap:wrap}
+.uis-hdr-l{flex:1;min-width:280px}
+.code-badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:0.5px;padding:3px 10px;background:#1e293b;color:#cbd5e1;border-radius:4px;margin-bottom:8px}
+.uis-h1{font-size:28px;font-weight:800;letter-spacing:-0.01em;margin-bottom:8px}
+.uis-sub{font-size:15px;color:#475569;max-width:760px}
+.state-pill{display:inline-block;font-size:11px;font-weight:700;padding:4px 10px;border-radius:4px;text-transform:uppercase;letter-spacing:0.5px;margin-right:6px}
+.kpi-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:18px}
+.kpi{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:12px 14px}
+.kpi .l{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#94a3b8;margin-bottom:4px}
+.kpi .v{font-size:18px;font-weight:800;color:#1e293b}
+.uis-section{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:22px 26px;margin-bottom:14px}
+.uis-section h2{font-size:15px;font-weight:700;color:#1e293b;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid #f1f5f9;letter-spacing:0.2px}
+.uis-section p{color:#334155;margin-bottom:8px}
+.uis-section ul{padding-left:22px;color:#334155}
+.uis-section ul li{margin-bottom:6px}
+.epics-tbl{width:100%;border-collapse:collapse;font-size:13px}
+.epics-tbl th{text-align:left;padding:8px 10px;background:#f8fafc;border-bottom:2px solid #e2e8f0;font-weight:600;color:#64748b;font-size:11px;text-transform:uppercase;letter-spacing:0.5px}
+.epics-tbl td{padding:8px 10px;border-bottom:1px solid #f1f5f9;color:#334155;vertical-align:top}
+.epics-tbl tr:last-child td{border-bottom:none}
+.epics-tbl .mono{font-family:'JetBrains Mono',monospace;font-size:11px;color:#64748b;white-space:nowrap}
+.epics-tbl .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.path{font-family:'JetBrains Mono',monospace;font-size:11px;color:#0369a1;background:#f0f9ff;padding:3px 8px;border-radius:4px;display:inline-block;margin:2px 4px 2px 0;border:1px solid #bae6fd}
+.meta-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.meta-grid div .l{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#94a3b8;margin-bottom:4px}
+.meta-grid div .v{font-size:13px;color:#1e293b;font-weight:500}
+@media print{.top-nav{display:none}.uis-wrap{padding:8px}}
+</style>
+<script>if (self !== top) document.documentElement.classList.add("in-iframe");</script>
+</head><body>
+<nav class="top-nav">
+  <span class="nav-logo">Appello IRAP</span>
+  <a href="../irap-roadmap-v2.html">← Roadmap</a>
+  <a href="https://useanzen.github.io/appello-roadmap/" target="_blank">Appello Product Roadmap</a>
+</nav>
+<div class="uis-wrap">
+  <div class="crumb"><a href="../irap-roadmap-v2.html">IRAP Roadmap</a> › Component C1 · Phase P1 · R1 › UIS</div>
+
+  <div class="uis-hdr">
+    <div class="uis-hdr-l">
+      <span class="code-badge">BRA-1</span>
+      <h1 class="uis-h1">Bug Report Agent v1</h1>
+      <p class="uis-sub">First AI agent in the pipeline: turns a customer bug report or Jira ticket into a structured work item with reproduction steps.</p>
+    </div>
+    <div><span class="state-pill" style="background:#16a34a;color:#fff">DONE</span></div>
+  </div>
+
+  <div class="kpi-strip">
+    <div class="kpi"><div class="l">Component</div><div class="v">C1</div></div>
+    <div class="kpi"><div class="l">Phase</div><div class="v">P1</div></div>
+    <div class="kpi"><div class="l">Owners</div><div class="v">Corey</div></div>
+    <div class="kpi"><div class="l">Release</div><div class="v">R1</div></div>
+    <div class="kpi"><div class="l">Epics</div><div class="v">10</div></div>
+    <div class="kpi"><div class="l">Total hours</div><div class="v">356h</div></div>
+  </div>
+
+  <div class="uis-section">
+    <h2>State Breakdown</h2>
+    <div><span class="state-pill" style="background:#16a34a;color:#fff">DONE 1</span> <span class="state-pill" style="background:#2563eb;color:#fff">PLANNED NEXT 1</span> <span class="state-pill" style="background:#475569;color:#fff">TO DO 8</span></div>
+  </div>
+
+  <div class="uis-section">
+    <h2>1 · Objective</h2>
+    <p>Ingest customer-facing bug intake (chat, screenshot, video, Jira ticket), normalize into a structured WorkItem record, attach reproduction steps + suspected files in the Appello monorepo, and hand off to the Planning Agent.</p>
+  </div>
+
+  <div class="uis-section">
+    <h2>2 · Acceptance Criteria</h2>
+    <ul><li>20-bug validation set: agent correctly extracts ticket title, repro steps, suspected files for ≥85% of cases.</li><li>Output schema matches `appello-sdlc/prisma/schema.prisma::WorkItem`.</li><li>Customer chat capture flow live (Slack + intake form).</li><li>Manual override path: PM can edit any BRA output before Planning Agent picks it up.</li><li>Cost &lt;$0.10 per processed ticket (model + tool calls).</li></ul>
+  </div>
+
+  <div class="uis-section">
+    <h2>3 · Architecture &amp; Approach</h2>
+    <p>Mastra agent in `agentc2/packages/agentc2/src/agents/` with tools for Jira read, screenshot OCR (Vision API), and repo file lookup (Cursor MCP). Output written to `WorkItem` in Supabase via the appello-sdlc API. Validation harness in `appello-sdlc/scripts/bra-eval.ts` runs the 20-bug set on every PR.</p>
+  </div>
+
+  <div class="uis-section">
+    <h2>4 · Epic Breakdown — 10 epics from master sheet</h2>
+    <table class="epics-tbl">
+      <thead><tr><th>ID</th><th>State</th><th>Month</th><th>Owner</th><th class="num">Hours</th><th>Activity (from sheet)</th></tr></thead>
+      <tbody>
+        <tr>
+  <td class="mono">C1-0015</td>
+  <td><span class="state-pill" style="background:#16a34a;color:#fff;font-size:10px;padding:2px 8px">DONE</span></td>
+  <td>May 26</td>
+  <td>Corey Shelson</td>
+  <td class="num">40h</td>
+  <td>Design the real SDLC agent roster &amp; handoff contract: sdlc-classifier → sdlc-planner → cursor-launch-agent → sdlc-auditor → sdlc-reviewer, coordinated by sdlc-pipeline-supervisor.ts; each agent&#x27;s I/O JSON &amp; the reviews gate it writes. (Rena</td>
+</tr><tr>
+  <td class="mono">C3-0245</td>
+  <td><span class="state-pill" style="background:#2563eb;color:#fff;font-size:10px;padding:2px 8px">PLANNED NEXT</span></td>
+  <td>Jun 26</td>
+  <td>Ian Haase</td>
+  <td class="num">20h</td>
+  <td>Coordinate cross-team dependencies between C1 pipeline and C3 knowledge base teams — maintain dependency tracker, run sync meetings  →  anchored in the construction knowledge corpus (glossary/terminology/job-scenarios as ATLAS Document/RagC</td>
+</tr><tr>
+  <td class="mono">C1-0069</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Aug 26</td>
+  <td>Corey Shelson</td>
+  <td class="num">50h</td>
+  <td>Finalize the end-to-end hamburger-factory loop across the Appello SDLC state machine: work packages v2 → stage outputs → reviews → work items → build runs (Cursor Cloud) → test runs (Playwright) → transition logs, with the 7 gates; sequence</td>
+</tr><tr>
+  <td class="mono">C3-0248</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Jul 26</td>
+  <td>Ian Haase</td>
+  <td class="num">25h</td>
+  <td>Coordinate cross-team dependencies between pipeline and knowledge base teams — sync meetings, update dependency tracker  →  anchored in the construction knowledge corpus (glossary/terminology/job-scenarios as ATLAS Document/RagChunk context</td>
+</tr><tr>
+  <td class="mono">C3-0263</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Oct 26</td>
+  <td>Nathan Friesen</td>
+  <td class="num">40h</td>
+  <td>Review AI-generated documentation pages for construction accuracy — verify terminology, workflow descriptions, and feature explanations  →  anchored in the construction knowledge corpus (glossary/terminology/job-scenarios as ATLAS Document/</td>
+</tr><tr>
+  <td class="mono">C3-0278</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Dec 26</td>
+  <td>Christopher Vachon</td>
+  <td class="num">40h</td>
+  <td>Finalize pipeline and knowledge base backends for production — complete remaining API endpoints, run security audit, fix vulnerabilities  →  anchored in the construction knowledge corpus (glossary/terminology/job-scenarios as ATLAS Document</td>
+</tr><tr>
+  <td class="mono">C3-0283</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Dec 26</td>
+  <td>Emma Mann</td>
+  <td class="num">30h</td>
+  <td>Write integration tests for cross-platform data queries — verify ATLAS knowledge base returns accurate results across document types  →  anchored in the construction knowledge corpus (glossary/terminology/job-scenarios as ATLAS Document/Rag</td>
+</tr><tr>
+  <td class="mono">C3-0285</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Dec 26</td>
+  <td>Filip Altankov</td>
+  <td class="num">35h</td>
+  <td>Create knowledge base query interface — search box with auto-complete, result display with source attribution, and feedback buttons  →  anchored in the construction knowledge corpus (glossary/terminology/job-scenarios as ATLAS Document/RagC</td>
+</tr><tr>
+  <td class="mono">C3-0287</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Dec 26</td>
+  <td>Nathan Friesen</td>
+  <td class="num">35h</td>
+  <td>Validate knowledge base migration accuracy — check random construction-related documents for correct categorization and searchability  →  anchored in the construction knowledge corpus (glossary/terminology/job-scenarios as ATLAS Document/Ra</td>
+</tr><tr>
+  <td class="mono">C3-0289</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Dec 26</td>
+  <td>New Hire 1</td>
+  <td class="num">41h</td>
+  <td>Build knowledge base query interface components — search input with auto-complete, result cards with source attribution  →  anchored in the construction knowledge corpus (glossary/terminology/job-scenarios as ATLAS Document/RagChunk context</td>
+</tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="uis-section">
+    <h2>5 · Evidence — file paths referenced in the sheet</h2>
+    <div><span class="path">scripts/seed-sdlc-playbook.ts</span></div>
+  </div>
+
+  <div class="uis-section">
+    <h2>6 · Dependencies</h2>
+    <ul><li>INFRA-1</li><li>EVAL-1 (uses selected model)</li><li>SDLC-DB (writes to work_items)</li></ul>
+  </div>
+
+  <div class="uis-section">
+    <h2>7 · Risks &amp; Open Questions</h2>
+    <ul><li>Customer bug reports are noisy and incomplete — accuracy ceiling may be &lt;85%</li><li>PII in screenshots/videos requires redaction</li><li>NH1 delayed to June — only partial validation possible in Q2</li></ul>
+  </div>
+
+  <div class="uis-section">
+    <h2>8 · Ownership &amp; Status</h2>
+    <div class="meta-grid">
+      <div><div class="l">Lead</div><div class="v">Corey</div></div>
+      <div><div class="l">Contributors</div><div class="v">Corey</div></div>
+      <div><div class="l">Component</div><div class="v">C1</div></div>
+      <div><div class="l">Phase</div><div class="v">P1</div></div>
+      <div><div class="l">Release</div><div class="v">R1</div></div>
+      <div><div class="l">Current state</div><div class="v">DONE</div></div>
+    </div>
+  </div>
+</div></body></html>

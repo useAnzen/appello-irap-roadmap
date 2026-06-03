@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UIS · ATLAS-1 · ATLAS Data Pipeline Scaffold</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+.in-iframe .top-nav { display: none !important; }
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',-apple-system,sans-serif;background:#f1f5f9;color:#1e293b;line-height:1.55}
+.top-nav{position:sticky;top:0;z-index:100;background:#0f172a;border-bottom:1px solid #1e293b;padding:0 24px;display:flex;align-items:center;gap:0}
+.top-nav a{display:inline-flex;align-items:center;padding:12px 18px;font-size:13px;font-weight:600;color:#94a3b8;text-decoration:none;border-bottom:2px solid transparent;transition:all .15s}
+.top-nav a:hover{color:#f8fafc;background:#1e293b}
+.top-nav .nav-logo{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#475569;padding-right:18px;margin-right:4px;border-right:1px solid #1e293b}
+.uis-wrap{max-width:1060px;margin:0 auto;padding:40px 24px 80px}
+.crumb{font-size:12px;color:#64748b;margin-bottom:14px}
+.crumb a{color:#3b82f6;text-decoration:none}
+.crumb a:hover{text-decoration:underline}
+.uis-hdr{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:24px;flex-wrap:wrap}
+.uis-hdr-l{flex:1;min-width:280px}
+.code-badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:0.5px;padding:3px 10px;background:#1e293b;color:#cbd5e1;border-radius:4px;margin-bottom:8px}
+.uis-h1{font-size:28px;font-weight:800;letter-spacing:-0.01em;margin-bottom:8px}
+.uis-sub{font-size:15px;color:#475569;max-width:760px}
+.state-pill{display:inline-block;font-size:11px;font-weight:700;padding:4px 10px;border-radius:4px;text-transform:uppercase;letter-spacing:0.5px;margin-right:6px}
+.kpi-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:18px}
+.kpi{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:12px 14px}
+.kpi .l{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#94a3b8;margin-bottom:4px}
+.kpi .v{font-size:18px;font-weight:800;color:#1e293b}
+.uis-section{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:22px 26px;margin-bottom:14px}
+.uis-section h2{font-size:15px;font-weight:700;color:#1e293b;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid #f1f5f9;letter-spacing:0.2px}
+.uis-section p{color:#334155;margin-bottom:8px}
+.uis-section ul{padding-left:22px;color:#334155}
+.uis-section ul li{margin-bottom:6px}
+.epics-tbl{width:100%;border-collapse:collapse;font-size:13px}
+.epics-tbl th{text-align:left;padding:8px 10px;background:#f8fafc;border-bottom:2px solid #e2e8f0;font-weight:600;color:#64748b;font-size:11px;text-transform:uppercase;letter-spacing:0.5px}
+.epics-tbl td{padding:8px 10px;border-bottom:1px solid #f1f5f9;color:#334155;vertical-align:top}
+.epics-tbl tr:last-child td{border-bottom:none}
+.epics-tbl .mono{font-family:'JetBrains Mono',monospace;font-size:11px;color:#64748b;white-space:nowrap}
+.epics-tbl .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.path{font-family:'JetBrains Mono',monospace;font-size:11px;color:#0369a1;background:#f0f9ff;padding:3px 8px;border-radius:4px;display:inline-block;margin:2px 4px 2px 0;border:1px solid #bae6fd}
+.meta-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.meta-grid div .l{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#94a3b8;margin-bottom:4px}
+.meta-grid div .v{font-size:13px;color:#1e293b;font-weight:500}
+@media print{.top-nav{display:none}.uis-wrap{padding:8px}}
+</style>
+<script>if (self !== top) document.documentElement.classList.add("in-iframe");</script>
+</head><body>
+<nav class="top-nav">
+  <span class="nav-logo">Appello IRAP</span>
+  <a href="../irap-roadmap-v2.html">← Roadmap</a>
+  <a href="https://useanzen.github.io/appello-roadmap/" target="_blank">Appello Product Roadmap</a>
+</nav>
+<div class="uis-wrap">
+  <div class="crumb"><a href="../irap-roadmap-v2.html">IRAP Roadmap</a> › Component C3 · Phase P1 · R1 › UIS</div>
+
+  <div class="uis-hdr">
+    <div class="uis-hdr-l">
+      <span class="code-badge">ATLAS-1</span>
+      <h1 class="uis-h1">ATLAS Data Pipeline Scaffold</h1>
+      <p class="uis-sub">Migrate ATLAS off the legacy N8n + Google Drive flow onto Supabase pgvector with chunking, embedding, and reranking.</p>
+    </div>
+    <div><span class="state-pill" style="background:#d97706;color:#fff">WORK IN PROCESS</span></div>
+  </div>
+
+  <div class="kpi-strip">
+    <div class="kpi"><div class="l">Component</div><div class="v">C3</div></div>
+    <div class="kpi"><div class="l">Phase</div><div class="v">P1</div></div>
+    <div class="kpi"><div class="l">Owners</div><div class="v">Chris</div></div>
+    <div class="kpi"><div class="l">Release</div><div class="v">R1</div></div>
+    <div class="kpi"><div class="l">Epics</div><div class="v">25</div></div>
+    <div class="kpi"><div class="l">Total hours</div><div class="v">884h</div></div>
+  </div>
+
+  <div class="uis-section">
+    <h2>State Breakdown</h2>
+    <div><span class="state-pill" style="background:#d97706;color:#fff">WORK IN PROCESS 14</span> <span class="state-pill" style="background:#475569;color:#fff">TO DO 11</span></div>
+  </div>
+
+  <div class="uis-section">
+    <h2>1 · Objective</h2>
+    <p>Stand up the production-grade ATLAS ingestion + retrieval pipeline. Replace the legacy N8n + Google Drive flow with Supabase pgvector storage, OpenAI/Anthropic embeddings, structured chunking (1000-token), and a query API that every downstream agent uses. Foundation for C4 toolboxes.</p>
+  </div>
+
+  <div class="uis-section">
+    <h2>2 · Acceptance Criteria</h2>
+    <ul><li>729+ meeting transcripts vectorized into 1536-dim embeddings (OpenAI text-embedding-3-small).</li><li>Ingestion pipeline live in `agentc2/packages/agentc2/src/processors/` driven by Inngest.</li><li>RagDocument + RagChunk Prisma models + namespace isolation for multi-tenant readiness.</li><li>Query API (ragQueryTool in agentc2 toolset) returns top-K chunks &lt;500ms p95.</li><li>N8n legacy flow decommissioned + documented sunset.</li></ul>
+  </div>
+
+  <div class="uis-section">
+    <h2>3 · Architecture &amp; Approach</h2>
+    <p>Inngest-driven processors in `agentc2/packages/agentc2/src/processors/`. Documents land in IntegrationConnection (Google Drive, N8n export). Chunker splits to 1000-token RagChunks with overlap. Embeddings written to RagChunk.embedding (vector(1536)). Query path: ragQueryTool → Prisma → pgvector cosine search → top-K → reranker (R2 epic).</p>
+  </div>
+
+  <div class="uis-section">
+    <h2>4 · Epic Breakdown — 25 epics from master sheet</h2>
+    <table class="epics-tbl">
+      <thead><tr><th>ID</th><th>State</th><th>Month</th><th>Owner</th><th class="num">Hours</th><th>Activity (from sheet)</th></tr></thead>
+      <tbody>
+        <tr>
+  <td class="mono">C3-0230</td>
+  <td><span class="state-pill" style="background:#d97706;color:#fff;font-size:10px;padding:2px 8px">WORK IN PROCESS</span></td>
+  <td>Apr 26</td>
+  <td>Corey Shelson</td>
+  <td class="num">35h</td>
+  <td>Evaluate candidate AI models (GPT-4, Claude, Gemini, Llama) for code-understanding accuracy on our TypeScript/React codebase — build evaluation rubric and run benchmark tests  →  anchored in the ATLAS knowledge-base workstream (AgentC2 pgve</td>
+</tr><tr>
+  <td class="mono">C3-0231</td>
+  <td><span class="state-pill" style="background:#d97706;color:#fff;font-size:10px;padding:2px 8px">WORK IN PROCESS</span></td>
+  <td>Apr 26</td>
+  <td>Corey Shelson</td>
+  <td class="num">25h</td>
+  <td>Plan vector database migration from current N8n/Google Drive pipeline — document current state, design target Supabase schema, write migration plan with rollback strategy  →  anchored in the ATLAS migration off N8n+Drive into AgentC2 pgvect</td>
+</tr><tr>
+  <td class="mono">C3-0232</td>
+  <td><span class="state-pill" style="background:#d97706;color:#fff;font-size:10px;padding:2px 8px">WORK IN PROCESS</span></td>
+  <td>Apr 26</td>
+  <td>Emma Mann</td>
+  <td class="num">60h</td>
+  <td>Write initial automated test scripts for 15 core user workflows (login, create job, submit timesheet, approve timesheet, safety form, etc.)  →  anchored in the Spider Deep Tester generating Playwright E2E for Appello flows (timesheet→approv</td>
+</tr><tr>
+  <td class="mono">C3-0233</td>
+  <td><span class="state-pill" style="background:#d97706;color:#fff;font-size:10px;padding:2px 8px">WORK IN PROCESS</span></td>
+  <td>Apr 26</td>
+  <td>Filip Altankov</td>
+  <td class="num">28h</td>
+  <td>Implement real-time WebSocket connection for live pipeline status updates on dashboard  →  anchored in the Embedded Chat MVP (agentc2 channels/, sessions/; ChatMessage/AgentConversation/ChannelSession, WebSocket).</td>
+</tr><tr>
+  <td class="mono">C3-0234</td>
+  <td><span class="state-pill" style="background:#d97706;color:#fff;font-size:10px;padding:2px 8px">WORK IN PROCESS</span></td>
+  <td>Apr 26</td>
+  <td>Ian Haase</td>
+  <td class="num">27h</td>
+  <td>Gather real customer bug reports as AI training data — interview customers, categorize bugs by type and severity, format for AI ingestion  →  anchored in ATLAS domain model tuning on the construction corpus (RagDocument/RagChunk; eval via M</td>
+</tr><tr>
+  <td class="mono">C3-0235</td>
+  <td><span class="state-pill" style="background:#d97706;color:#fff;font-size:10px;padding:2px 8px">WORK IN PROCESS</span></td>
+  <td>Apr 26</td>
+  <td>Ian Haase</td>
+  <td class="num">20h</td>
+  <td>Set up all Project tracking metrics in Jira — project structure, component labels, time tracking categories, and reporting dashboards  →  anchored in the ATLAS knowledge-base workstream (AgentC2 pgvector RAG: rag/pipeline.ts, RagDocument/Ra</td>
+</tr><tr>
+  <td class="mono">C3-0236</td>
+  <td><span class="state-pill" style="background:#d97706;color:#fff;font-size:10px;padding:2px 8px">WORK IN PROCESS</span></td>
+  <td>May 26</td>
+  <td>Christopher Vachon</td>
+  <td class="num">40h</td>
+  <td>Build API endpoints for AI agent integration — agent registration, job submission, status polling, result upload, health checks  →  anchored in the Apex marketplace (agentc2 skills/marketplace.ts; Playbook/PlaybookInstallation/PlaybookPurch</td>
+</tr><tr>
+  <td class="mono">C3-0237</td>
+  <td><span class="state-pill" style="background:#d97706;color:#fff;font-size:10px;padding:2px 8px">WORK IN PROCESS</span></td>
+  <td>May 26</td>
+  <td>Corey Shelson</td>
+  <td class="num">25h</td>
+  <td>Select AI model based on April evaluation — document selection rationale, configure API access, set up cost tracking  →  anchored in the ATLAS knowledge-base workstream (AgentC2 pgvector RAG: rag/pipeline.ts, RagDocument/RagChunk).</td>
+</tr><tr>
+  <td class="mono">C3-0238</td>
+  <td><span class="state-pill" style="background:#d97706;color:#fff;font-size:10px;padding:2px 8px">WORK IN PROCESS</span></td>
+  <td>May 26</td>
+  <td>Emma Mann</td>
+  <td class="num">60h</td>
+  <td>Write additional automated test scripts covering safety forms, scheduling, reporting, and material management  →  anchored in the Spider Deep Tester generating Playwright E2E for Appello flows (timesheet→approve→payroll, safety-form sign→fi</td>
+</tr><tr>
+  <td class="mono">C3-0239</td>
+  <td><span class="state-pill" style="background:#d97706;color:#fff;font-size:10px;padding:2px 8px">WORK IN PROCESS</span></td>
+  <td>May 26</td>
+  <td>Emma Mann</td>
+  <td class="num">30h</td>
+  <td>Build test data fixtures — sample companies with realistic data (users, jobs, timesheets, safety records) for consistent test execution  →  anchored in the Spider Deep Tester generating Playwright E2E for Appello flows (timesheet→approve→pa</td>
+</tr><tr>
+  <td class="mono">C3-0240</td>
+  <td><span class="state-pill" style="background:#d97706;color:#fff;font-size:10px;padding:2px 8px">WORK IN PROCESS</span></td>
+  <td>May 26</td>
+  <td>Filip Altankov</td>
+  <td class="num">35h</td>
+  <td>Create AI agent status display — real-time panel showing which agent types are active and their current tasks  →  anchored in the ATLAS knowledge-base workstream (AgentC2 pgvector RAG: rag/pipeline.ts, RagDocument/RagChunk).</td>
+</tr><tr>
+  <td class="mono">C3-0241</td>
+  <td><span class="state-pill" style="background:#d97706;color:#fff;font-size:10px;padding:2px 8px">WORK IN PROCESS</span></td>
+  <td>May 26</td>
+  <td>Nathan Friesen</td>
+  <td class="num">35h</td>
+  <td>Test existing features with field crews — record task completion times, error rates, and satisfaction scores as pre-project baseline  →  anchored in the ATLAS knowledge-base workstream (AgentC2 pgvector RAG: rag/pipeline.ts, RagDocument/Rag</td>
+</tr><tr>
+  <td class="mono">C3-0242</td>
+  <td><span class="state-pill" style="background:#d97706;color:#fff;font-size:10px;padding:2px 8px">WORK IN PROCESS</span></td>
+  <td>May 26</td>
+  <td>Nathan Friesen</td>
+  <td class="num">22h</td>
+  <td>Review and categorize historical support tickets as AI training data — tag by feature area, severity, and resolution type  →  anchored in ATLAS domain model tuning on the construction corpus (RagDocument/RagChunk; eval via MastraScorer).</td>
+</tr><tr>
+  <td class="mono">C3-0243</td>
+  <td><span class="state-pill" style="background:#d97706;color:#fff;font-size:10px;padding:2px 8px">WORK IN PROCESS</span></td>
+  <td>May 26</td>
+  <td>Travis McKenna</td>
+  <td class="num">50h</td>
+  <td>Deploy AI model hosting infrastructure — model serving endpoints, auto-scaling, and health checks  →  anchored in ATLAS domain model tuning on the construction corpus (RagDocument/RagChunk; eval via MastraScorer).</td>
+</tr><tr>
+  <td class="mono">C3-0247</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Jul 26</td>
+  <td>Christopher Vachon</td>
+  <td class="num">35h</td>
+  <td>Build batch processing pipeline for large code changes — handle large PRs by splitting into reviewable chunks  →  anchored in ATLAS ingestion (agentc2 processors/, IntegrationConnection → RagDocument/RagChunk).</td>
+</tr><tr>
+  <td class="mono">C3-0275</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Nov 26</td>
+  <td>New Hire 2</td>
+  <td class="num">45h</td>
+  <td>Build data ingestion pipelines for document types (meeting transcripts, support tickets, code comments, wiki pages, email threads)  →  anchored in ATLAS ingestion (agentc2 processors/, IntegrationConnection → RagDocument/RagChunk).</td>
+</tr><tr>
+  <td class="mono">C3-0276</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Nov 26</td>
+  <td>New Hire 2</td>
+  <td class="num">40h</td>
+  <td>Implement batch processing for large document sets — chunking, parallel processing, and progress tracking  →  anchored in ATLAS ingestion (agentc2 processors/, IntegrationConnection → RagDocument/RagChunk).</td>
+</tr><tr>
+  <td class="mono">C3-0284</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Dec 26</td>
+  <td>Emma Mann</td>
+  <td class="num">31h</td>
+  <td>QA knowledge base migration completeness — verify all 729+ transcripts migrated correctly, spot-check random samples  →  anchored in ATLAS ingestion (agentc2 processors/, IntegrationConnection → RagDocument/RagChunk).</td>
+</tr><tr>
+  <td class="mono">C3-0293</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Dec 26</td>
+  <td>Travis McKenna</td>
+  <td class="num">40h</td>
+  <td>Deploy production feedback data collection pipelines — real-time ingestion of deployment outcomes, error rates, and user behavior metrics  →  anchored in ATLAS ingestion (agentc2 processors/, IntegrationConnection → RagDocument/RagChunk).</td>
+</tr><tr>
+  <td class="mono">C3-0298</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Jan 27</td>
+  <td>New Hire 3</td>
+  <td class="num">60h</td>
+  <td>Develop AI models for intelligent data extraction from customer documents — train on sample invoices, contracts, and reports to extract structured data  →  anchored in ATLAS ingestion (agentc2 processors/, IntegrationConnection → RagDocumen</td>
+</tr><tr>
+  <td class="mono">C3-0301</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Feb 27</td>
+  <td>Christopher Vachon</td>
+  <td class="num">30h</td>
+  <td>Implement real-time data synchronization backend — webhook listeners and polling for each connector with conflict resolution  →  anchored in ATLAS ingestion (agentc2 processors/, IntegrationConnection → RagDocument/RagChunk).</td>
+</tr><tr>
+  <td class="mono">C3-0302</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Feb 27</td>
+  <td>Emma Mann</td>
+  <td class="num">21h</td>
+  <td>QA customer data connectors — test sync reliability over extended run, verify data completeness and freshness  →  anchored in ATLAS ingestion (agentc2 processors/, IntegrationConnection → RagDocument/RagChunk).</td>
+</tr><tr>
+  <td class="mono">C3-0307</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Feb 27</td>
+  <td>New Hire 2</td>
+  <td class="num">25h</td>
+  <td>Build customer data connector for Google Calendar (event sync, schedule extraction)  →  anchored in ATLAS ingestion (agentc2 processors/, IntegrationConnection → RagDocument/RagChunk).</td>
+</tr><tr>
+  <td class="mono">C3-0317</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Apr 27</td>
+  <td>Corey Shelson</td>
+  <td class="num">45h</td>
+  <td>Design architecture for embedding AI chat into main Appello platform — define integration points, interaction with existing features  →  anchored in ATLAS ingestion (agentc2 processors/, IntegrationConnection → RagDocument/RagChunk).</td>
+</tr><tr>
+  <td class="mono">C4-0390</td>
+  <td><span class="state-pill" style="background:#475569;color:#fff;font-size:10px;padding:2px 8px">TO DO</span></td>
+  <td>Feb 27</td>
+  <td>Christopher Vachon</td>
+  <td class="num">20h</td>
+  <td>Write connector integration tests covering auth, sync, error handling, and data validation  →  anchored in ATLAS ingestion (agentc2 processors/, IntegrationConnection → RagDocument/RagChunk).</td>
+</tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="uis-section">
+    <h2>5 · Evidence — file paths referenced in the sheet</h2>
+    <div><span class="path">ChatMessage/AgentConversation</span></div>
+  </div>
+
+  <div class="uis-section">
+    <h2>6 · Dependencies</h2>
+    <ul><li>INFRA-1 (Supabase pgvector ext)</li></ul>
+  </div>
+
+  <div class="uis-section">
+    <h2>7 · Risks &amp; Open Questions</h2>
+    <ul><li>Re-ingestion cost (one-time)</li><li>Chunk-boundary loss of context (needs parent-doc retrieval — handled in R2/P2)</li><li>Tenant isolation correctness (deferred to R3 MT-RAG, but schema must be ready)</li></ul>
+  </div>
+
+  <div class="uis-section">
+    <h2>8 · Ownership &amp; Status</h2>
+    <div class="meta-grid">
+      <div><div class="l">Lead</div><div class="v">Chris</div></div>
+      <div><div class="l">Contributors</div><div class="v">Chris</div></div>
+      <div><div class="l">Component</div><div class="v">C3</div></div>
+      <div><div class="l">Phase</div><div class="v">P1</div></div>
+      <div><div class="l">Release</div><div class="v">R1</div></div>
+      <div><div class="l">Current state</div><div class="v">WORK IN PROCESS</div></div>
+    </div>
+  </div>
+</div></body></html>
