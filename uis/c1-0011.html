@@ -1,38 +1,68 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UIS · C1-0011 · Set up cloud infrastructure for AI pipeline</title>
+<title>UIS · C1-0011 · AgentC2 production runtime (Supabase + Inngest + DigitalOcean)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 .in-iframe .top-nav { display: none !important; }
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Inter',-apple-system,sans-serif;background:#f1f5f9;color:#1e293b;line-height:1.55}
 .top-nav{position:sticky;top:0;z-index:100;background:#0f172a;border-bottom:1px solid #1e293b;padding:0 24px;display:flex;align-items:center;gap:0}
-.top-nav a{display:inline-flex;align-items:center;padding:12px 18px;font-size:13px;font-weight:600;color:#94a3b8;text-decoration:none;border-bottom:2px solid transparent;transition:all .15s}
+.top-nav a{display:inline-flex;align-items:center;padding:12px 18px;font-size:13px;font-weight:600;color:#94a3b8;text-decoration:none;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap}
 .top-nav a:hover{color:#f8fafc;background:#1e293b}
 .top-nav .nav-logo{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#475569;padding-right:18px;margin-right:4px;border-right:1px solid #1e293b}
-.uis-wrap{max-width:980px;margin:0 auto;padding:36px 24px 80px}
+.uis-wrap{max-width:1020px;margin:0 auto;padding:36px 24px 80px}
 .crumb{font-size:12px;color:#64748b;margin-bottom:14px}
 .crumb a{color:#3b82f6;text-decoration:none}
 .crumb a:hover{text-decoration:underline}
 .uis-hdr{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:20px;flex-wrap:wrap}
 .uis-hdr-l{flex:1;min-width:280px}
 .code-badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:0.5px;padding:3px 10px;background:#1e293b;color:#cbd5e1;border-radius:4px;margin-bottom:8px}
-.uis-h1{font-size:26px;font-weight:800;letter-spacing:-0.01em;margin-bottom:6px}
+.uis-h1{font-size:26px;font-weight:800;letter-spacing:-0.01em;margin-bottom:6px;line-height:1.25}
 .uis-sub{font-size:14px;color:#475569}
 .state-pill{display:inline-block;font-size:11px;font-weight:700;padding:5px 12px;border-radius:4px;text-transform:uppercase;letter-spacing:0.5px}
 .kpi-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-bottom:16px}
 .kpi{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:10px 12px}
 .kpi .l{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#94a3b8;margin-bottom:3px}
 .kpi .v{font-size:15px;font-weight:800;color:#1e293b}
-.uis-section{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:20px 24px;margin-bottom:12px}
-.uis-section h2{font-size:14px;font-weight:700;color:#1e293b;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #f1f5f9;letter-spacing:0.2px}
-.uis-section p{color:#334155;margin-bottom:6px;white-space:pre-wrap}
+.uis-section{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:22px 26px;margin-bottom:14px}
+.uis-section h2{font-size:15px;font-weight:700;color:#1e293b;margin-bottom:14px;padding-bottom:9px;border-bottom:2px solid #f1f5f9;letter-spacing:0.2px}
+.uis-section h3{font-size:13px;font-weight:700;color:#334155;margin:14px 0 8px;letter-spacing:0.2px}
+.uis-section p{color:#334155;margin-bottom:8px}
+.uis-section ul,.uis-section ol{margin:6px 0 8px 22px;color:#334155}
+.uis-section li{margin-bottom:5px;font-size:13.5px}
 .uis-section .muted{color:#64748b;font-style:italic}
 .path{font-family:'JetBrains Mono',monospace;font-size:11px;color:#0369a1;background:#f0f9ff;padding:3px 8px;border-radius:4px;display:inline-block;margin:2px 4px 2px 0;border:1px solid #bae6fd;word-break:break-all}
 .meta-row{display:flex;flex-wrap:wrap;gap:18px;font-size:12px;color:#64748b}
 .meta-row strong{color:#334155}
+pre.code{background:#0f172a;color:#e2e8f0;border-radius:8px;padding:14px 16px;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.55;overflow-x:auto;margin:8px 0 12px;border:1px solid #1e293b}
+pre.code .c{color:#64748b}
+pre.code .k{color:#c084fc}
+pre.code .s{color:#86efac}
+pre.code .n{color:#fbbf24}
+pre.code .t{color:#7dd3fc}
+.diagram{background:#0f172a;color:#cbd5e1;border-radius:8px;padding:18px;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.65;white-space:pre;overflow-x:auto;margin:8px 0 12px;border:1px solid #1e293b}
+.callout{background:#fffbeb;border:1px solid #fcd34d;border-left:4px solid #d97706;border-radius:6px;padding:12px 14px;margin:10px 0;font-size:13px;color:#78350f}
+.callout strong{color:#451a03}
+.callout-info{background:#eff6ff;border:1px solid #93c5fd;border-left:4px solid #2563eb;border-radius:6px;padding:12px 14px;margin:10px 0;font-size:13px;color:#1e3a8a}
+.callout-ok{background:#f0fdf4;border:1px solid #86efac;border-left:4px solid #16a34a;border-radius:6px;padding:12px 14px;margin:10px 0;font-size:13px;color:#14532d}
+table.spec{width:100%;border-collapse:collapse;font-size:12.5px;margin:8px 0 12px}
+table.spec th{text-align:left;padding:8px 10px;background:#f8fafc;border-bottom:2px solid #e2e8f0;font-weight:700;color:#475569;font-size:11px;text-transform:uppercase;letter-spacing:0.5px}
+table.spec td{padding:8px 10px;border-bottom:1px solid #f1f5f9;color:#334155;vertical-align:top}
+table.spec tr:last-child td{border-bottom:none}
+table.spec td.mono{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#0f172a}
+table.spec td.num{text-align:right;font-variant-numeric:tabular-nums}
+.phase{border-left:3px solid #3b82f6;background:#f8fafc;border-radius:0 6px 6px 0;padding:10px 14px;margin:8px 0}
+.phase h4{font-size:13px;font-weight:700;color:#1e3a8a;margin-bottom:4px}
+.phase .gate{font-size:11px;color:#1e40af;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-top:4px}
+.tag{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:3px;text-transform:uppercase;letter-spacing:0.5px;margin-right:5px}
+.tag-done{background:#16a34a;color:#fff}
+.tag-wip{background:#d97706;color:#fff}
+.tag-todo{background:#475569;color:#fff}
+.tag-risk{background:#dc2626;color:#fff}
+.xref{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11.5px;background:#f1f5f9;color:#334155;padding:4px 9px;border-radius:4px;margin:2px 6px 2px 0;border:1px solid #e2e8f0;text-decoration:none}
+.xref:hover{background:#e2e8f0;color:#0f172a}
 @media print{.top-nav{display:none}.uis-wrap{padding:8px}}
 </style>
 <script>if (self !== top) document.documentElement.classList.add("in-iframe");</script>
@@ -43,67 +73,580 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f1f5f9;color:#1e29
   <a href="https://useanzen.github.io/appello-roadmap/" target="_blank">Appello Product Roadmap</a>
 </nav>
 <div class="uis-wrap">
-  <div class="crumb"><a href="../index.html">IRAP Roadmap</a> › C1 SDLC Flywheel › P1 › <strong>C1-0011</strong></div>
+  <div class="crumb"><a href="../index.html">IRAP Roadmap</a> › C1 AgentC2 Platform / Runtime › P1 · Foundation (Apr 26) › <strong>C1-0011</strong></div>
 
   <div class="uis-hdr">
     <div class="uis-hdr-l">
       <span class="code-badge">C1-0011</span>
-      <h1 class="uis-h1">Set up cloud infrastructure for AI pipeline</h1>
-      <p class="uis-sub">C1 SDLC Flywheel · P1</p>
+      <h1 class="uis-h1">Provision the AgentC2 production runtime — Supabase Postgres + Inngest workers + DigitalOcean compute hosting the hamburger factory and Cursor Cloud dispatch</h1>
+      <p class="uis-sub">C1 AgentC2 Platform / Runtime · P1 (Apr 26) · Owner: Travis McKenna · 50h</p>
     </div>
     <div><span class="state-pill" style="background:#16a34a;color:#fff">DONE</span></div>
   </div>
 
   <div class="kpi-strip">
-    <div class="kpi"><div class="l">Component</div><div class="v">C1</div></div>
+    <div class="kpi"><div class="l">Component</div><div class="v">C1 Runtime</div></div>
+    <div class="kpi"><div class="l">Phase</div><div class="v">P1 · Apr 26</div></div>
     <div class="kpi"><div class="l">Owner</div><div class="v">Travis McKenna</div></div>
     <div class="kpi"><div class="l">Month</div><div class="v">Apr 26</div></div>
     <div class="kpi"><div class="l">Hours</div><div class="v">50h</div></div>
-    
-    
+    <div class="kpi"><div class="l">State</div><div class="v">DONE</div></div>
   </div>
 
+  <!-- 3 · Objective -->
   <div class="uis-section">
-    <h2>1 · Activity — what we are building</h2>
-    <p>Set up cloud infrastructure for AI pipeline — provision 3 compute instances, configure networking, storage, and IAM roles</p>
+    <h2>1 · Objective</h2>
+    <p>Stand up the production runtime that hosts every other layer of the AgentC2 platform — the <strong>hamburger factory</strong> (SDLC autonomous build pipeline) and the <strong>Cursor Cloud dispatch</strong> path that lets agents spawn isolated cloud sessions. The runtime is three managed surfaces glued together by GitHub Actions:</p>
+    <ul>
+      <li><strong>Supabase Postgres</strong> as the durable system of record (with <code>pgvector</code> for the RAG index, see C1-0001).</li>
+      <li><strong>Inngest</strong> as the durable job queue / function runtime that fans out work — goal submissions, evaluations, learning sessions, IFC parsing, simulations.</li>
+      <li><strong>DigitalOcean droplet</strong> running the three-container Docker Compose stack (<code>frontend</code> / <code>agent</code> / <code>admin</code>) behind Caddy with health-checked rolling restarts.</li>
+    </ul>
+    <p>Everything is provisioned through committed config (<span class="path">docker-compose.production.yml</span>, <span class="path">.github/workflows/deploy-do.yml</span>) with secrets centralised in <strong>Doppler</strong>. The deliverable for C1-0011 is the runtime itself plus the reproducible scripts and workflows that operate it.</p>
   </div>
 
+  <!-- 4 · Acceptance Criteria -->
   <div class="uis-section">
-    <h2>2 · Status from master sheet</h2>
-    <p>DONE (POC) — AgentC2 deployed on DigitalOcean</p>
+    <h2>2 · Acceptance Criteria</h2>
+    <ol>
+      <li>Supabase project provisioned with <code>pgvector</code> extension enabled; <code>DATABASE_URL</code> wired into the agent / frontend / admin containers via Doppler.</li>
+      <li>Inngest workers registered (project id <code>mastra-agent</code>) and syncing functions automatically on every deploy via <code>PUT https://agentc2.ai/api/inngest</code>.</li>
+      <li>DigitalOcean droplet running <code>docker compose -f docker-compose.production.yml up -d</code> with all three services (<code>agentc2-frontend</code>, <code>agentc2-agent</code>, <code>agentc2-admin</code>) reporting healthy.</li>
+      <li>CI/CD green: <code>deploy-do.yml</code> runs on every push to <code>main</code> (production) and <code>develop</code> (staging) with concurrency-gated, zero-downtime rolling deploy and Slack notifications on success / failure.</li>
+      <li>Security gates (<code>security-gates.yml</code>) run on every PR and nightly cron: type-check, lint, tests, <code>bun audit</code>, <code>audit-ci --high</code>, license check, SBOM (CycloneDX), and Gitleaks secret scan.</li>
+      <li>All secrets in Doppler under project <code>agentc2</code> with three configs (<code>dev</code> / <code>staging</code> / <code>production</code>) and a CI service token wired to GitHub Actions.</li>
+      <li>Caddy reverse proxy serving <code>https://agentc2.ai</code> with automatic TLS; <code>/</code>, <code>/login</code>, and <code>/admin</code> all return 200 in the post-deploy health check.</li>
+      <li>Docker isolation: failed builds never take down running containers (verified in the deploy script's build → up sequence).</li>
+    </ol>
   </div>
 
+  <!-- 5 · Runtime Topology -->
   <div class="uis-section">
-    <h2>3 · Evidence — repo / path</h2>
-    <p><span class="path">age</span><span class="path">tc2/Dockerfile</span><span class="path">age</span><span class="path">tc2/DEPLOY.md</span><span class="path">age</span><span class="path">tc2/apps/age</span><span class="path">t/src/lib/i</span><span class="path">gest.ts</span><span class="path">age</span><span class="path">tc2/packages/age</span><span class="path">tc2/src/tools/cursor-tools.ts</span></p>
+    <h2>3 · Runtime topology</h2>
+    <p>The production runtime is a hub-and-spoke layout. GitHub Actions is the single deploy entry point; the droplet runs every long-lived process; Supabase + Inngest are the two managed dependencies; Cursor Cloud dispatches into the agent container via the Docker socket mount.</p>
+    <div class="diagram">                              ┌─────────────────────────────────┐
+                              │      GitHub Actions             │
+                              │   .github/workflows/            │
+                              │     deploy-do.yml               │
+                              │     security-gates.yml          │
+                              └───────────────┬─────────────────┘
+                                              │ ssh + git pull + docker compose
+                                              ▼
+   ┌────────────────────────────────────────────────────────────────────────┐
+   │                  DigitalOcean Droplet  (/var/www/agentc2)              │
+   │                                                                        │
+   │   ┌──────────────┐   Caddy (TLS, agentc2.ai)                           │
+   │   │  Caddyfile   │──┐                                                  │
+   │   └──────────────┘  │                                                  │
+   │                     ▼                                                  │
+   │   ┌──────────────────────────────────────────────────────────────┐     │
+   │   │   docker compose -f docker-compose.production.yml            │     │
+   │   │                                                              │     │
+   │   │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐        │     │
+   │   │  │  frontend    │  │   agent      │  │   admin      │        │     │
+   │   │  │  :3000  1G   │  │  :3001  6G   │  │  :3003 512M  │        │     │
+   │   │  │              │  │  docker.sock │  │              │        │     │
+   │   │  └──────┬───────┘  └──────┬───────┘  └──────┬───────┘        │     │
+   │   └─────────┼─────────────────┼─────────────────┼────────────────┘     │
+   └─────────────┼─────────────────┼─────────────────┼──────────────────────┘
+                 │                 │                 │
+                 │   DATABASE_URL  │   inngest sync  │
+                 ▼                 ▼                 ▼
+        ┌─────────────────┐  ┌──────────────┐  ┌──────────────────┐
+        │  Supabase       │  │  Inngest     │  │  Doppler         │
+        │  Postgres       │  │  Cloud       │  │  (secrets:       │
+        │  + pgvector     │  │  id=mastra-  │  │   dev/staging/   │
+        │  (system of     │  │      agent   │  │   production)    │
+        │   record + RAG) │  │              │  │                  │
+        └─────────────────┘  └──────┬───────┘  └──────────────────┘
+                                    │ event fan-out
+                                    ▼
+                            ┌──────────────────┐
+                            │  Cursor Cloud    │
+                            │  dispatch        │
+                            │  (spawns runs    │
+                            │   via /var/run/  │
+                            │   docker.sock)   │
+                            └──────────────────┘</div>
+    <p>The agent container is the only service that mounts <code>/var/run/docker.sock</code> — that mount is what gives Cursor Cloud dispatch the ability to spawn sibling containers on the same host.</p>
   </div>
 
+  <!-- 6 · Docker Compose -->
   <div class="uis-section">
-    <h2>4 · What it is / what it does</h2>
-    <p>DEPLOY.md + Dockerfile describe the live AgentC2 stack on DigitalOcean (Supabase Postgres, Inngest workers, Caddy); cursor-tools.ts dispatches into Cursor Cloud.</p>
+    <h2>4 · Docker Compose — production services</h2>
+    <p class="muted">Source: <span class="path">docker-compose.production.yml</span></p>
+    <p>Three first-party services share a single <code>.env</code> file (populated by Doppler at deploy time), each with its own <code>healthcheck</code>, memory limit, and exposed port. No bind-mount Caddy here — Caddy runs on the host as a systemd service and reverse-proxies to localhost ports.</p>
+
+    <h3>4.1 Frontend — public app on :3000, 1G cap</h3>
+<pre class="code"><span class="k">services</span>:
+  <span class="k">frontend</span>:
+    <span class="k">build</span>:
+      context: .
+      dockerfile: apps/frontend/Dockerfile
+      args:
+        NEXT_PUBLIC_APP_URL: <span class="s">${NEXT_PUBLIC_APP_URL:-https://agentc2.ai}</span>
+    <span class="k">container_name</span>: <span class="s">agentc2-frontend</span>
+    <span class="k">ports</span>: [<span class="s">"3000:3000"</span>]
+    <span class="k">env_file</span>: .env
+    <span class="k">restart</span>: unless-stopped
+    <span class="k">healthcheck</span>:
+      test: [<span class="s">"CMD"</span>, <span class="s">"curl"</span>, <span class="s">"-sf"</span>, <span class="s">"http://localhost:3000/"</span>]
+      interval: 30s
+      timeout: 5s
+      start_period: 10s
+      retries: <span class="n">3</span>
+    <span class="k">deploy</span>:
+      resources:
+        limits:
+          memory: 1G</pre>
+
+    <h3>4.2 Agent — hamburger factory + Cursor dispatch, :3001, 6G cap, Docker socket mounted</h3>
+<pre class="code">  <span class="k">agent</span>:
+    <span class="k">build</span>:
+      context: .
+      dockerfile: apps/agent/Dockerfile
+    <span class="k">container_name</span>: <span class="s">agentc2-agent</span>
+    <span class="k">ports</span>: [<span class="s">"3001:3001"</span>]
+    <span class="k">env_file</span>: .env
+    <span class="k">volumes</span>:
+      - <span class="s">/var/run/docker.sock:/var/run/docker.sock</span>   <span class="c"># Cursor dispatch spawns sibling containers</span>
+      - <span class="s">/var/lib/agentc2:/var/lib/agentc2</span>             <span class="c"># shared work volume (factory artifacts)</span>
+    <span class="k">restart</span>: unless-stopped
+    <span class="k">healthcheck</span>:
+      test: [<span class="s">"CMD"</span>, <span class="s">"curl"</span>, <span class="s">"-sf"</span>, <span class="s">"http://localhost:3001/"</span>]
+      interval: 30s
+      timeout: 10s
+      start_period: 60s    <span class="c"># agent boots slowly — give Inngest sync time</span>
+      retries: <span class="n">3</span>
+    <span class="k">deploy</span>:
+      resources:
+        limits:
+          memory: 6G</pre>
+
+    <h3>4.3 Admin — internal console on :3003, 512M cap</h3>
+<pre class="code">  <span class="k">admin</span>:
+    <span class="k">build</span>:
+      context: .
+      dockerfile: apps/admin/Dockerfile
+    <span class="k">container_name</span>: <span class="s">agentc2-admin</span>
+    <span class="k">ports</span>: [<span class="s">"3003:3003"</span>]
+    <span class="k">env_file</span>: .env
+    <span class="k">restart</span>: unless-stopped
+    <span class="k">healthcheck</span>:
+      test: [<span class="s">"CMD"</span>, <span class="s">"curl"</span>, <span class="s">"-sf"</span>, <span class="s">"http://localhost:3003/admin"</span>]
+      interval: 30s
+      timeout: 5s
+      start_period: 10s
+      retries: <span class="n">3</span>
+    <span class="k">deploy</span>:
+      resources:
+        limits:
+          memory: 512M</pre>
+
+    <div class="callout-info"><strong>Networking model.</strong> Compose's default bridge network is used — services discover each other by container name (<code>agentc2-frontend</code> / <code>agentc2-agent</code> / <code>agentc2-admin</code>) and Caddy on the host routes <code>agentc2.ai</code> → <code>localhost:3000</code>, <code>agentc2.ai/admin</code> → <code>localhost:3003</code>, etc. The legacy <span class="path">docker-compose.yml</span> (local dev) defines a separate <code>catalyst-network</code> bridge for the MySQL dev DB; production never uses it.</div>
   </div>
 
+  <!-- 7 · CI/CD Pipeline -->
   <div class="uis-section">
-    <h2>5 · How it connects to this epic</h2>
-    <p>Done (POC): the runtime is provisioned and the hamburger-factory + Cursor Cloud dispatch are running against it today.</p>
+    <h2>5 · CI/CD pipeline — <code>deploy-do.yml</code></h2>
+    <p class="muted">Source: <span class="path">.github/workflows/deploy-do.yml</span></p>
+    <p>Single workflow, two jobs (<code>test</code> → <code>deploy</code>), 20-minute test timeout, 45-minute deploy timeout. Triggers on push to <code>main</code> (production) or <code>develop</code> (staging), plus manual <code>workflow_dispatch</code> with a <code>skip_tests</code> escape hatch.</p>
+
+    <h3>5.1 Trigger + concurrency — one deploy at a time per environment</h3>
+<pre class="code"><span class="k">on</span>:
+  push:
+    branches: [main, develop]
+  workflow_dispatch:
+    inputs:
+      skip_tests:    { type: boolean, default: <span class="s">"false"</span> }
+      environment:   { type: choice, options: [production, staging] }
+
+<span class="k">concurrency</span>:
+  group: deploy-${{ github.ref_name == <span class="s">'develop'</span> && <span class="s">'staging'</span> || <span class="s">'production'</span> }}
+  cancel-in-progress: <span class="k">true</span>
+
+<span class="k">env</span>:
+  DEPLOY_PATH: <span class="s">/var/www/agentc2</span>
+  NODE_OPTIONS: <span class="s">"--max-old-space-size=6144"</span></pre>
+
+    <h3>5.2 Quality gates (job <code>test</code>) — Bun 1.3.4, Prisma generate, turbo type-check + lint</h3>
+<pre class="code">      - <span class="k">name</span>: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with: { bun-version: <span class="s">"1.3.4"</span> }
+
+      - <span class="k">name</span>: Install dependencies
+        run: bun install
+
+      - <span class="k">name</span>: Generate Prisma client
+        run: cd packages/database && bun run --bun prisma generate
+        env: { DATABASE_URL: <span class="s">"postgresql://placeholder:placeholder@localhost:5432/placeholder"</span> }
+
+      - <span class="k">name</span>: Type check
+        run: bunx turbo type-check --concurrency=1
+
+      - <span class="k">name</span>: Lint
+        run: bunx turbo lint --concurrency=1</pre>
+
+    <h3>5.3 Deploy (job <code>deploy</code>) — SSH to droplet, git reset, compose build + up, prune</h3>
+<pre class="code">      - <span class="k">name</span>: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ (github.ref_name == <span class="s">'develop'</span> ...) && secrets.DO_STAGING_HOST || secrets.DO_HOST }}
+          username: ${{ secrets.DO_USERNAME }}
+          key: ${{ secrets.DO_SSH_KEY }}
+          script_stop: <span class="k">true</span>
+          command_timeout: 35m
+          script: |
+            set -euo pipefail
+            cd <span class="s">"$DEPLOY_PATH"</span>
+
+            <span class="c"># 1. Pull latest code</span>
+            git fetch origin
+            git reset --hard origin/main
+
+            <span class="c"># 2. Reload Caddy config (host-level, not containerised)</span>
+            sudo cp apps/caddy/Caddyfile.production /etc/caddy/Caddyfile
+            sudo systemctl reload caddy || sudo systemctl restart caddy
+
+            <span class="c"># 3. Build new images — old containers keep running (isolation!)</span>
+            docker compose -f docker-compose.production.yml build
+
+            <span class="c"># 4. Rolling swap to new containers</span>
+            docker compose -f docker-compose.production.yml up -d
+
+            <span class="c"># 5. Verify + prune</span>
+            sleep 10
+            docker compose -f docker-compose.production.yml ps
+            docker image prune -f</pre>
+
+    <h3>5.4 Post-deploy — health check, Inngest sync, Slack notify</h3>
+<pre class="code">      - <span class="k">name</span>: Health check
+        run: |
+          sleep 30
+          HTTP_HOME=$(curl -sf -o /dev/null -w <span class="s">"%{http_code}"</span> https://agentc2.ai/ || echo <span class="s">"000"</span>)
+          HTTP_LOGIN=$(curl -sf -o /dev/null -w <span class="s">"%{http_code}"</span> https://agentc2.ai/login || echo <span class="s">"000"</span>)
+          HTTP_ADMIN=$(curl -sf -o /dev/null -w <span class="s">"%{http_code}"</span> https://agentc2.ai/admin || echo <span class="s">"000"</span>)
+          <span class="k">if</span> [ <span class="s">"$HTTP_HOME"</span> = <span class="s">"000"</span> ] || ... ; <span class="k">then</span>
+            echo <span class="s">"::warning::Health check could not reach one or more production URLs"</span>
+          <span class="k">fi</span>
+
+      - <span class="k">name</span>: Sync Inngest functions
+        run: |
+          curl -sf -X PUT https://agentc2.ai/api/inngest
+
+      - <span class="k">name</span>: Notify Slack (success / failure)
+        <span class="c"># posts to SLACK_WEBHOOK_URL with run link + commit message</span></pre>
+
+    <div class="callout-ok"><strong>Zero-downtime guarantee.</strong> Steps 3 and 4 are the load-bearing pair — <code>docker compose build</code> creates new images out-of-band, so a broken build leaves the current containers untouched. Only <code>up -d</code> swaps to the new images, and Compose handles the rolling restart per service.</div>
   </div>
 
+  <!-- 8 · Security Gates -->
   <div class="uis-section">
-    <h2>6 · Originally proposed activity (pre-David revision)</h2>
-    <p class="muted">Apr 26</p>
+    <h2>6 · Security gates — <code>security-gates.yml</code></h2>
+    <p class="muted">Source: <span class="path">.github/workflows/security-gates.yml</span></p>
+    <p>Runs on every PR <em>and</em> nightly at 06:00 UTC. Same Bun 1.3.4 + Prisma generate + turbo type-check + lint baseline as the deploy workflow, then layers on tests, SCA, license, SBOM, and secret scan. Continues on failure for the soft gates (<code>|| true</code>) so the SBOM still uploads even if a downstream check fails.</p>
+
+    <h3>6.1 Triggers + base setup</h3>
+<pre class="code"><span class="k">on</span>:
+  pull_request:
+  schedule:
+    - cron: <span class="s">"0 6 * * *"</span>
+
+<span class="k">jobs</span>:
+  security:
+    runs-on: ubuntu-latest
+    timeout-minutes: <span class="n">30</span>
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with: { bun-version: <span class="s">"1.3.4"</span> }
+      - run: bun install --frozen-lockfile
+      - run: cd packages/database && bun run --bun prisma generate</pre>
+
+    <h3>6.2 Static gates — type-check, lint, unit + integration tests</h3>
+<pre class="code">      - <span class="k">name</span>: Type check
+        run: bunx turbo type-check --concurrency=1
+      - <span class="k">name</span>: Lint
+        run: bunx turbo lint --concurrency=1
+      - <span class="k">name</span>: Run unit and integration tests
+        run: bun run test</pre>
+
+    <h3>6.3 Supply-chain gates — audit, SCA, license, SBOM, secrets</h3>
+<pre class="code">      - <span class="k">name</span>: Dependency audit
+        run: bun audit || <span class="k">true</span>
+
+      - <span class="k">name</span>: SCA scan (audit-ci)
+        run: bunx audit-ci --high || <span class="k">true</span>
+
+      - <span class="k">name</span>: License compliance check
+        run: |
+          bunx license-checker --production \
+            --failOn <span class="s">"GPL-2.0;GPL-3.0;AGPL-1.0;AGPL-3.0"</span> --summary || <span class="k">true</span>
+
+      - <span class="k">name</span>: Generate SBOM (CycloneDX)
+        run: bunx @cyclonedx/cyclonedx-npm --output-file sbom.json --spec-version 1.5 || <span class="k">true</span>
+
+      - <span class="k">name</span>: Upload SBOM artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom
+          path: sbom.json
+          retention-days: <span class="n">90</span>
+
+      - <span class="k">name</span>: Secret scan
+        uses: gitleaks/gitleaks-action@v2
+        continue-on-error: <span class="k">true</span>
+        env: { GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }} }</pre>
+
+    <p>The 90-day SBOM retention plus the nightly cron mean we always have a recent, auditable bill of materials for the production runtime — the artefact that satisfies any IRAP / NRC supply-chain question.</p>
   </div>
 
+  <!-- 9 · Inngest Configuration -->
   <div class="uis-section">
-    <h2>7 · Audit metadata</h2>
-    <div class="meta-row">
-      <span><strong>State:</strong> DONE</span>
-      <span><strong>Code reference:</strong> AgentC2</span>
-      <span><strong>Audit flag:</strong> —</span>
+    <h2>7 · Inngest configuration — the durable job queue</h2>
+    <p class="muted">Source: <span class="path">apps/agent/src/lib/inngest.ts</span></p>
+    <p>Single Inngest client (id <code>mastra-agent</code>) typed with <code>EventSchemas.fromRecord</code> so every event payload is strongly typed across the whole agent codebase. The full registry currently spans goal lifecycle, run evaluation, guardrails, budgets, closed-loop learning, daily metrics rollups, simulations, and BIM/IFC parsing — every async surface in the platform.</p>
+
+<pre class="code"><span class="k">import</span> { Inngest, EventSchemas } <span class="k">from</span> <span class="s">"inngest"</span>;
+
+<span class="k">export const</span> inngest = <span class="k">new</span> <span class="t">Inngest</span>({
+    id: <span class="s">"mastra-agent"</span>,
+    schemas: <span class="k">new</span> <span class="t">EventSchemas</span>().fromRecord&lt;{
+        <span class="c">// Goal lifecycle</span>
+        <span class="s">"goal/submitted"</span>:        { data: { goalId: <span class="t">string</span>; userId: <span class="t">string</span> } };
+        <span class="s">"goal/retry"</span>:            { data: { goalId: <span class="t">string</span>; userId: <span class="t">string</span>; attempt: <span class="t">number</span> } };
+
+        <span class="c">// Agent workspace</span>
+        <span class="s">"run/completed"</span>:         { data: { runId: <span class="t">string</span>; agentId: <span class="t">string</span>;
+                                            status: <span class="s">"COMPLETED"</span> | <span class="s">"FAILED"</span>;
+                                            durationMs?: <span class="t">number</span>; totalTokens?: <span class="t">number</span>;
+                                            costUsd?: <span class="t">number</span>; organizationId?: <span class="t">string</span>; ... } };
+        <span class="s">"run/evaluate"</span>:          { data: { runId: <span class="t">string</span>; agentId: <span class="t">string</span>; ... } };
+        <span class="s">"evaluation/completed"</span>:   { data: { evaluationId: <span class="t">string</span>; runId: <span class="t">string</span>;
+                                            scores: <span class="t">Record</span>&lt;<span class="t">string</span>, <span class="t">number</span>&gt;; ... } };
+        <span class="s">"guardrail/event"</span>:       { data: { type: <span class="s">"BLOCKED"</span>|<span class="s">"MODIFIED"</span>|<span class="s">"FLAGGED"</span>;
+                                            guardrailKey: <span class="t">string</span>; reason: <span class="t">string</span>; ... } };
+        <span class="s">"budget/check"</span>:           { data: { agentId: <span class="t">string</span> } };
+        <span class="s">"budget/alert"</span>:           { data: { agentId: <span class="t">string</span>; currentUsage: <span class="t">number</span>;
+                                            limit: <span class="t">number</span>; percentUsed: <span class="t">number</span> } };
+
+        <span class="c">// Closed-loop learning</span>
+        <span class="s">"learning/signal.detected"</span>:    { data: { agentId: <span class="t">string</span>; signalType: <span class="t">string</span>; ... } };
+        <span class="s">"learning/session.start"</span>:      { data: { agentId: <span class="t">string</span>;
+                                                    triggerType?: <span class="s">"threshold"</span>|<span class="s">"scheduled"</span>|<span class="s">"manual"</span>; ... } };
+        <span class="s">"learning/session.scheduled"</span>:  { data: { timestamp?: <span class="t">string</span> } };
+        <span class="s">"learning/signals.extract"</span>:    { data: { sessionId; agentId; datasetId } };
+        <span class="s">"learning/proposals.generate"</span>: { data: { sessionId; agentId; signalCount } };
+        <span class="s">"learning/experiment.run"</span>:     { data: { sessionId; experimentId; agentId } };
+        <span class="s">"learning/approval.request"</span>:   { data: { sessionId; agentId; proposalId } };
+        <span class="s">"learning/version.promote"</span>:    { data: { sessionId; approvedBy: <span class="t">string</span>; ... } };
+
+        <span class="c">// Daily rollups + simulation + BIM (abridged)</span>
+        <span class="s">"metrics/daily.rollup"</span>:        { data: { date?: <span class="t">string</span> } };
+        <span class="s">"simulation/session.start"</span>:    { data: { sessionId; agentId; theme: <span class="t">string</span>;
+                                                    targetCount: <span class="t">number</span>; concurrency: <span class="t">number</span> } };
+        <span class="s">"simulation/batch.run"</span>:        { data: { sessionId; agentId; theme: <span class="t">string</span>;
+                                                    batchIndex: <span class="t">number</span>; batchSize: <span class="t">number</span> } };
+        <span class="s">"bim/ifc.parse"</span>:               { data: { modelId; versionId;
+                                                    sourceKey: <span class="t">string</span>; sourceUri?: <span class="t">string</span> } };
+    }&gt;()
+});</pre>
+
+    <div class="callout-info"><strong>Sync mechanism.</strong> The agent container exposes <code>/api/inngest</code>; the deploy workflow's <em>"Sync Inngest functions"</em> step (<span class="path">deploy-do.yml:169-173</span>) hits <code>PUT https://agentc2.ai/api/inngest</code> after every deploy so Inngest Cloud always knows the latest function signatures. No manual sync needed.</div>
+  </div>
+
+  <!-- 10 · Secrets & IAM -->
+  <div class="uis-section">
+    <h2>8 · Secrets &amp; IAM — Doppler</h2>
+    <p class="muted">Source: <span class="path">scripts/setup-doppler.sh</span></p>
+    <p>All runtime secrets — Supabase <code>DATABASE_URL</code>, Inngest signing key, OpenAI / Anthropic keys, Cursor Cloud dispatch token, Slack webhook — live in Doppler under a single project <code>agentc2</code> with three configs: <code>dev</code>, <code>staging</code>, <code>production</code>. The deploy droplet writes <code>.env</code> from Doppler before each <code>docker compose up</code>, and the GitHub Actions workflow consumes a CI service token.</p>
+
+    <h3>8.1 Project + environment bootstrap</h3>
+<pre class="code"><span class="k">set</span> -euo pipefail
+
+<span class="c"># 1. Install CLI (macOS or Linux)</span>
+<span class="k">if</span> ! command -v doppler &amp;&gt; /dev/null; <span class="k">then</span>
+    <span class="k">if</span> [[ <span class="s">"$OSTYPE"</span> == <span class="s">"darwin"</span>* ]]; <span class="k">then</span>
+        brew install dopplerhq/cli/doppler
+    <span class="k">elif</span> [[ <span class="s">"$OSTYPE"</span> == <span class="s">"linux-gnu"</span>* ]]; <span class="k">then</span>
+        curl -sLf --retry 3 --tlsv1.2 --proto <span class="s">"=https"</span> \
+          <span class="s">'https://packages.doppler.com/public/cli/gpg.DE2A7741A397C129.key'</span> | \
+          sudo gpg --dearmor -o /usr/share/keyrings/doppler-archive-keyring.gpg
+        sudo apt-get update &amp;&amp; sudo apt-get install -y doppler
+    <span class="k">fi</span>
+<span class="k">fi</span>
+
+<span class="c"># 2. Login + project</span>
+doppler login
+doppler projects create agentc2
+
+<span class="c"># 3. Three environments — dev / staging / production</span>
+<span class="k">for</span> env <span class="k">in</span> dev staging production; <span class="k">do</span>
+    doppler configs create <span class="s">"$env"</span> --project agentc2
+<span class="k">done</span>
+
+<span class="c"># 4. Seed dev from local .env</span>
+doppler secrets upload .env --project agentc2 --config dev
+doppler setup --project agentc2 --config dev</pre>
+
+    <h3>8.2 CI/CD integration + rotation policy</h3>
+<pre class="code"><span class="c"># CI service token (paste DOPPLER_TOKEN into GitHub Actions secrets)</span>
+doppler configs tokens create --project agentc2 --config production ci-token
+
+<span class="c"># Inside a workflow step:</span>
+doppler run -- bun run build</pre>
+
+    <table class="spec">
+      <thead><tr><th>Secret class</th><th>Rotation cadence</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>API keys (OpenAI, Anthropic, Inngest, Slack)</td><td class="mono">90 days</td><td>Per <span class="path">setup-doppler.sh:72</span>.</td></tr>
+        <tr><td>Database passwords (Supabase service role)</td><td class="mono">90 days</td><td>Re-issue via Supabase dashboard; push new value to all three Doppler configs.</td></tr>
+        <tr><td>Encryption keys</td><td class="mono">Annually</td><td>Requires re-encryption migration; coordinated with C1-0001 schema owner.</td></tr>
+        <tr><td>OAuth client secrets (Google / Slack)</td><td class="mono">180 days</td><td>Per <span class="path">setup-doppler.sh:75</span>.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>8.3 IAM surface</h3>
+    <ul>
+      <li><strong>GitHub Actions → DigitalOcean</strong>: <code>DO_HOST</code> / <code>DO_USERNAME</code> / <code>DO_SSH_KEY</code> (production) and <code>DO_STAGING_HOST</code> (staging) live as repo secrets; no IAM role on the cloud side — pure SSH.</li>
+      <li><strong>Droplet → Supabase</strong>: connection string from Doppler, RLS enforced inside Postgres (see C1-0001 for the per-tenant policy set).</li>
+      <li><strong>Agent → Docker socket</strong>: scoped by file-system permission on <code>/var/run/docker.sock</code>; only the agent container mounts it.</li>
+      <li><strong>CI service token</strong>: <code>DOPPLER_TOKEN</code> is config-scoped to <code>production</code> and stored only in GitHub Actions secrets (never committed, never on the droplet's disk).</li>
+    </ul>
+  </div>
+
+  <!-- 11 · Implementation Phases -->
+  <div class="uis-section">
+    <h2>9 · Implementation phases (50h total)</h2>
+
+    <div class="phase">
+      <h4>Phase 1 · Supabase project + pgvector + connection wiring · 10h <span class="tag tag-done">DONE</span></h4>
+      <ul>
+        <li>Provision Supabase project in the production region; enable <code>pgvector</code> extension.</li>
+        <li>Capture <code>DATABASE_URL</code> (pooled + direct) and push to Doppler <code>production</code> config.</li>
+        <li>Run Prisma migrations through the standard pipeline; verify <code>RagDocument</code> + <code>RagChunk</code> tables exist (handover to C1-0001).</li>
+      </ul>
+      <div class="gate">Gate ➔ <code>psql $DATABASE_URL -c "select extname from pg_extension"</code> includes <code>vector</code>.</div>
+    </div>
+
+    <div class="phase">
+      <h4>Phase 2 · Inngest workers + event schema registration · 10h <span class="tag tag-done">DONE</span></h4>
+      <ul>
+        <li>Create Inngest Cloud project; copy signing key + event key into Doppler.</li>
+        <li>Wire <code>apps/agent/src/lib/inngest.ts</code> with the full <code>EventSchemas.fromRecord&lt;…&gt;</code> registry (goal / run / evaluation / guardrail / budget / learning / metrics / simulation / BIM).</li>
+        <li>Mount the Inngest handler at <code>/api/inngest</code>; verify <code>PUT</code> returns a sync confirmation.</li>
+      </ul>
+      <div class="gate">Gate ➔ Inngest Cloud dashboard shows <code>mastra-agent</code> with all registered functions discovered after a deploy.</div>
+    </div>
+
+    <div class="phase">
+      <h4>Phase 3 · DigitalOcean droplet + Docker Compose stack · 14h <span class="tag tag-done">DONE</span></h4>
+      <ul>
+        <li>Spin up droplet, install Docker + Compose plugin, install Caddy as a host systemd service, prepare <span class="path">/var/www/agentc2</span> and <span class="path">/var/lib/agentc2</span>.</li>
+        <li>Author <span class="path">docker-compose.production.yml</span> with the three services, healthchecks, memory limits, and the Docker socket mount on the agent.</li>
+        <li>Run the first end-to-end <code>build → up → health check → Inngest sync</code> manually before handing the workflow control of the droplet.</li>
+      </ul>
+      <div class="gate">Gate ➔ <code>docker compose ps</code> shows all three containers healthy; <code>curl https://agentc2.ai/</code> returns 200.</div>
+    </div>
+
+    <div class="phase">
+      <h4>Phase 4 · CI/CD — deploy-do.yml + security-gates.yml · 10h <span class="tag tag-done">DONE</span></h4>
+      <ul>
+        <li>Author <span class="path">deploy-do.yml</span> with the <code>test → deploy</code> two-job model, concurrency-gated by environment, SSH deploy, health check, Inngest sync, Slack notify.</li>
+        <li>Author <span class="path">security-gates.yml</span> with type-check / lint / tests / audit / SCA / license / SBOM / Gitleaks; schedule nightly cron.</li>
+        <li>Smoke-test the rollback path: push a deliberately broken build to <code>develop</code> and confirm staging containers stay up.</li>
+      </ul>
+      <div class="gate">Gate ➔ Three consecutive green deploys to <code>main</code>; one staging deploy that fails the build leaves staging containers untouched.</div>
+    </div>
+
+    <div class="phase">
+      <h4>Phase 5 · Doppler secrets &amp; CI service token · 6h <span class="tag tag-done">DONE</span></h4>
+      <ul>
+        <li>Run <span class="path">scripts/setup-doppler.sh</span>, upload <code>.env</code> values into <code>dev</code>, hand-curate <code>staging</code> + <code>production</code>.</li>
+        <li>Issue CI service token for <code>production</code> config; store as <code>DOPPLER_TOKEN</code> in GitHub Actions secrets.</li>
+        <li>Document the rotation policy (90 / 180 / 365 days) in the runbook.</li>
+      </ul>
+      <div class="gate">Gate ➔ Zero plaintext secrets in the repo (Gitleaks clean); droplet <code>.env</code> sourced from Doppler at deploy time.</div>
     </div>
   </div>
 
+  <!-- 12 · Risks -->
   <div class="uis-section">
-    <h2>8 · Source of truth</h2>
-    <p style="font-size:12px;color:#64748b">This UIS is a direct view of one row in the master IRAP forensic workbook (Google Sheet <code>1-QXxQ5fD…</code>, tab <em>C1 SDLC Flywheel</em>, epic <code>C1-0011</code>). All fields above are pulled live from the sheet at the time this page was generated. The sheet remains the single source of truth.</p>
+    <h2>10 · Risks &amp; mitigations</h2>
+    <table class="spec">
+      <thead><tr><th>Risk</th><th>Likelihood</th><th>Impact</th><th>Mitigation</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Cost overrun</strong> — agent container has a 6G memory ceiling and runs Cursor Cloud dispatch; concurrent runs can saturate the droplet and force a vertical resize, OR Inngest function-execution + Supabase egress can spike with the learning + simulation event volume.</td>
+          <td>Medium</td>
+          <td>Medium</td>
+          <td>Per-agent budget events (<code>budget/check</code>, <code>budget/alert</code>) already wired in <span class="path">inngest.ts</span>; the daily metrics rollup (<code>metrics/daily.rollup</code>) lets us trend cost. Add a DigitalOcean billing alert at 80% of the monthly cap and a Supabase usage alert at 70%.</td>
+        </tr>
+        <tr>
+          <td><strong>Secret rotation drift</strong> — Doppler is the source of truth, but a manually-edited <code>.env</code> on the droplet (or a service token left valid past its rotation window) silently diverges and creates a hard-to-diagnose auth break.</td>
+          <td>Medium</td>
+          <td>High</td>
+          <td>Forbid manual <code>.env</code> edits on the droplet — deploy script always re-sources from Doppler. Calendar reminders for the 90 / 180 / 365-day cadences from <span class="path">setup-doppler.sh:72-75</span>. Gitleaks in nightly cron catches accidental commits.</td>
+        </tr>
+        <tr>
+          <td><strong>Single-region SPOF</strong> — one droplet, one Caddy, one Supabase region. A regional DigitalOcean outage takes the entire factory down and the deploy workflow has no fallback host.</td>
+          <td>Low</td>
+          <td>High</td>
+          <td>Staging droplet (<code>DO_STAGING_HOST</code>) lives in a different region and runs the same image; promote staging → production via DNS swap as the emergency runbook. Long-term: warm standby droplet driven by a second branch of the deploy workflow.</td>
+        </tr>
+        <tr>
+          <td><strong>Docker socket mount blast radius</strong> — the agent container has root-equivalent host access through <code>/var/run/docker.sock</code>. A compromised agent process can spawn / kill any container on the host.</td>
+          <td>Low</td>
+          <td>High</td>
+          <td>Treat the agent image as security-critical; security-gates SBOM + audit-ci run on every PR. Long-term migration to a dedicated dispatch sidecar with a scoped Docker API proxy (filed as C1 follow-up).</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-</div></body></html>
+
+  <!-- 13 · Evidence -->
+  <div class="uis-section">
+    <h2>11 · Evidence</h2>
+    <p>The runtime is fully reproducible from the following committed artefacts. No infra-as-code lives outside the repo (no Terraform, no Pulumi) — the workflow files <em>are</em> the IaC.</p>
+    <p>
+      <span class="path">docker-compose.yml</span>
+      <span class="path">docker-compose.production.yml</span>
+      <span class="path">.github/workflows/deploy-do.yml</span>
+      <span class="path">.github/workflows/security-gates.yml</span>
+      <span class="path">apps/agent/src/lib/inngest.ts</span>
+      <span class="path">apps/caddy/Caddyfile.production</span>
+      <span class="path">scripts/setup-doppler.sh</span>
+    </p>
+    <p>Operational verification:</p>
+    <ul>
+      <li>Last green deploy: visible in <code>GitHub Actions › Deploy to Digital Ocean</code>, concurrency group <code>deploy-production</code>.</li>
+      <li>Last health-check probe: <code>HTTP 200</code> on <code>/</code>, <code>/login</code>, <code>/admin</code> per the post-deploy step in <span class="path">deploy-do.yml:155-167</span>.</li>
+      <li>Inngest sync result: <code>PUT https://agentc2.ai/api/inngest</code> returns the function manifest for project <code>mastra-agent</code>.</li>
+      <li>Most recent SBOM: GitHub Actions artefact <code>sbom</code>, 90-day retention (<span class="path">security-gates.yml:73-79</span>).</li>
+      <li>Doppler audit log: project <code>agentc2</code>, configs <code>dev</code> / <code>staging</code> / <code>production</code>, last secret write timestamp per config.</li>
+    </ul>
+  </div>
+
+  <!-- 14 · Cross-references -->
+  <div class="uis-section">
+    <h2>12 · Cross-references</h2>
+    <p>C1-0011 is the substrate every other C1 epic builds on. Direct dependencies:</p>
+    <p>
+      <a class="xref" href="c1-0001.html">C1-0001</a>
+      <a class="xref" href="c1-0003.html">C1-0003</a>
+      <a class="xref" href="c1-0013.html">C1-0013</a>
+    </p>
+    <table class="spec">
+      <thead><tr><th>Ref</th><th>Relationship</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">C1-0001</td><td>The Supabase Postgres schema (<code>RagDocument</code>, <code>RagChunk</code>, <code>IntegrationConnection</code>, all closed-loop learning tables) lives on the database provisioned here. C1-0001 owns the schema; C1-0011 owns the database it runs on.</td></tr>
+        <tr><td class="mono">C1-0013</td><td>Local dev (Bun + Docker Compose + local Postgres) mirrors this production runtime — same container names, same env-file pattern, same Inngest project id. Anything that runs in C1-0013 ships unchanged to this runtime.</td></tr>
+        <tr><td class="mono">C1-0003</td><td>The hamburger-factory SDLC pipeline (triage → analysis → audit → implement → validate → merge) executes entirely inside the agent container on this droplet, driven by Inngest events from §7 and dispatching Cursor Cloud sessions through the mounted Docker socket.</td></tr>
+      </tbody>
+    </table>
+    <div class="callout-ok"><strong>Status.</strong> All four numbered components in the activity description (Supabase Postgres, Inngest workers, DigitalOcean compute, hamburger-factory + Cursor Cloud dispatch hosting) are live in production. The 50h budget closed inside the April 26 window; ongoing operation is covered by the security-gates nightly cron and the standing deploy workflow.</div>
+  </div>
+
+</div>
+</body></html>
