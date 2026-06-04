@@ -1,41 +1,45 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UIS · C3-0232 · PARTIAL POC</title>
+<title>UIS · C3-0232 · 15 core construction workflows in Playwright — extend POC scaffolding to full coverage</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-<style>
-.in-iframe .top-nav { display: none !important; }
-*{margin:0;padding:0;box-sizing:border-box}
+<style>*{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Inter',-apple-system,sans-serif;background:#f1f5f9;color:#1e293b;line-height:1.55}
+.in-iframe .top-nav{display:none!important}
 .top-nav{position:sticky;top:0;z-index:100;background:#0f172a;border-bottom:1px solid #1e293b;padding:0 24px;display:flex;align-items:center;gap:0}
 .top-nav a{display:inline-flex;align-items:center;padding:12px 18px;font-size:13px;font-weight:600;color:#94a3b8;text-decoration:none;border-bottom:2px solid transparent;transition:all .15s}
 .top-nav a:hover{color:#f8fafc;background:#1e293b}
 .top-nav .nav-logo{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#475569;padding-right:18px;margin-right:4px;border-right:1px solid #1e293b}
-.uis-wrap{max-width:980px;margin:0 auto;padding:36px 24px 80px}
+.uis-wrap{max-width:1060px;margin:0 auto;padding:36px 24px 80px}
 .crumb{font-size:12px;color:#64748b;margin-bottom:14px}
 .crumb a{color:#3b82f6;text-decoration:none}
 .crumb a:hover{text-decoration:underline}
 .uis-hdr{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:20px;flex-wrap:wrap}
 .uis-hdr-l{flex:1;min-width:280px}
-.code-badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:0.5px;padding:3px 10px;background:#1e293b;color:#cbd5e1;border-radius:4px;margin-bottom:8px}
-.uis-h1{font-size:26px;font-weight:800;letter-spacing:-0.01em;margin-bottom:6px}
+.code-badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.5px;padding:3px 10px;background:#1e293b;color:#cbd5e1;border-radius:4px;margin-bottom:8px}
+.uis-h1{font-size:26px;font-weight:800;letter-spacing:-.01em;margin-bottom:6px}
 .uis-sub{font-size:14px;color:#475569}
-.state-pill{display:inline-block;font-size:11px;font-weight:700;padding:5px 12px;border-radius:4px;text-transform:uppercase;letter-spacing:0.5px}
+.state-pill{display:inline-block;font-size:11px;font-weight:700;padding:5px 12px;border-radius:4px;text-transform:uppercase;letter-spacing:.5px;color:#fff}
 .kpi-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-bottom:16px}
 .kpi{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:10px 12px}
 .kpi .l{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#94a3b8;margin-bottom:3px}
 .kpi .v{font-size:15px;font-weight:800;color:#1e293b}
 .uis-section{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:20px 24px;margin-bottom:12px}
-.uis-section h2{font-size:14px;font-weight:700;color:#1e293b;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #f1f5f9;letter-spacing:0.2px}
-.uis-section p{color:#334155;margin-bottom:6px;white-space:pre-wrap}
-.uis-section .muted{color:#64748b;font-style:italic}
+.uis-section h2{font-size:14px;font-weight:700;color:#1e293b;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #f1f5f9;letter-spacing:.2px}
+.uis-section h3{font-size:13px;font-weight:700;color:#334155;margin:14px 0 8px;letter-spacing:.2px}
+.uis-section p{color:#334155;margin-bottom:8px}
+.uis-section ul,.uis-section ol{padding-left:22px;color:#334155}
+.uis-section li{margin-bottom:4px}
+.uis-section table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+.uis-section th{text-align:left;padding:8px 10px;background:#f8fafc;border-bottom:2px solid #e2e8f0;font-weight:600;color:#64748b;font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+.uis-section td{padding:7px 10px;border-bottom:1px solid #f1f5f9;color:#334155;vertical-align:top}
+.uis-section pre{background:#0f172a;color:#e2e8f0;padding:14px 16px;border-radius:8px;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.5;margin:8px 0}
+.uis-section code{font-family:'JetBrains Mono',monospace;font-size:12px;background:#f1f5f9;padding:1px 6px;border-radius:3px;color:#334155}
+.uis-section pre code{background:none;padding:0;color:inherit}
 .path{font-family:'JetBrains Mono',monospace;font-size:11px;color:#0369a1;background:#f0f9ff;padding:3px 8px;border-radius:4px;display:inline-block;margin:2px 4px 2px 0;border:1px solid #bae6fd;word-break:break-all}
-.meta-row{display:flex;flex-wrap:wrap;gap:18px;font-size:12px;color:#64748b}
-.meta-row strong{color:#334155}
-@media print{.top-nav{display:none}.uis-wrap{padding:8px}}
-</style>
-<script>if (self !== top) document.documentElement.classList.add("in-iframe");</script>
+@media print{.top-nav{display:none}.uis-wrap{padding:8px}}</style>
+<script>if(self!==top)document.documentElement.classList.add("in-iframe");</script>
 </head><body>
 <nav class="top-nav">
   <span class="nav-logo">Appello IRAP</span>
@@ -43,67 +47,28 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f1f5f9;color:#1e29
   <a href="https://useanzen.github.io/appello-roadmap/" target="_blank">Appello Product Roadmap</a>
 </nav>
 <div class="uis-wrap">
-  <div class="crumb"><a href="../index.html">IRAP Roadmap</a> › C3 ATLAS RAG › P1 › <strong>C3-0232</strong></div>
-
+  <div class="crumb"><a href="../index.html">IRAP Roadmap</a> › C3 ATLAS Knowledge Base › P1 — Database-Driven SDLC (Apr–May 26) › <strong>C3-0232</strong></div>
   <div class="uis-hdr">
     <div class="uis-hdr-l">
       <span class="code-badge">C3-0232</span>
-      <h1 class="uis-h1">PARTIAL POC</h1>
-      <p class="uis-sub">C3 ATLAS RAG · P1</p>
+      <h1 class="uis-h1">15 core construction workflows in Playwright — extend POC scaffolding to full coverage</h1>
+      <p class="uis-sub">C3 ATLAS Knowledge Base · P1 — Database-Driven SDLC (Apr–May 26)</p>
     </div>
-    <div><span class="state-pill" style="background:#d97706;color:#fff">WORK IN PROCESS</span></div>
+    <div><span class="state-pill" style="background:#d97706">WORK IN PROCESS</span></div>
   </div>
-
   <div class="kpi-strip">
     <div class="kpi"><div class="l">Component</div><div class="v">C3</div></div>
+    <div class="kpi"><div class="l">Phase</div><div class="v">P1</div></div>
     <div class="kpi"><div class="l">Owner</div><div class="v">Emma Mann</div></div>
-    <div class="kpi"><div class="l">Month</div><div class="v">Apr 26</div></div>
+    <div class="kpi"><div class="l">Month</div><div class="v">May 26</div></div>
     <div class="kpi"><div class="l">Hours</div><div class="v">60h</div></div>
-    
-    
+    <div class="kpi"><div class="l">State</div><div class="v">WORK IN PROCESS</div></div>
   </div>
-
-  <div class="uis-section">
-    <h2>1 · Activity — what we are building</h2>
-    <p>PARTIAL POC — appello e2e-*.png flows exist</p>
-  </div>
-
-  <div class="uis-section">
-    <h2>2 · Status from master sheet</h2>
-    <p class="muted">No status entry in master sheet yet.</p>
-  </div>
-
-  <div class="uis-section">
-    <h2>3 · Evidence — repo / path</h2>
-    <p><span class="path">age</span><span class="path">tc2/tests-e2e/ (5 specs coveri</span><span class="path">g</span><span class="path">avigatio</span><span class="path">age</span><span class="path">t-chat</span><span class="path">dow</span><span class="path">stream-flow</span><span class="path">workflows-</span><span class="path">etworks</span><span class="path">av-refactor)</span><span class="path">age</span><span class="path">tc2/tests-e2e/fixtures/auth.fixture.ts</span><span class="path">appello e2e-*.p</span><span class="path">g scree</span><span class="path">shots</span></p>
-  </div>
-
-  <div class="uis-section">
-    <h2>4 · What it is / what it does</h2>
-    <p>5 existing Playwright spec files in tests-e2e/ + the auth fixture; appello repo has e2e screenshots of timesheet/approval flows.</p>
-  </div>
-
-  <div class="uis-section">
-    <h2>5 · How it connects to this epic</h2>
-    <p>WIP: POC exists; Emma extends to 15 core construction workflows on top of the existing spec scaffolding.</p>
-  </div>
-
-  <div class="uis-section">
-    <h2>6 · Originally proposed activity (pre-David revision)</h2>
-    <p class="muted">Apr 26</p>
-  </div>
-
-  <div class="uis-section">
-    <h2>7 · Audit metadata</h2>
-    <div class="meta-row">
-      <span><strong>State:</strong> WORK IN PROCESS</span>
-      <span><strong>Code reference:</strong> appello</span>
-      <span><strong>Audit flag:</strong> off-theme parking</span>
-    </div>
-  </div>
-
-  <div class="uis-section">
-    <h2>8 · Source of truth</h2>
-    <p style="font-size:12px;color:#64748b">This UIS is a direct view of one row in the master IRAP forensic workbook (Google Sheet <code>1-QXxQ5fD…</code>, tab <em>C3 ATLAS RAG</em>, epic <code>C3-0232</code>). All fields above are pulled live from the sheet at the time this page was generated. The sheet remains the single source of truth.</p>
-  </div>
+  <div class="uis-section"><h2>1 · Objective</h2><p><code>agentc2/tests-e2e/</code> has 5 existing specs (navigation, agent-chat, downstream-flow, workflows-networks, nav-refactor) + the auth fixture; the appello repo has e2e screenshots of timesheet/approval flows. POC exists. This epic extends to 15 core construction workflows on top of the existing spec scaffolding — the workflows the Spider Testing Swarm needs to exercise to catch regressions in customer-critical paths.</p></div>
+  <div class="uis-section"><h2>2 · Acceptance Criteria</h2><ul><li>15 spec files at <code>appello/tests-e2e/flows/</code>, covering: clock-in, clock-out, daily timesheet, weekly timesheet approval, T&amp;M work order create, work-order line item add, work-order signature, change order create, change order approval, schedule view, schedule edit, photo upload, photo annotate, equipment add, material consumption.</li><li>Each spec inherits <code>auth.fixture.ts</code> + uses per-test tenant seed from <code>create-test-tenant.ts</code>.</li><li>Story tags applied per C1-0004 contract so trust-score wiring (C1-0024) can map specs to user stories.</li><li>Each spec emits a baseline trace + JSON metrics (re-uses C1-0010 baseline harness).</li><li>All 15 specs green on main; flake-rate &lt; 1% measured over 10 nightly runs.</li><li>Mobile-Safari variants for the 5 most-used flows (clock-in, timesheet, photo-upload, schedule, signature).</li><li>Documentation at <code>appello/tests-e2e/flows/README.md</code> with per-flow seed-data expectations.</li></ul></div>
+  <div class="uis-section"><h2>3 · Architecture &amp; Approach</h2><h3>Spec inventory</h3><table><thead><tr><th>Flow</th><th>Spec file</th><th>Stories</th></tr></thead><tbody><tr><td>clock-in</td><td>flows/clock-in.spec.ts</td><td>@story:UIS-01-S1</td></tr><tr><td>clock-out</td><td>flows/clock-out.spec.ts</td><td>@story:UIS-01-S2</td></tr><tr><td>daily-timesheet</td><td>flows/timesheet-daily.spec.ts</td><td>@story:UIS-04-S1</td></tr><tr><td>weekly-approval</td><td>flows/timesheet-approval.spec.ts</td><td>@story:UIS-04-S5</td></tr><tr><td>tm-wo-create</td><td>flows/wo-create.spec.ts</td><td>@story:UIS-20-S1</td></tr><tr><td>wo-line-item</td><td>flows/wo-line-item-add.spec.ts</td><td>@story:UIS-20-S2</td></tr><tr><td>wo-signature</td><td>flows/wo-signature.spec.ts</td><td>@story:UIS-20-S3</td></tr><tr><td colspan='3'>... 8 more</td></tr></tbody></table></div>
+  <div class="uis-section"><h2>4 · Implementation Phases (60h)</h2><ol><li>Per-flow seed-data design (8h).</li><li>Specs 1-5 (clock + timesheet) (12h).</li><li>Specs 6-10 (WO + change-order) (15h).</li><li>Specs 11-15 (schedule + photo + equipment) (15h).</li><li>Mobile-Safari variants for top 5 (6h).</li><li>Flake stabilisation + nightly soak (4h).</li></ol></div>
+  <div class="uis-section"><h2>5 · Risks &amp; Mitigations</h2><ul><li>Seed-data setup per spec is slow. <em>Mitigation:</em> shared tenant snapshot + per-spec deltas.</li><li>Photo upload flake. <em>Mitigation:</em> mock file picker; verify upload via API not UI.</li><li>Signature drawing flake. <em>Mitigation:</em> programmatic mouse-move via Playwright trace recorder.</li></ul></div>
+  <div class="uis-section"><h2>6 · Evidence — Files / Paths</h2><p><span class="path">agentc2/tests-e2e/</span> <span class="path">agentc2/tests-e2e/fixtures/auth.fixture.ts</span> <span class="path">appello e2e-*.png screenshots</span> <span class="path">appello/tests-e2e/flows/ (new)</span> <span class="path">appello/scripts/create-test-tenant.ts</span></p></div>
+  <div class="uis-section"><h2>7 · Cross-References</h2><ul><li><a href="c2-0157.html"><code>C2-0157</code></a> — Playwright config (foundation)</li><li><a href="c1-0010.html"><code>C1-0010</code></a> — Field-crew baselines (paired)</li><li><a href="c1-0024.html"><code>C1-0024</code></a> — Trust-score wiring (consumer)</li><li><a href="c3-0238.html"><code>C3-0238</code></a> — Safety/scheduling/reporting extension (next batch)</li></ul></div>
 </div></body></html>
