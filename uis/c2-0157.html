@@ -1,41 +1,45 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UIS · C2-0157 · PARTIAL POC</title>
+<title>UIS · C2-0157 · Playwright install & config replicated against the Appello app surface (currently screenshot-only)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-<style>
-.in-iframe .top-nav { display: none !important; }
-*{margin:0;padding:0;box-sizing:border-box}
+<style>*{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Inter',-apple-system,sans-serif;background:#f1f5f9;color:#1e293b;line-height:1.55}
+.in-iframe .top-nav{display:none!important}
 .top-nav{position:sticky;top:0;z-index:100;background:#0f172a;border-bottom:1px solid #1e293b;padding:0 24px;display:flex;align-items:center;gap:0}
 .top-nav a{display:inline-flex;align-items:center;padding:12px 18px;font-size:13px;font-weight:600;color:#94a3b8;text-decoration:none;border-bottom:2px solid transparent;transition:all .15s}
 .top-nav a:hover{color:#f8fafc;background:#1e293b}
 .top-nav .nav-logo{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#475569;padding-right:18px;margin-right:4px;border-right:1px solid #1e293b}
-.uis-wrap{max-width:980px;margin:0 auto;padding:36px 24px 80px}
+.uis-wrap{max-width:1060px;margin:0 auto;padding:36px 24px 80px}
 .crumb{font-size:12px;color:#64748b;margin-bottom:14px}
 .crumb a{color:#3b82f6;text-decoration:none}
 .crumb a:hover{text-decoration:underline}
 .uis-hdr{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:20px;flex-wrap:wrap}
 .uis-hdr-l{flex:1;min-width:280px}
-.code-badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:0.5px;padding:3px 10px;background:#1e293b;color:#cbd5e1;border-radius:4px;margin-bottom:8px}
-.uis-h1{font-size:26px;font-weight:800;letter-spacing:-0.01em;margin-bottom:6px}
+.code-badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.5px;padding:3px 10px;background:#1e293b;color:#cbd5e1;border-radius:4px;margin-bottom:8px}
+.uis-h1{font-size:26px;font-weight:800;letter-spacing:-.01em;margin-bottom:6px}
 .uis-sub{font-size:14px;color:#475569}
-.state-pill{display:inline-block;font-size:11px;font-weight:700;padding:5px 12px;border-radius:4px;text-transform:uppercase;letter-spacing:0.5px}
+.state-pill{display:inline-block;font-size:11px;font-weight:700;padding:5px 12px;border-radius:4px;text-transform:uppercase;letter-spacing:.5px;color:#fff}
 .kpi-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-bottom:16px}
 .kpi{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:10px 12px}
 .kpi .l{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#94a3b8;margin-bottom:3px}
 .kpi .v{font-size:15px;font-weight:800;color:#1e293b}
 .uis-section{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:20px 24px;margin-bottom:12px}
-.uis-section h2{font-size:14px;font-weight:700;color:#1e293b;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #f1f5f9;letter-spacing:0.2px}
-.uis-section p{color:#334155;margin-bottom:6px;white-space:pre-wrap}
-.uis-section .muted{color:#64748b;font-style:italic}
+.uis-section h2{font-size:14px;font-weight:700;color:#1e293b;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #f1f5f9;letter-spacing:.2px}
+.uis-section h3{font-size:13px;font-weight:700;color:#334155;margin:14px 0 8px;letter-spacing:.2px}
+.uis-section p{color:#334155;margin-bottom:8px}
+.uis-section ul,.uis-section ol{padding-left:22px;color:#334155}
+.uis-section li{margin-bottom:4px}
+.uis-section table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+.uis-section th{text-align:left;padding:8px 10px;background:#f8fafc;border-bottom:2px solid #e2e8f0;font-weight:600;color:#64748b;font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+.uis-section td{padding:7px 10px;border-bottom:1px solid #f1f5f9;color:#334155;vertical-align:top}
+.uis-section pre{background:#0f172a;color:#e2e8f0;padding:14px 16px;border-radius:8px;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.5;margin:8px 0}
+.uis-section code{font-family:'JetBrains Mono',monospace;font-size:12px;background:#f1f5f9;padding:1px 6px;border-radius:3px;color:#334155}
+.uis-section pre code{background:none;padding:0;color:inherit}
 .path{font-family:'JetBrains Mono',monospace;font-size:11px;color:#0369a1;background:#f0f9ff;padding:3px 8px;border-radius:4px;display:inline-block;margin:2px 4px 2px 0;border:1px solid #bae6fd;word-break:break-all}
-.meta-row{display:flex;flex-wrap:wrap;gap:18px;font-size:12px;color:#64748b}
-.meta-row strong{color:#334155}
-@media print{.top-nav{display:none}.uis-wrap{padding:8px}}
-</style>
-<script>if (self !== top) document.documentElement.classList.add("in-iframe");</script>
+@media print{.top-nav{display:none}.uis-wrap{padding:8px}}</style>
+<script>if(self!==top)document.documentElement.classList.add("in-iframe");</script>
 </head><body>
 <nav class="top-nav">
   <span class="nav-logo">Appello IRAP</span>
@@ -43,67 +47,45 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f1f5f9;color:#1e29
   <a href="https://useanzen.github.io/appello-roadmap/" target="_blank">Appello Product Roadmap</a>
 </nav>
 <div class="uis-wrap">
-  <div class="crumb"><a href="../index.html">IRAP Roadmap</a> › C2 Spider Swarm › P1 › <strong>C2-0157</strong></div>
-
+  <div class="crumb"><a href="../index.html">IRAP Roadmap</a> › C2 Spider Testing Swarm › P1 — Database-Driven SDLC (Apr–May 26) › <strong>C2-0157</strong></div>
   <div class="uis-hdr">
     <div class="uis-hdr-l">
       <span class="code-badge">C2-0157</span>
-      <h1 class="uis-h1">PARTIAL POC</h1>
-      <p class="uis-sub">C2 Spider Swarm · P1</p>
+      <h1 class="uis-h1">Playwright install & config replicated against the Appello app surface (currently screenshot-only)</h1>
+      <p class="uis-sub">C2 Spider Testing Swarm · P1 — Database-Driven SDLC (Apr–May 26)</p>
     </div>
-    <div><span class="state-pill" style="background:#d97706;color:#fff">WORK IN PROCESS</span></div>
+    <div><span class="state-pill" style="background:#d97706">WORK IN PROCESS</span></div>
   </div>
-
   <div class="kpi-strip">
     <div class="kpi"><div class="l">Component</div><div class="v">C2</div></div>
+    <div class="kpi"><div class="l">Phase</div><div class="v">P1</div></div>
     <div class="kpi"><div class="l">Owner</div><div class="v">Emma Mann</div></div>
     <div class="kpi"><div class="l">Month</div><div class="v">Apr 26</div></div>
     <div class="kpi"><div class="l">Hours</div><div class="v">30h</div></div>
-    
-    
+    <div class="kpi"><div class="l">State</div><div class="v">WORK IN PROCESS</div></div>
   </div>
-
-  <div class="uis-section">
-    <h2>1 · Activity — what we are building</h2>
-    <p>PARTIAL POC — appello e2e-*.png flows exist</p>
-  </div>
-
-  <div class="uis-section">
-    <h2>2 · Status from master sheet</h2>
-    <p class="muted">No status entry in master sheet yet.</p>
-  </div>
-
-  <div class="uis-section">
-    <h2>3 · Evidence — repo / path</h2>
-    <p><span class="path">age</span><span class="path">tc2/playwright.co</span><span class="path">fig.ts</span><span class="path">age</span><span class="path">tc2/tests-e2e/age</span><span class="path">t-chat.spec.ts</span><span class="path">age</span><span class="path">tc2/packages/age</span><span class="path">tc2/src/mcp/playwright-compressio</span><span class="path">.ts</span></p>
-  </div>
-
-  <div class="uis-section">
-    <h2>4 · What it is / what it does</h2>
-    <p>AgentC2&#x27;s Playwright E2E harness is live: playwright.config.ts wires the runner, tests-e2e/ holds the spec files (e.g. agent-chat.spec.ts), and playwright-compression.ts compresses accessibility snapshots so agents can drive the browser without context blow-up.</p>
-  </div>
-
-  <div class="uis-section">
-    <h2>5 · How it connects to this epic</h2>
-    <p>WIP: this epic is the Playwright install/config work, which is already done in agentc2; it now needs to be replicated against the Appello app surface (currently appello e2e is via screenshot evidence, not yet Playwright-driven).</p>
-  </div>
-
-  <div class="uis-section">
-    <h2>6 · Originally proposed activity (pre-David revision)</h2>
-    <p class="muted">Apr 26</p>
-  </div>
-
-  <div class="uis-section">
-    <h2>7 · Audit metadata</h2>
-    <div class="meta-row">
-      <span><strong>State:</strong> WORK IN PROCESS</span>
-      <span><strong>Code reference:</strong> appello</span>
-      <span><strong>Audit flag:</strong> —</span>
-    </div>
-  </div>
-
-  <div class="uis-section">
-    <h2>8 · Source of truth</h2>
-    <p style="font-size:12px;color:#64748b">This UIS is a direct view of one row in the master IRAP forensic workbook (Google Sheet <code>1-QXxQ5fD…</code>, tab <em>C2 Spider Swarm</em>, epic <code>C2-0157</code>). All fields above are pulled live from the sheet at the time this page was generated. The sheet remains the single source of truth.</p>
-  </div>
+  <div class="uis-section"><h2>1 · Objective</h2><p>AgentC2's Playwright E2E harness is live: <code>agentc2/playwright.config.ts</code> wires the runner, <code>agentc2/tests-e2e/</code> holds the spec files (e.g. <code>agent-chat.spec.ts</code>), and <code>agentc2/packages/agentc2/src/mcp/playwright-compression.ts</code> compresses accessibility snapshots so agents can drive the browser without context blow-up. This epic replicates the same install/config against the Appello app surface (today Appello E2E coverage is via screenshot evidence, not yet Playwright-driven), enabling the Spider Testing Swarm to actually execute against the product.</p></div>
+  <div class="uis-section"><h2>2 · Acceptance Criteria</h2><ul><li><code>appello/playwright.config.ts</code> created with the same projects/baseURL/timeouts pattern as agentc2.</li><li>Initial spec set at <code>appello/tests-e2e/</code>: smoke (login, dashboard load, navigation), top-5 flows from C1-0010 baselines.</li><li>Shared MCP <code>playwright-compression</code> usable from Appello specs (single source, not forked).</li><li>GitHub Actions workflow <code>appello/.github/workflows/playwright.yml</code> runs on PR; junit artifact named per C1-0012 contract.</li><li>Test data: per-run seed via Appello's <code>seed-test-tenant.ts</code> script; isolated tenant per worker.</li><li>Trace recording on failure; uploaded as artifact.</li><li>Documented in <code>appello/tests-e2e/README.md</code> with local-run instructions.</li><li>First 10 specs pass green on main; baseline trace captured.</li></ul></div>
+  <div class="uis-section"><h2>3 · Architecture &amp; Approach</h2><h3>Config alignment with agentc2</h3><pre><code>// appello/playwright.config.ts
+export default defineConfig({
+  testDir: './tests-e2e',
+  timeout: 30_000,
+  use: {
+    baseURL: process.env.APPELLO_URL ?? 'http://localhost:3000',
+    trace: 'retain-on-failure',
+    screenshot: 'only-on-failure',
+  },
+  reporter: [
+    ['list'],
+    ['junit', { outputFile: 'playwright-junit.xml' }],
+  ],
+  projects: [
+    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
+    { name: 'mobile-safari', use: { ...devices['iPhone 14'] } },
+  ],
+});</code></pre><h3>Shared playwright-compression usage</h3><p>Specs import <code>compressAccessibilitySnapshot</code> from <code>@agentc2/playwright-compression</code> so Spider-swarm agents can take a snapshot under 4k tokens.</p></div>
+  <div class="uis-section"><h2>4 · Implementation Phases (30h)</h2><ol><li>playwright.config.ts + projects + reporter (4h).</li><li>Smoke spec set (5 specs) (8h).</li><li>Top-5 flows from C1-0010 baselines (10h).</li><li>Test-tenant seed integration (4h).</li><li>GH Actions workflow + artifact contract (3h).</li><li>README + local-run + soak (1h).</li></ol></div>
+  <div class="uis-section"><h2>5 · Risks &amp; Mitigations</h2><ul><li>Appello auth complexity (real OIDC). <em>Mitigation:</em> storageState fixture from a programmatic-login flow.</li><li>Mobile-Safari project flaky. <em>Mitigation:</em> keep behind a flag for first month; opt-in.</li><li>Test-tenant seed slow. <em>Mitigation:</em> snapshot-based seeding once stable.</li></ul></div>
+  <div class="uis-section"><h2>6 · Evidence — Files / Paths</h2><p><span class="path">agentc2/playwright.config.ts</span> <span class="path">agentc2/tests-e2e/agent-chat.spec.ts</span> <span class="path">agentc2/packages/agentc2/src/mcp/playwright-compression.ts</span> <span class="path">appello/playwright.config.ts (new)</span> <span class="path">appello/tests-e2e/ (new)</span></p></div>
+  <div class="uis-section"><h2>7 · Cross-References</h2><ul><li><a href="c1-0010.html"><code>C1-0010</code></a> — Field-crew baselines (spec sources)</li><li><a href="c1-0012.html"><code>C1-0012</code></a> — GH Actions wiring (artifact contract)</li><li><a href="c2-0158.html"><code>C2-0158</code></a> — Spider priority queue (consumes these specs)</li></ul></div>
 </div></body></html>
