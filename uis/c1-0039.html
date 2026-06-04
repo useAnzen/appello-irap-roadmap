@@ -1,41 +1,45 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UIS · C1-0039 · Validate AI-generated task decompositions against real job scenarios</title>
+<title>UIS · C1-0039 · Validate decomposer output against real Appello construction scenarios — Nathan-led review pass</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-<style>
-.in-iframe .top-nav { display: none !important; }
-*{margin:0;padding:0;box-sizing:border-box}
+<style>*{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Inter',-apple-system,sans-serif;background:#f1f5f9;color:#1e293b;line-height:1.55}
+.in-iframe .top-nav{display:none!important}
 .top-nav{position:sticky;top:0;z-index:100;background:#0f172a;border-bottom:1px solid #1e293b;padding:0 24px;display:flex;align-items:center;gap:0}
 .top-nav a{display:inline-flex;align-items:center;padding:12px 18px;font-size:13px;font-weight:600;color:#94a3b8;text-decoration:none;border-bottom:2px solid transparent;transition:all .15s}
 .top-nav a:hover{color:#f8fafc;background:#1e293b}
 .top-nav .nav-logo{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#475569;padding-right:18px;margin-right:4px;border-right:1px solid #1e293b}
-.uis-wrap{max-width:980px;margin:0 auto;padding:36px 24px 80px}
+.uis-wrap{max-width:1060px;margin:0 auto;padding:36px 24px 80px}
 .crumb{font-size:12px;color:#64748b;margin-bottom:14px}
 .crumb a{color:#3b82f6;text-decoration:none}
 .crumb a:hover{text-decoration:underline}
 .uis-hdr{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:20px;flex-wrap:wrap}
 .uis-hdr-l{flex:1;min-width:280px}
-.code-badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:0.5px;padding:3px 10px;background:#1e293b;color:#cbd5e1;border-radius:4px;margin-bottom:8px}
-.uis-h1{font-size:26px;font-weight:800;letter-spacing:-0.01em;margin-bottom:6px}
+.code-badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.5px;padding:3px 10px;background:#1e293b;color:#cbd5e1;border-radius:4px;margin-bottom:8px}
+.uis-h1{font-size:26px;font-weight:800;letter-spacing:-.01em;margin-bottom:6px}
 .uis-sub{font-size:14px;color:#475569}
-.state-pill{display:inline-block;font-size:11px;font-weight:700;padding:5px 12px;border-radius:4px;text-transform:uppercase;letter-spacing:0.5px}
+.state-pill{display:inline-block;font-size:11px;font-weight:700;padding:5px 12px;border-radius:4px;text-transform:uppercase;letter-spacing:.5px;color:#fff}
 .kpi-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-bottom:16px}
 .kpi{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:10px 12px}
 .kpi .l{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#94a3b8;margin-bottom:3px}
 .kpi .v{font-size:15px;font-weight:800;color:#1e293b}
 .uis-section{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:20px 24px;margin-bottom:12px}
-.uis-section h2{font-size:14px;font-weight:700;color:#1e293b;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #f1f5f9;letter-spacing:0.2px}
-.uis-section p{color:#334155;margin-bottom:6px;white-space:pre-wrap}
-.uis-section .muted{color:#64748b;font-style:italic}
+.uis-section h2{font-size:14px;font-weight:700;color:#1e293b;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #f1f5f9;letter-spacing:.2px}
+.uis-section h3{font-size:13px;font-weight:700;color:#334155;margin:14px 0 8px;letter-spacing:.2px}
+.uis-section p{color:#334155;margin-bottom:8px}
+.uis-section ul,.uis-section ol{padding-left:22px;color:#334155}
+.uis-section li{margin-bottom:4px}
+.uis-section table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+.uis-section th{text-align:left;padding:8px 10px;background:#f8fafc;border-bottom:2px solid #e2e8f0;font-weight:600;color:#64748b;font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+.uis-section td{padding:7px 10px;border-bottom:1px solid #f1f5f9;color:#334155;vertical-align:top}
+.uis-section pre{background:#0f172a;color:#e2e8f0;padding:14px 16px;border-radius:8px;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.5;margin:8px 0}
+.uis-section code{font-family:'JetBrains Mono',monospace;font-size:12px;background:#f1f5f9;padding:1px 6px;border-radius:3px;color:#334155}
+.uis-section pre code{background:none;padding:0;color:inherit}
 .path{font-family:'JetBrains Mono',monospace;font-size:11px;color:#0369a1;background:#f0f9ff;padding:3px 8px;border-radius:4px;display:inline-block;margin:2px 4px 2px 0;border:1px solid #bae6fd;word-break:break-all}
-.meta-row{display:flex;flex-wrap:wrap;gap:18px;font-size:12px;color:#64748b}
-.meta-row strong{color:#334155}
-@media print{.top-nav{display:none}.uis-wrap{padding:8px}}
-</style>
-<script>if (self !== top) document.documentElement.classList.add("in-iframe");</script>
+@media print{.top-nav{display:none}.uis-wrap{padding:8px}}</style>
+<script>if(self!==top)document.documentElement.classList.add("in-iframe");</script>
 </head><body>
 <nav class="top-nav">
   <span class="nav-logo">Appello IRAP</span>
@@ -43,67 +47,31 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f1f5f9;color:#1e29
   <a href="https://useanzen.github.io/appello-roadmap/" target="_blank">Appello Product Roadmap</a>
 </nav>
 <div class="uis-wrap">
-  <div class="crumb"><a href="../index.html">IRAP Roadmap</a> › C1 SDLC Flywheel › P2 › <strong>C1-0039</strong></div>
-
+  <div class="crumb"><a href="../index.html">IRAP Roadmap</a> › C1 SDLC Flywheel › P1 — Database-Driven SDLC (Apr–May 26) › <strong>C1-0039</strong></div>
   <div class="uis-hdr">
     <div class="uis-hdr-l">
       <span class="code-badge">C1-0039</span>
-      <h1 class="uis-h1">Validate AI-generated task decompositions against real job scenarios</h1>
-      <p class="uis-sub">C1 SDLC Flywheel · P2</p>
+      <h1 class="uis-h1">Validate decomposer output against real Appello construction scenarios — Nathan-led review pass</h1>
+      <p class="uis-sub">C1 SDLC Flywheel · P1 — Database-Driven SDLC (Apr–May 26)</p>
     </div>
-    <div><span class="state-pill" style="background:#2563eb;color:#fff">PLANNED NEXT</span></div>
+    <div><span class="state-pill" style="background:#7c3aed">PLANNED NEXT</span></div>
   </div>
-
   <div class="kpi-strip">
     <div class="kpi"><div class="l">Component</div><div class="v">C1</div></div>
-    <div class="kpi"><div class="l">Owner</div><div class="v">Nathan Friesen</div></div>
+    <div class="kpi"><div class="l">Phase</div><div class="v">P1</div></div>
+    <div class="kpi"><div class="l">Owner</div><div class="v">Nathan Helm</div></div>
     <div class="kpi"><div class="l">Month</div><div class="v">Jun 26</div></div>
     <div class="kpi"><div class="l">Hours</div><div class="v">45h</div></div>
-    
-    
+    <div class="kpi"><div class="l">State</div><div class="v">PLANNED NEXT</div></div>
   </div>
-
-  <div class="uis-section">
-    <h2>1 · Activity — what we are building</h2>
-    <p>Validate AI-generated task decompositions against real job scenarios — score for construction relevance, completeness, and actionability</p>
-  </div>
-
-  <div class="uis-section">
-    <h2>2 · Status from master sheet</h2>
-    <p>PARTIAL — domain-validation role</p>
-  </div>
-
-  <div class="uis-section">
-    <h2>3 · Evidence — repo / path</h2>
-    <p><span class="path">appello/pla</span><span class="path">/clearstory-tm-workorders/EMMA_JOB_REFACTOR_ANALYSIS.md</span><span class="path">appello/apps/api/prisma/migratio</span><span class="path">s/ (real co</span><span class="path">structio</span><span class="path">migratio</span><span class="path">s)</span></p>
-  </div>
-
-  <div class="uis-section">
-    <h2>4 · What it is / what it does</h2>
-    <p>EMMA_JOB_REFACTOR_ANALYSIS.md is an example of structured domain analysis on a real Appello workflow; the migrations capture the actual data model behind construction scenarios.</p>
-  </div>
-
-  <div class="uis-section">
-    <h2>5 · How it connects to this epic</h2>
-    <p>WIP: Nathan reviews decomposer output against these real surfaces and flags construction-logic gaps.</p>
-  </div>
-
-  <div class="uis-section">
-    <h2>6 · Originally proposed activity (pre-David revision)</h2>
-    <p class="muted">Jun 26</p>
-  </div>
-
-  <div class="uis-section">
-    <h2>7 · Audit metadata</h2>
-    <div class="meta-row">
-      <span><strong>State:</strong> PLANNED NEXT</span>
-      <span><strong>Code reference:</strong> —</span>
-      <span><strong>Audit flag:</strong> needs code reference</span>
-    </div>
-  </div>
-
-  <div class="uis-section">
-    <h2>8 · Source of truth</h2>
-    <p style="font-size:12px;color:#64748b">This UIS is a direct view of one row in the master IRAP forensic workbook (Google Sheet <code>1-QXxQ5fD…</code>, tab <em>C1 SDLC Flywheel</em>, epic <code>C1-0039</code>). All fields above are pulled live from the sheet at the time this page was generated. The sheet remains the single source of truth.</p>
-  </div>
+  <div class="uis-section"><h2>1 · Objective</h2><p><code>appello/plan/clearstory-tm-workorders/EMMA_JOB_REFACTOR_ANALYSIS.md</code> is the kind of structured domain analysis on a real Appello workflow the decomposer is being asked to slice; <code>appello/apps/api/prisma/migrations/</code> are the actual migrations behind construction scenarios. This epic is Nathan's review pass: run the decomposer on these real surfaces and flag construction-logic gaps the agent missed (rate handling, change-order semantics, signature flow), feeding corrections into the prompt-grounding store.</p></div>
+  <div class="uis-section"><h2>2 · Acceptance Criteria</h2><ul><li>Nathan picks 6 real scenarios across 3 domains: timesheets (2), T&amp;M work orders (2), change orders (2).</li><li>Decomposer is run on each; output reviewed for construction-logic correctness.</li><li>Findings logged as: <code>{ scenarioId, hamburgerSlug, gapType: 'rate-error'|'signature-flow'|'change-order'|'permission'|'other', description, suggestedFix }</code>.</li><li>Findings feed into <code>agent-learning-tools</code> (see C1-0040) as prompt-grounding for next decomposer run.</li><li>Repeat-the-loop: re-run after grounding added; record whether gap was fixed.</li><li>≥ 80% of P0 gaps closed within 2 grounding cycles (target metric).</li><li>Sign-off doc at <code>agentc2/eval/nathan-review-pass-1.md</code> with summary + per-finding status.</li></ul></div>
+  <div class="uis-section"><h2>3 · Architecture &amp; Approach</h2><h3>Domain expertise calibration</h3><table><thead><tr><th>Domain</th><th>Known agent failure modes</th></tr></thead><tbody><tr><td>Timesheets</td><td>Forgets ST/OT/DT multiplier; treats hours as Float</td></tr><tr><td>T&amp;M Work Orders</td><td>Merges signature + form; forgets isWorkOrder flag</td></tr><tr><td>Change Orders</td><td>Skips status-workflow transitions; misses void path</td></tr></tbody></table><h3>Grounding loop</h3><pre><code>Nathan finds gap → finding written → agentLearning.upsert({ topic: 'construction-gaps', body: finding.description })
+                                   → next decomposer run sees it as grounding
+                                   → Nathan re-runs same scenario → verifies fix
+                                   → finding.status = 'closed' | 'still-broken'</code></pre></div>
+  <div class="uis-section"><h2>4 · Implementation Phases (45h)</h2><ol><li>Scenario selection + setup (4h).</li><li>Run 1 + findings logging (12h).</li><li>Grounding entries written + decomposer prompt update (4h).</li><li>Run 2 + verification (10h).</li><li>Run 3 (final loop) (10h).</li><li>Sign-off doc + metric capture (5h).</li></ol></div>
+  <div class="uis-section"><h2>5 · Risks &amp; Mitigations</h2><ul><li>Findings too domain-specific to generalise. <em>Mitigation:</em> rules-of-thumb extracted into <code>agentc2/eval/construction-rules.md</code> for cross-domain re-use.</li><li>Decomposer regresses on other scenarios after grounding. <em>Mitigation:</em> C1-0032/0033 regression suite blocks bad grounding from being shipped.</li><li>Nathan-only knowledge bottleneck. <em>Mitigation:</em> findings written as plain English, peer-reviewed; pair with NH3 for the second loop.</li></ul></div>
+  <div class="uis-section"><h2>6 · Evidence — Files / Paths</h2><p><span class="path">appello/plan/clearstory-tm-workorders/EMMA_JOB_REFACTOR_ANALYSIS.md</span> <span class="path">appello/apps/api/prisma/migrations/</span> <span class="path">agentc2/eval/construction-scenarios/ (from C1-0019)</span> <span class="path">agentc2/eval/nathan-review-pass-1.md (new)</span></p></div>
+  <div class="uis-section"><h2>7 · Cross-References</h2><ul><li><a href="c1-0019.html"><code>C1-0019</code></a> — Construction scenario corpus (input)</li><li><a href="c1-0040.html"><code>C1-0040</code></a> — Correction feedback channel (output)</li><li><a href="c1-0029.html"><code>C1-0029</code></a> — UIS Decomposer (target)</li></ul></div>
 </div></body></html>
