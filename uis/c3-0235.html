@@ -1,41 +1,45 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UIS · C3-0235 · PLANNED</title>
+<title>UIS · C3-0235 · Jira project structure & dashboards — connect Jira to work_packages_v2 + plans/</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-<style>
-.in-iframe .top-nav { display: none !important; }
-*{margin:0;padding:0;box-sizing:border-box}
+<style>*{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Inter',-apple-system,sans-serif;background:#f1f5f9;color:#1e293b;line-height:1.55}
+.in-iframe .top-nav{display:none!important}
 .top-nav{position:sticky;top:0;z-index:100;background:#0f172a;border-bottom:1px solid #1e293b;padding:0 24px;display:flex;align-items:center;gap:0}
 .top-nav a{display:inline-flex;align-items:center;padding:12px 18px;font-size:13px;font-weight:600;color:#94a3b8;text-decoration:none;border-bottom:2px solid transparent;transition:all .15s}
 .top-nav a:hover{color:#f8fafc;background:#1e293b}
 .top-nav .nav-logo{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#475569;padding-right:18px;margin-right:4px;border-right:1px solid #1e293b}
-.uis-wrap{max-width:980px;margin:0 auto;padding:36px 24px 80px}
+.uis-wrap{max-width:1060px;margin:0 auto;padding:36px 24px 80px}
 .crumb{font-size:12px;color:#64748b;margin-bottom:14px}
 .crumb a{color:#3b82f6;text-decoration:none}
 .crumb a:hover{text-decoration:underline}
 .uis-hdr{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:20px;flex-wrap:wrap}
 .uis-hdr-l{flex:1;min-width:280px}
-.code-badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:0.5px;padding:3px 10px;background:#1e293b;color:#cbd5e1;border-radius:4px;margin-bottom:8px}
-.uis-h1{font-size:26px;font-weight:800;letter-spacing:-0.01em;margin-bottom:6px}
+.code-badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.5px;padding:3px 10px;background:#1e293b;color:#cbd5e1;border-radius:4px;margin-bottom:8px}
+.uis-h1{font-size:26px;font-weight:800;letter-spacing:-.01em;margin-bottom:6px}
 .uis-sub{font-size:14px;color:#475569}
-.state-pill{display:inline-block;font-size:11px;font-weight:700;padding:5px 12px;border-radius:4px;text-transform:uppercase;letter-spacing:0.5px}
+.state-pill{display:inline-block;font-size:11px;font-weight:700;padding:5px 12px;border-radius:4px;text-transform:uppercase;letter-spacing:.5px;color:#fff}
 .kpi-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-bottom:16px}
 .kpi{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:10px 12px}
 .kpi .l{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#94a3b8;margin-bottom:3px}
 .kpi .v{font-size:15px;font-weight:800;color:#1e293b}
 .uis-section{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:20px 24px;margin-bottom:12px}
-.uis-section h2{font-size:14px;font-weight:700;color:#1e293b;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #f1f5f9;letter-spacing:0.2px}
-.uis-section p{color:#334155;margin-bottom:6px;white-space:pre-wrap}
-.uis-section .muted{color:#64748b;font-style:italic}
+.uis-section h2{font-size:14px;font-weight:700;color:#1e293b;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #f1f5f9;letter-spacing:.2px}
+.uis-section h3{font-size:13px;font-weight:700;color:#334155;margin:14px 0 8px;letter-spacing:.2px}
+.uis-section p{color:#334155;margin-bottom:8px}
+.uis-section ul,.uis-section ol{padding-left:22px;color:#334155}
+.uis-section li{margin-bottom:4px}
+.uis-section table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+.uis-section th{text-align:left;padding:8px 10px;background:#f8fafc;border-bottom:2px solid #e2e8f0;font-weight:600;color:#64748b;font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+.uis-section td{padding:7px 10px;border-bottom:1px solid #f1f5f9;color:#334155;vertical-align:top}
+.uis-section pre{background:#0f172a;color:#e2e8f0;padding:14px 16px;border-radius:8px;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.5;margin:8px 0}
+.uis-section code{font-family:'JetBrains Mono',monospace;font-size:12px;background:#f1f5f9;padding:1px 6px;border-radius:3px;color:#334155}
+.uis-section pre code{background:none;padding:0;color:inherit}
 .path{font-family:'JetBrains Mono',monospace;font-size:11px;color:#0369a1;background:#f0f9ff;padding:3px 8px;border-radius:4px;display:inline-block;margin:2px 4px 2px 0;border:1px solid #bae6fd;word-break:break-all}
-.meta-row{display:flex;flex-wrap:wrap;gap:18px;font-size:12px;color:#64748b}
-.meta-row strong{color:#334155}
-@media print{.top-nav{display:none}.uis-wrap{padding:8px}}
-</style>
-<script>if (self !== top) document.documentElement.classList.add("in-iframe");</script>
+@media print{.top-nav{display:none}.uis-wrap{padding:8px}}</style>
+<script>if(self!==top)document.documentElement.classList.add("in-iframe");</script>
 </head><body>
 <nav class="top-nav">
   <span class="nav-logo">Appello IRAP</span>
@@ -43,67 +47,35 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f1f5f9;color:#1e29
   <a href="https://useanzen.github.io/appello-roadmap/" target="_blank">Appello Product Roadmap</a>
 </nav>
 <div class="uis-wrap">
-  <div class="crumb"><a href="../index.html">IRAP Roadmap</a> › C3 ATLAS RAG › P1 › <strong>C3-0235</strong></div>
-
+  <div class="crumb"><a href="../index.html">IRAP Roadmap</a> › C3 ATLAS Knowledge Base › P1 — Database-Driven SDLC (Apr–May 26) › <strong>C3-0235</strong></div>
   <div class="uis-hdr">
     <div class="uis-hdr-l">
       <span class="code-badge">C3-0235</span>
-      <h1 class="uis-h1">PLANNED</h1>
-      <p class="uis-sub">C3 ATLAS RAG · P1</p>
+      <h1 class="uis-h1">Jira project structure & dashboards — connect Jira to work_packages_v2 + plans/</h1>
+      <p class="uis-sub">C3 ATLAS Knowledge Base · P1 — Database-Driven SDLC (Apr–May 26)</p>
     </div>
-    <div><span class="state-pill" style="background:#d97706;color:#fff">WORK IN PROCESS</span></div>
+    <div><span class="state-pill" style="background:#d97706">WORK IN PROCESS</span></div>
   </div>
-
   <div class="kpi-strip">
     <div class="kpi"><div class="l">Component</div><div class="v">C3</div></div>
+    <div class="kpi"><div class="l">Phase</div><div class="v">P1</div></div>
     <div class="kpi"><div class="l">Owner</div><div class="v">Ian Haase</div></div>
-    <div class="kpi"><div class="l">Month</div><div class="v">Apr 26</div></div>
+    <div class="kpi"><div class="l">Month</div><div class="v">May 26</div></div>
     <div class="kpi"><div class="l">Hours</div><div class="v">20h</div></div>
-    
-    
+    <div class="kpi"><div class="l">State</div><div class="v">WORK IN PROCESS</div></div>
   </div>
+  <div class="uis-section"><h2>1 · Objective</h2><p><code>agentc2/packages/agentc2/src/mcp/api-clients/jira.ts</code> is the existing Jira integration; <code>appello-sdlc work_packages_v2</code> + <code>work_items</code> + <code>appello-roadmap/plans/</code> are the tracking surfaces today. This epic sets up the Jira project structure (projects, components, issue types, custom fields) + the dashboards that connect Jira back to <code>work_packages_v2</code> / <code>plans/</code> so external stakeholders see one coherent view and engineering operates from the unified backlog (C1-0038).</p></div>
+  <div class="uis-section"><h2>2 · Acceptance Criteria</h2><ul><li>Jira project <code>APP</code> structured with components matching <code>appello-roadmap</code> phases (P1-P5) + epics matching C1-C4.</li><li>Custom fields: <code>workPackageSlug</code> (link to work_packages_v2.slug), <code>hamburgerSlug</code> (link to work_items.slug), <code>trustScore</code> (mirrored from Review).</li><li>Webhook from Jira → appello-sdlc inngest function syncs Jira status changes into <code>work_packages_v2.externalStatus</code>.</li><li>Reverse sync: when <code>work_packages_v2.state</code> transitions, Jira issue auto-transitioned via MCP.</li><li>Dashboards: <em>Current sprint</em>, <em>Aging epics</em>, <em>Trust-score distribution</em>, <em>Customer-impact-tagged backlog</em>.</li><li>Stakeholder access: read-only Confluence-embed of the dashboards.</li><li>Documentation at <code>appello-roadmap/processes/jira-conventions.md</code>.</li></ul></div>
+  <div class="uis-section"><h2>3 · Architecture &amp; Approach</h2><h3>Sync flow</h3><pre><code>Jira issue updated
+  → webhook to inngest /jira-webhook
+  → match by customField workPackageSlug
+  → update work_packages_v2.externalStatus, externalAssignee
 
-  <div class="uis-section">
-    <h2>1 · Activity — what we are building</h2>
-    <p>PLANNED — C3 (ATLAS) scope</p>
-  </div>
-
-  <div class="uis-section">
-    <h2>2 · Status from master sheet</h2>
-    <p class="muted">No status entry in master sheet yet.</p>
-  </div>
-
-  <div class="uis-section">
-    <h2>3 · Evidence — repo / path</h2>
-    <p><span class="path">Jira MCP (age</span><span class="path">tc2/packages/age</span><span class="path">tc2/src/mcp/api-clie</span><span class="path">ts/jira.ts)</span><span class="path">appello-sdlc work_packages_v2/work_items</span><span class="path">appello-roadmap/pla</span><span class="path">s/</span></p>
-  </div>
-
-  <div class="uis-section">
-    <h2>4 · What it is / what it does</h2>
-    <p>Jira MCP is the existing Jira integration; work_packages_v2 + plans/ are the existing tracking surfaces.</p>
-  </div>
-
-  <div class="uis-section">
-    <h2>5 · How it connects to this epic</h2>
-    <p>Planned: Ian sets up the Jira project structure + dashboards that connect back to work_packages_v2 / plans/.</p>
-  </div>
-
-  <div class="uis-section">
-    <h2>6 · Originally proposed activity (pre-David revision)</h2>
-    <p class="muted">Apr 26</p>
-  </div>
-
-  <div class="uis-section">
-    <h2>7 · Audit metadata</h2>
-    <div class="meta-row">
-      <span><strong>State:</strong> WORK IN PROCESS</span>
-      <span><strong>Code reference:</strong> —</span>
-      <span><strong>Audit flag:</strong> vague scope text</span>
-    </div>
-  </div>
-
-  <div class="uis-section">
-    <h2>8 · Source of truth</h2>
-    <p style="font-size:12px;color:#64748b">This UIS is a direct view of one row in the master IRAP forensic workbook (Google Sheet <code>1-QXxQ5fD…</code>, tab <em>C3 ATLAS RAG</em>, epic <code>C3-0235</code>). All fields above are pulled live from the sheet at the time this page was generated. The sheet remains the single source of truth.</p>
-  </div>
+work_packages_v2.state change (DB trigger)
+  → inngest function sync-to-jira
+  → jira.ts MCP transition(issueId, targetStatus)</code></pre></div>
+  <div class="uis-section"><h2>4 · Implementation Phases (20h)</h2><ol><li>Jira project + issue-type + field config (4h).</li><li>Webhook handler in inngest (4h).</li><li>Reverse sync via DB triggers (4h).</li><li>4 dashboards (4h).</li><li>Confluence embed + access (2h).</li><li>Conventions doc (2h).</li></ol></div>
+  <div class="uis-section"><h2>5 · Risks &amp; Mitigations</h2><ul><li>Status taxonomy mismatch Jira vs DB. <em>Mitigation:</em> mapping table maintained in <code>jira-status-map.ts</code>.</li><li>Webhook delivery loss. <em>Mitigation:</em> nightly reconcile job pulls all Jira deltas.</li><li>Custom-field maintenance burden. <em>Mitigation:</em> fields managed via Jira REST script-as-code, not console.</li></ul></div>
+  <div class="uis-section"><h2>6 · Evidence — Files / Paths</h2><p><span class="path">agentc2/packages/agentc2/src/mcp/api-clients/jira.ts</span> <span class="path">appello-sdlc/packages/database/prisma/schema.prisma (work_packages_v2)</span> <span class="path">appello-roadmap/plans/</span> <span class="path">appello-roadmap/processes/jira-conventions.md (new)</span></p></div>
+  <div class="uis-section"><h2>7 · Cross-References</h2><ul><li><a href="c1-0038.html"><code>C1-0038</code></a> — Backlog mgmt (consumer)</li><li><a href="c1-0037.html"><code>C1-0037</code></a> — Sprint planning (Jira-feed)</li><li><a href="c1-0036.html"><code>C1-0036</code></a> — Pending-review alerts (Jira ticket creation)</li></ul></div>
 </div></body></html>
