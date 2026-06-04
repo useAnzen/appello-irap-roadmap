@@ -16,7 +16,20 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#0f172a;color:#f8fa
 .logo{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#94a3b8;margin-bottom:24px}
 h1{font-size:42px;font-weight:800;letter-spacing:-0.02em;line-height:1.1;margin-bottom:14px}
 h1 span{background:linear-gradient(135deg,#3b82f6,#a78bfa 50%,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.subtitle{font-size:15px;color:#94a3b8;line-height:1.6;max-width:880px;margin-bottom:32px}
+.subtitle{font-size:15px;color:#94a3b8;line-height:1.6;max-width:880px;margin-bottom:18px}
+.companion-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 20px}
+.companion-card{background:#0f172a;border:1px solid #334155;border-radius:10px;padding:14px 16px;display:flex;flex-direction:column}
+.companion-card .companion-label{font-size:12px;font-weight:700;color:#e2e8f0;margin-bottom:6px}
+.companion-card .companion-body{font-size:12px;color:#94a3b8;line-height:1.5;flex:1;margin-bottom:10px}
+.companion-card .companion-link{font-size:12px;font-weight:600;color:#60a5fa;text-decoration:none;border-bottom:1px dashed #60a5fa50;align-self:flex-start}
+.companion-card .companion-link:hover{color:#93c5fd;border-bottom-style:solid}
+.howwework{background:#0f172a;border:1px solid #334155;border-left:3px solid #60a5fa;border-radius:10px;padding:18px 22px;margin:0 0 28px;max-width:1100px}
+.howwework h3{font-size:14px;font-weight:700;color:#e2e8f0;margin:0 0 10px;letter-spacing:0.3px}
+.howwework p{font-size:13px;color:#cbd5e1;line-height:1.6;margin:0 0 10px}
+.howwework p:last-child{margin-bottom:0}
+.cadence-list{font-size:13px;color:#cbd5e1;line-height:1.7;margin:0 0 12px;padding-left:22px}
+.cadence-list li{margin-bottom:4px}
+.howwework strong{color:#f1f5f9}
 .exec-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:14px}
 .exec-card{background:#1e293b;border:1px solid #334155;border-radius:10px;padding:14px 16px}
 .exec-card .label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#64748b;margin-bottom:6px}
@@ -82,7 +95,38 @@ div.ep{cursor:default;opacity:0.72}
 <div class="page">
   <div class="logo">Appello IRAP — NRC Project Plan</div>
   <h1>AI-Powered <span>Development & Customer Intelligence</span> Platform</h1>
-  <p class="subtitle">22-month R&D project (Apr 2026 – Jan 2028) building four integrated AI systems. This roadmap is a direct view of the master forensic workbook (543 epics, 18,365 hours). Calendar-window state rule: <strong style="color:#4ade80">DONE</strong> = completed, <strong style="color:#fbbf24">WORK IN PROCESS</strong> = Apr–May 26 active, <strong style="color:#93c5fd">PLANNED NEXT</strong> = Jun 26 next-up, <strong style="color:#94a3b8">TO DO</strong> = Jul 26 onward. Every epic in the master sheet is shown below. Active epics (DONE / WIP / PLANNED) are clickable into their UIS spec; TO DO epics show as static cards until their UIS is authored.</p>
+  <p class="subtitle">22-month R&amp;D project (Apr 2026 – Jan 2028) building four integrated AI systems. This page is the live, browsable view of the same project described in the IRAP Proposal and tracked in detail in the Master Project Workbook — three views of one plan.</p>
+
+  <div class="companion-strip">
+    <div class="companion-card">
+      <div class="companion-label">📄 IRAP Proposal</div>
+      <div class="companion-body">The funding submission. Narrates the research questions, technical risk, team, and budget.</div>
+      <a class="companion-link" href="https://drive.google.com/file/d/1UW_RIgAPUoxUtfpRmjffeNAVdH_l7bua/view" target="_blank">Open PDF →</a>
+    </div>
+    <div class="companion-card">
+      <div class="companion-label">📊 Master Project Workbook</div>
+      <div class="companion-body">The line-item plan. Every one of the 543 epics with hours, owner, month, and status. The source of truth this roadmap is rendered from.</div>
+      <a class="companion-link" href="https://docs.google.com/spreadsheets/d/1-QXxQ5fD_MA5PxQnEy-tZh2lVx3Gs5B80QhsYlMTN2c/edit?gid=582511315#gid=582511315" target="_blank">Open Sheet →</a>
+    </div>
+    <div class="companion-card">
+      <div class="companion-label">🗺️ Live Roadmap (you are here)</div>
+      <div class="companion-body">The browsable view. Every active epic links into its UIS — the single-page spec the team and the AI pipeline both build from.</div>
+      <a class="companion-link" href="#C1">Jump to C1 →</a>
+    </div>
+  </div>
+
+  <div class="howwework">
+    <h3>How Appello builds in an AI-powered world</h3>
+    <p>Every unit of work is captured as a <strong>UIS — Unified Implementation Spec</strong>: a single-page document covering objective, acceptance criteria, architecture, implementation phases, risks, evidence (linked to real files in real repositories), and cross-references to neighbouring work. The UIS is what the human author, the autonomous SDLC pipeline, and the reviewer all read from. It is the contract.</p>
+    <p>We plan in detail on a rolling <strong>~30-day horizon</strong>. That is why this roadmap shows depth at the front and breadth at the back:</p>
+    <ul class="cadence-list">
+      <li><strong style="color:#4ade80">DONE</strong> — work completed in Apr/May 26. Each has a UIS describing what was built and pointing to the merged code.</li>
+      <li><strong style="color:#fbbf24">WORK IN PROCESS</strong> — Apr–May 26 in-flight. Each has a UIS authored before work began.</li>
+      <li><strong style="color:#93c5fd">PLANNED NEXT</strong> — Jun 26 ready-to-build. UIS specs are authored ~30 days ahead, so the June batch already has full specs visible here.</li>
+      <li><strong style="color:#94a3b8">TO DO</strong> — Jul 26 onward. Visible as forward-roadmap cards (title, owner, month, hours). Their UIS specs are authored in the month before work begins, following the same 30-day cadence.</li>
+    </ul>
+    <p>Click any active epic card below to open its UIS. The 78 active epics (DONE / WIP / PLANNED NEXT) all have full UIS specs live in this site. The 465 forward TO DO epics are the same epics tracked in the Master Workbook — they will gain UIS pages on rolling 30-day windows as the project moves forward.</p>
+  </div>
 
   <div class="exec-grid">
     <div class="exec-card"><div class="label">Total Project Hours</div><div class="value">18,365</div><div class="sub">543 epics across 4 components × 5 phases</div></div>
@@ -3228,6 +3272,6 @@ div.ep{cursor:default;opacity:0.72}
   <div class="team"><h2>Team & Resources</h2><div class="team-grid"><div class="tm"><div class="nm">Corey Shelson</div><div class="ro">Co-Founder · AI Architecture Lead (50%)</div></div><div class="tm"><div class="nm">Travis McKenna</div><div class="ro">VP Engineering · DevOps + Security (80%)</div></div><div class="tm"><div class="nm">Chris Vachon</div><div class="ro">Co-Founder / CTO · Backend Lead (80%)</div></div><div class="tm"><div class="nm">Ian Haase</div><div class="ro">Co-Founder · Product + Customer (50%)</div></div><div class="tm"><div class="nm">Filip Altankov</div><div class="ro">Co-Founder · Frontend Lead (70%)</div></div><div class="tm"><div class="nm">Emma Mann</div><div class="ro">QA Lead (70%)</div></div><div class="tm"><div class="nm">Nathan Friesen</div><div class="ro">Construction Domain Specialist (30%)</div></div><div class="tm"><div class="nm">Tristan Gemus</div><div class="ro">Half-time Contractor · Developer (100%)</div></div><div class="tm"><div class="nm">New Hire 1</div><div class="ro">Full-Stack Developer · Joining Jun 2026</div></div><div class="tm"><div class="nm">New Hire 2</div><div class="ro">Technical Developer · Joining Jun 2026</div></div><div class="tm"><div class="nm">New Hire 3</div><div class="ro">AI/ML Engineer · Joining Oct 2026</div></div></div></div>
 <div class="footer">
 Appello IRAP · AI-Powered Development & Customer Intelligence Platform · Apr 2026 – Jan 2028<br>
-Roadmap is a live view of the master forensic Google Sheet · 543 epics · 18,365 hours · 78 active epics with UIS specs<br>
+Live view of the <a href="https://docs.google.com/spreadsheets/d/1-QXxQ5fD_MA5PxQnEy-tZh2lVx3Gs5B80QhsYlMTN2c/edit?gid=582511315#gid=582511315" target="_blank" style="color:#94a3b8;border-bottom:1px dashed #94a3b8">Master Project Workbook</a> · companion to the <a href="https://drive.google.com/file/d/1UW_RIgAPUoxUtfpRmjffeNAVdH_l7bua/view" target="_blank" style="color:#94a3b8;border-bottom:1px dashed #94a3b8">IRAP Proposal PDF</a> · 543 epics · 18,365 hours · 78 active epics with full UIS specs<br>
 <a href="https://useanzen.github.io/appello-roadmap/" target="_blank">Appello Product Roadmap (1.33, 1.34) →</a>
 </div></div></body></html>
